@@ -13,7 +13,7 @@ public class SubjectDao extends Dao {
     private String baseSql = "select * from subject ";
 
     // subjectのデータを取得するメソッド
-    public Subject listFilter(String school_cd) throws Exception {
+    public Subject get(String school_cd) throws Exception {
         // SQLに接続
         Connection connection = getConnection();
         PreparedStatement statement = null;
