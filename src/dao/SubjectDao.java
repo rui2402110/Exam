@@ -13,7 +13,7 @@ public class SubjectDao extends Dao {
     private String baseSql = "select * from subject ";
 
     // subjectのデータを取得するメソッド
-    public Subject listFilter() throws Exception {
+    public Subject listFilter(String school_cd) throws Exception {
         // SQLに接続
         Connection connection = getConnection();
         PreparedStatement statement = null;
@@ -23,7 +23,8 @@ public class SubjectDao extends Dao {
 
         try {
             // 学生番号で検索するSQL文を準備
-            statement = connection.prepareStatement("select * from subject");
+            statement = connection.prepareStatement("select * from subject where school_cd = ?");
+            statement.setString(1, school_cd);
             rSet = statement.executeQuery();
 
             // 結果が存在する場合、studentオブジェクトに変換していく
