@@ -22,9 +22,10 @@ public class SubjectDao extends Dao {
         Subject subject = null;
 
         try {
-            // 学生番号で検索するSQL文を準備
-            statement = connection.prepareStatement("select * from subject where student_cd = ?");
+            // 学校コードで検索するSQL文を準備
+            statement = connection.prepareStatement("select * from subject where subject_cd = ?");
 
+            // JSPから受け取ったschoolからsubject_cdを割り出す
             statement.setString(1, school.getCd());
             rSet = statement.executeQuery();
 
