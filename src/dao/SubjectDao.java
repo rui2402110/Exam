@@ -68,7 +68,7 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
-		String baseSql = "select * from subject where school_cd= ? ";
+		String baseSql = "select cd,name from subject where school_cd= ? ";
 		String order = "order by cd asc";
 		try {
 			//SQLを連結
@@ -78,8 +78,8 @@ public class SubjectDao extends Dao {
 			//SQLを実行
 			rSet = statement.executeQuery();
 
+			Subject subject = new Subject();
 			while (rSet.next()) {
-			    Subject subject = new Subject();
 			    subject.setCd(rSet.getString("cd"));
 			    subject.setName(rSet.getString("name"));
 			    list.add(subject); // リストに追加
@@ -103,6 +103,13 @@ public class SubjectDao extends Dao {
 					throw sqle;
 				}
 			}
+		}
+		if (list.isEmpty()) {
+		    System.out.println("リストが空です");
+		} else {
+		    for (Subject subject : list) {
+		        System.out.println("科目コード: " + subject.getCd() + ", 名前: " + subject.getName());
+		    }
 		}
 		return list;
 
