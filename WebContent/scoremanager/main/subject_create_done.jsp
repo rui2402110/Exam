@@ -13,6 +13,7 @@
 			<div id="wrap_box">
 				<p class="text-center" style="background-color:#66CC99">変更が完了しました</p>
 				<a href="SubjectList.action">科目一覧</a>
+                <a href="Menut.action">戻る</a>
 			</div>
 		</div>
 	</c:param>
