@@ -11,8 +11,6 @@ import bean.School;
 import bean.Subject;
 
 public class SubjectDao extends Dao {
-    // 基本となるSQL文（school_cdによる検索）
-    private String baseSql = "select * from subject where school_cd= ? ";
 
     // subjectのデータを取得するメソッド
     public Subject get(String cd , School school) throws Exception {// cdがsubject_cd
@@ -70,6 +68,7 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
+		String baseSql = "select * from subject where school_cd= ? ";
 		String order = "order by cd asc";
 		try {
 			//SQLを連結
@@ -144,4 +143,55 @@ public class SubjectDao extends Dao {
  				}
  			return result;
  		}
+ 	public boolean delete(Subject subject) throws Exception {
+ 		Connection connection = getConnection();
+ 		PreparedStatement statement = null;
+ 		boolean result = false;
+ 		try {
+ 			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
+
+ 			// 貰った値から科目コードとクラスコードを取得
+ 			String subjectCd = "";
+ 			School school = null ;
+ 			String schoolCd = "";
+ 			subjectCd = subject.getCd();
+ 			school = subject.getSchool();
+ 			schoolCd = school.getCd();
+
+ 			// 科目コードが存在する場合はDELETEを実行
+ 			if (existingSchool == null) {
+ 				statement = connection.prepareStatement(
+ 						"DELETE from subject where cd= ? and school_cd= ? ");
+ 				statement.setString(1, subjectCd);
+ 	            statement.setString(2, schoolCd);
+ 	            statement.executeUpdate();
+ 			}
+ 			// 実行して影響を受けた行数を確認
+ 			int affected = statement.executeUpdate();
+ 			result = (affected > 0);
+
+ 				} catch (Exception e) {
+ 					throw e;
+ 				} finally {
+ 					// リソースを解放
+ 					if (statement != null) {
+ 						try {
+ 							statement.close();
+ 						} catch (SQLException sqle) {
+ 							throw sqle;
+ 						}
+ 					}
+ 					if (connection != null) {
+ 						try {
+ 							connection.close();
+ 						} catch (SQLException sqle) {
+ 							throw sqle;
+ 						}
+ 					}
+ 				}
+ 			return result;
+
  	}
+
+
+ }
