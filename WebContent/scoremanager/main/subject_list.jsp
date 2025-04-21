@@ -15,12 +15,10 @@
 
         <c:choose>
             <c:when test="${subject.size() > 0}">
-                <div>検索結果：${subject.size()}件</div>
                 <table class="table table-hover">
                     <tr>
                         <th>科目コード</th>
                         <th>科目名</th>
-                        <th class="text-center">在学中</th>
                         <th></th>
                     </tr>
                     <c:forEach var="subject" items="${subject}">
