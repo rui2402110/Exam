@@ -39,7 +39,6 @@
                 </table>
             </c:when>
             <c:otherwise>
-                <div>学生情報が存在しませんでした</div>
             </c:otherwise>
         </c:choose>
     </section>
