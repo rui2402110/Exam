@@ -68,18 +68,16 @@ public class SubjectDao extends Dao {
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
-		String baseSql = "select * from subject where school_cd= ? ";
-		String order = "order by cd asc";
 		try {
 			//SQLを連結
-			statement = connection.prepareStatement(baseSql + order);
+			statement = connection.prepareStatement("select * from subject where school_cd= ? order by cd asc");
 			statement.setString(1, school.getCd());
 
 			//SQLを実行
 			rSet = statement.executeQuery();
 
 			while (rSet.next()) {
-			    Subject subject = new Subject();
+				Subject subject = new Subject();
 			    subject.setCd(rSet.getString("cd"));
 			    subject.setName(rSet.getString("name"));
 			    list.add(subject); // リストに追加
