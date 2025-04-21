@@ -37,7 +37,6 @@
 
 
 
-
         <div class="col-2 text-center">
          <br>
          <button class="btn btn-secondary" id="filter-button">登録</button>
