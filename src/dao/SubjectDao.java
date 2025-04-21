@@ -32,7 +32,7 @@ public class SubjectDao extends Dao {
             statement.setString(2, school.getCd());
             rSet = statement.executeQuery();
 
-            // 結果が存在する場合、studentオブジェクトに変換していく
+            // 結果が存在する場合、subjectオブジェクトに変換していく
             if (rSet.next()) {
                 subject = new Subject();
                 subject.setCd(rSet.getString("cd"));
@@ -78,6 +78,13 @@ public class SubjectDao extends Dao {
 
 			//SQLを実行
 			rSet = statement.executeQuery();
+
+			while (rSet.next()) {
+			    Subject subject = new Subject();
+			    subject.setCd(rSet.getString("cd"));
+			    subject.setName(rSet.getString("name"));
+			    list.add(subject); // リストに追加
+			}
 
 		} catch (Exception e) {
 			throw e;
