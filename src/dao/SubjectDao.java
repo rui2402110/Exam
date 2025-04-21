@@ -62,49 +62,22 @@ public class SubjectDao extends Dao {
         return subject;
     }
 
-    // ResultSetから科目表を作成するメソッド
- 	private List<Subject> postFilter(ResultSet rSet, School school) throws Exception {
- 		// Listを作成
- 		List<Subject> list = new ArrayList<>();
- 		try {
- 			//結果セットの各行を学生オブジェクトに変換
- 			while (rSet.next()) {
- 				Subject subject = new Subject();
- 				subject.setCd(rSet.getString("no"));
- 				subject.setName(rSet.getString("name"));
- 				subject.setSchool(school);
 
- 				list.add(subject);
- 			}
- 		} catch (SQLException | NullPointerException e) {
- 			e.printStackTrace();
- 		}
-
- 		return list;
- 	}
-
-    //名前と科目コードを使用したフィルタリング
-    public List<Subject> filter(School school, String cd , String name) throws Exception {
+    //学校コードを使用したフィルタリング
+    public List<Subject> filter(School school) throws Exception {
     	List<Subject> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet rSet = null;
 
-		//条件が適用された時にこのStringがbaseSQLに追加される
-		String condition = "and cd= ? and name = ? ";
-
-		//
 		String order = "order by cd asc";
 		try {
 			//SQLを連結
-			statement = connection.prepareStatement(baseSql + condition + order);
+			statement = connection.prepareStatement(baseSql + order);
 			statement.setString(1, school.getCd());
-			statement.setString(2, cd);
-			statement.setString(3, name);
 
 			//SQLを実行
 			rSet = statement.executeQuery();
-			list = postFilter(rSet, school);
 
 		} catch (Exception e) {
 			throw e;
