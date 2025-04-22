@@ -28,7 +28,7 @@
                          <a href="SubjectUpdate.action?cd=${subject.cd}">編集</a>
                      </td>
                      <td>
-                         <a href="SubjectUpdate.action?cd=${subject.cd}">削除</a>
+                         <a href="SubjectDelete.action?cd=${subject.cd}">削除</a>
                      </td>
 
 
