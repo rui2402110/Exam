@@ -3,16 +3,16 @@ package bean;
 import java.io.Serializable;
 import java.util.Map;
 public class TestListSubject implements Serializable {
-	private int ent_Year ;
+	private int entYear ;
 	private String studentNo ;
-	private String atudentName ;
+	private String studentName ;
 	private String classNum ;
 	private Map<Integer , Integer> points ;
-	public int getEnt_Year() {
-		return ent_Year;
+	public int getEntYear() {
+		return entYear;
 	}
-	public void setEnt_Year(int ent_Year) {
-		this.ent_Year = ent_Year;
+	public void setEntYear(int entYear) {
+		this.entYear = entYear;
 	}
 	public String getStudentNo() {
 		return studentNo;
@@ -20,11 +20,11 @@ public class TestListSubject implements Serializable {
 	public void setStudentNo(String studentNo) {
 		this.studentNo = studentNo;
 	}
-	public String getAtudentName() {
-		return atudentName;
+	public String getStudentName() {
+		return studentName;
 	}
-	public void setAtudentName(String atudentName) {
-		this.atudentName = atudentName;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 	public String getClassNum() {
 		return classNum;
