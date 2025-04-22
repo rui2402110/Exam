@@ -105,96 +105,96 @@ public class SubjectDao extends Dao {
     }
 
     // 学生データを保存するメソッド　(INSERT、UPDATEのどちらにも対応)
- 	public boolean save(Subject subject) throws Exception {
- 		Connection connection = getConnection();
- 		PreparedStatement statement = null;
- 		boolean result = false;
+	public boolean save(Subject subject) throws Exception {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
 
- 		try {
- 			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
+		try {
+			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
 
- 			// 科目コードが既に存在する場合はUPDATE、していない場合はINSERTを実行
- 			if (existingSchool == null) {
- 				statement = connection.prepareStatement(
- 						"INSERT INTO SUBJECT (school_cd , cd , name) VALUES (?, ?, ?)");
- 			} else {
- 				statement = connection.prepareStatement(
- 						"UPDATE subject SET school_cd = ? , cd = ? , name = ? WHERE cd = ?");
- 			}
- 		// 実行して影響を受けた行数を確認
- 					int affected = statement.executeUpdate();
- 					result = (affected > 0);
+			// 科目コードが既に存在する場合はUPDATE、していない場合はINSERTを実行
+			if (existingSchool == null) {
+				statement = connection.prepareStatement(
+						"INSERT INTO SUBJECT (school_cd , cd , name) VALUES (?, ?, ?)");
+			} else {
+				statement = connection.prepareStatement(
+						"UPDATE subject SET school_cd = ? , cd = ? , name = ? WHERE cd = ?");
+			}
+		// 実行して影響を受けた行数を確認
+					int affected = statement.executeUpdate();
+					result = (affected > 0);
 
- 				} catch (Exception e) {
- 					throw e;
- 				} finally {
- 					// リソースを解放
- 					if (statement != null) {
- 						try {
- 							statement.close();
- 						} catch (SQLException sqle) {
- 							throw sqle;
- 						}
- 					}
- 					if (connection != null) {
- 						try {
- 							connection.close();
- 						} catch (SQLException sqle) {
- 							throw sqle;
- 						}
- 					}
- 				}
- 			return result;
- 		}
- 	public boolean delete(Subject subject) throws Exception {
- 		Connection connection = getConnection();
- 		PreparedStatement statement = null;
- 		boolean result = false;
- 		try {
- 			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					// リソースを解放
+					if (statement != null) {
+						try {
+							statement.close();
+						} catch (SQLException sqle) {
+							throw sqle;
+						}
+					}
+					if (connection != null) {
+						try {
+							connection.close();
+						} catch (SQLException sqle) {
+							throw sqle;
+						}
+					}
+				}
+			return result;
+		}
+	public boolean delete(Subject subject) throws Exception {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
+		try {
+			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
 
- 			// 貰った値から科目コードとクラスコードを取得
- 			String subjectCd = "";
- 			School school = null ;
- 			String schoolCd = "";
- 			subjectCd = subject.getCd();
- 			school = subject.getSchool();
- 			schoolCd = school.getCd();
+			// 貰った値から科目コードとクラスコードを取得
+			String subjectCd = "";
+			School school = null ;
+			String schoolCd = "";
+			subjectCd = subject.getCd();
+			school = subject.getSchool();
+			schoolCd = school.getCd();
 
- 			// 科目コードが存在する場合はDELETEを実行
- 			if (existingSchool == null) {
- 				statement = connection.prepareStatement(
- 						"DELETE from subject where cd= ? and school_cd= ? ");
- 				statement.setString(1, subjectCd);
- 	            statement.setString(2, schoolCd);
- 	            statement.executeUpdate();
- 			}
- 			// 実行して影響を受けた行数を確認
- 			int affected = statement.executeUpdate();
- 			result = (affected > 0);
+			// 科目コードが存在する場合はDELETEを実行
+			if (existingSchool == null) {
+				statement = connection.prepareStatement(
+						"DELETE from subject where cd= ? and school_cd= ? ");
+				statement.setString(1, subjectCd);
+	            statement.setString(2, schoolCd);
+	            statement.executeUpdate();
+			}
+			// 実行して影響を受けた行数を確認
+			int affected = statement.executeUpdate();
+			result = (affected > 0);
 
- 				} catch (Exception e) {
- 					throw e;
- 				} finally {
- 					// リソースを解放
- 					if (statement != null) {
- 						try {
- 							statement.close();
- 						} catch (SQLException sqle) {
- 							throw sqle;
- 						}
- 					}
- 					if (connection != null) {
- 						try {
- 							connection.close();
- 						} catch (SQLException sqle) {
- 							throw sqle;
- 						}
- 					}
- 				}
- 			return result;
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					// リソースを解放
+					if (statement != null) {
+						try {
+							statement.close();
+						} catch (SQLException sqle) {
+							throw sqle;
+						}
+					}
+					if (connection != null) {
+						try {
+							connection.close();
+						} catch (SQLException sqle) {
+							throw sqle;
+						}
+					}
+				}
+			return result;
 
- 	}
+	}
 
 
- }
+}
