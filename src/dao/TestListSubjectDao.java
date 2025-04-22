@@ -30,8 +30,11 @@ public class TestListSubjectDao extends Dao {
 					testListSubject.setStudentName(rSet.getString("studentName"));
 					testListSubject.setClassNum(rSet.getString("classnum"));
 
+					// Mapを定義
 					Map<Integer, Integer> points = new HashMap<Integer, Integer>();
+					// Mapにそれぞれデータを入れる
 					points.put(rSet.getInt("point_1"),rSet.getInt("point_2"));
+					// Mapのデータをクラスオブジェクトに変間
 					testListSubject.setPoints(points);
 
 					list.add(testListSubject);
@@ -49,17 +52,6 @@ public class TestListSubjectDao extends Dao {
 			Connection connection = getConnection();
 			PreparedStatement statement = null;
 			ResultSet rSet = null;
-
-			statement = connection.prepareStatement("SELECT SUBJECT_CD, MAX(CASE WHEN NO = 1 THEN POINT ELSE NULL END) AS POINT_1, MAX(CASE WHEN NO = 2 THEN POINT ELSE NULL END) AS POINT_2 FROM TEST GROUP BY STUDENT_NO, SUBJECT_CD, SCHOOL_CD");
-			rSet = statement.executeQuery();
-			while (rSet.next()) {
-			    Integer point1 = rSet.getObject("POINT_1") != null ? rSet.getInt("POINT_1") : null;
-			    Integer point2 = rSet.getObject("POINT_2") != null ? rSet.getInt("POINT_2") : null;
-
-			    Map<Integer, Integer> subjectPoints = new HashMap<>();
-			    subjectPoints.put(point1 ,  point2);
-			}
-
 
 			//条件が適用された時にこのStringがbaseSQLに追加される
 			String condition = "and ent_year=? and class_num=?";
