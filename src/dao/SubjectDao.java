@@ -69,7 +69,6 @@ public class SubjectDao extends Dao {
 		ResultSet rSet = null;
 
 		try {
-			//SQLを連結
 			statement = connection.prepareStatement("select * from subject where school_cd= ? order by cd asc");
 			statement.setString(1, school.getCd());
 
@@ -82,7 +81,6 @@ public class SubjectDao extends Dao {
 			    subject.setName(rSet.getString("name"));
 			    list.add(subject); // リストに追加
 			}
-
 		} catch (Exception e) {
 			throw e;
 		} finally {
