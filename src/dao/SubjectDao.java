@@ -109,6 +109,7 @@ public class SubjectDao extends Dao {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		boolean result = false;
+		School school = null ;
 
 		try {
 			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
@@ -117,9 +118,16 @@ public class SubjectDao extends Dao {
 			if (existingSchool == null) {
 				statement = connection.prepareStatement(
 						"INSERT INTO SUBJECT (school_cd , cd , name) VALUES (?, ?, ?)");
+				statement.setString(1, subject.getSchool().getCd());
+				statement.setString(2, subject.getCd());
+				statement.setString(3, subject.getName());
 			} else {
 				statement = connection.prepareStatement(
 						"UPDATE subject SET school_cd = ? , cd = ? , name = ? WHERE cd = ?");
+				statement.setString(1, subject.getSchool().getCd());
+				statement.setString(2, subject.getCd());
+				statement.setString(3, subject.getName());
+				statement.setString(4, subject.getCd());
 			}
 		// 実行して影響を受けた行数を確認
 					int affected = statement.executeUpdate();
