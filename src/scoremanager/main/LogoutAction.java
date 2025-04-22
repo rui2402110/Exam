@@ -9,6 +9,7 @@ import tool.Action;
 public class LogoutAction extends Action {
 
 	@Override
+	//おーばーどらいぶ
 	public void execute(HttpServletRequest req, HttpServletResponse res)
 			throws Exception {
 		//ローカル変数の宣言 1

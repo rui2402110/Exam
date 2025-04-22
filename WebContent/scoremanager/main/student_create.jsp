@@ -11,12 +11,19 @@
         <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報登録</h2>
         <div class="my-2 text-end px-4">
         </div>
+
+        <!-- formタグを設定 あて先はExecuteAction -->
         <form method="get" action="StudentCreateExecite.action">
+
+        <!-- 入学年度の列 -->
         <div class="col-4">
                     <label class="form-label" for="student-fl-select">入学年度</label>
                     <select class="form-select" id="student-fl-select" name="f1">
 
+						<!-- 一番最初の値に------を追加 -->
                         <option value="0">-----</option>
+
+                        <!-- DBのデータを表示するため、JSTLでIF文を記述し -->
                         <c:forEach var="year" items="${ent_year_set}">
                             <option value="${year}" <c:if test="${year==f1}">selected</c:if>>${year}</option>
                         </c:forEach>
