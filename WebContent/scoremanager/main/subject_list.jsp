@@ -11,7 +11,7 @@
         <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">科目管理</h2>
 
         <div class="my-2 text-end px-4">
-            <a href="StudentCreate.action">新規登録</a>
+            <a href="SubjectCreate.action">新規登録</a>
         </div>
          <table class="table table-hover">
              <tr>
@@ -25,10 +25,10 @@
 
                      <!-- 下記は未編集 -->
                      <td>
-                         <a href="StudentUpdate.action?no=${student.no}">編集</a>
+                         <a href="SubjectUpdate.action?cd=${subject.cd}">編集</a>
                      </td>
                      <td>
-                         <a href="StudentUpdate.action?no=${student.no}">削除</a>
+                         <a href="SubjectUpdate.action?cd=${subject.cd}">削除</a>
                      </td>
 
 
