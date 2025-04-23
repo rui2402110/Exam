@@ -19,6 +19,7 @@ public class SubjectDeleteAction extends Action {
 		//JSPから送られたデータを取得
         String subjectCd = req.getParameter("subject_cd");
 
+        // Subjectインスタンスにデータをセット
         Subject subject = new Subject();
         subject.setCd(subjectCd);
         subject.setSchool(teacher.getSchool());
@@ -26,9 +27,16 @@ public class SubjectDeleteAction extends Action {
 
      // 使用するDAOを定義
         SubjectDao subDao = new SubjectDao();
-//        削除
         boolean deleted = subDao.delete(subject);
-		String message =  subjectCd + "を削除しました";
+
+//        削除
+        String message;
+        if (deleted) {
+            message = subjectCd + " を削除しました";
+        } else {
+            message = subjectCd + " の削除に失敗しました";
+        }
+
         req.setAttribute("message", message);
 
 		req.getRequestDispatcher("SubjectList.action").forward(req, res);
