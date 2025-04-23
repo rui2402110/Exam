@@ -112,10 +112,13 @@ public class SubjectDao extends Dao {
 		School school = null ;
 
 		try {
-			Subject existingSchool = get(subject.getCd() ,subject.getSchool());
+			System.out.println(subject.getCd());
+			System.out.println(subject.getSchool());
+			Subject subj = get(subject.getCd() ,subject.getSchool());
+			System.out.println(subj);
 
 			// 科目コードが既に存在する場合はUPDATE、していない場合はINSERTを実行
-			if (existingSchool == null) {
+			if (subj == null) {
 				statement = connection.prepareStatement(
 						"INSERT INTO SUBJECT (school_cd , cd , name) VALUES (?, ?, ?)");
 				statement.setString(1, subject.getSchool().getCd());
