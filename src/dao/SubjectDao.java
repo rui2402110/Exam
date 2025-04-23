@@ -169,6 +169,9 @@ public class SubjectDao extends Dao {
 			school = subject.getSchool();
 			schoolCd = school.getCd();
 
+			System.out.println("削除対象: cd=" + subject.getCd() + ", school_cd=" + subject.getSchool().getCd());
+
+
 			// 科目コードが存在する場合はDELETEを実行
 			if (existingSchool == null) {
 				statement = connection.prepareStatement(
