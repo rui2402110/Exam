@@ -112,10 +112,10 @@ public class SubjectDao extends Dao {
 		School school = null ;
 
 		try {
-			System.out.println(subject.getCd());
-			System.out.println(subject.getSchool());
+//			System.out.println(subject.getCd());
+//			System.out.println(subject.getSchool());
 			Subject subj = get(subject.getCd() ,subject.getSchool());
-			System.out.println(subj);
+//			System.out.println(subj);
 
 			// 科目コードが既に存在する場合はUPDATE、していない場合はINSERTを実行
 			if (subj == null) {
