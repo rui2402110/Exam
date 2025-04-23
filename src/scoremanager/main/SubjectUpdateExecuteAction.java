@@ -28,8 +28,9 @@ public class SubjectUpdateExecuteAction extends Action {
 		cd  = req.getParameter("cd");
 		name = req.getParameter("name");
 
-//		System.out.println("cd="+ cd);
-//		System.out.println("name="+ name);
+		System.out.println(" SubjectUpdateExecuteAction");
+		System.out.println("cd="+ cd);
+		System.out.println("name="+ name);
 
 		//subjectsに取得したデータをまとめてsetterでセット
 		subject.setCd(cd);
