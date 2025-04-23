@@ -27,8 +27,9 @@ public class SubjectCreateExecuteAction extends Action{
 		cd  = req.getParameter("cd");
 		name = req.getParameter("name");
 
-//		System.out.println(cd);
-//		System.out.println(name);
+		System.out.println("test");
+		System.out.println(cd);
+		System.out.println(name);
 
 		// 科目コード(CD)が3文字以外だった場合は通常の処理を行わずにエラーデータを取得しSubjectCreateActionにフォワード
 		if (cd.length() == 3 ) {

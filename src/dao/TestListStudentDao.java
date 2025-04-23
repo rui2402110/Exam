@@ -8,11 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.Student;
+import bean.TestListStudent;
 import bean.TestListSubject;
 
 public class TestListStudentDao extends Dao {
 	// 基本となるSQL文（school_cdによる検索）
-	private String baseSql = "select * from test where school_cd= ? ";
+	private String baseSql = "SELECT " +
+        "   STUDENT.NAME AS STUDENT_NAME, " +
+        "   STUDENT.NO AS STUDENT_NO, " +
+        "   SUBJECT.NAME AS SUBJECT_NAME, " +
+        "   TEST.SUBJECT_CD, " +
+        "   MAX(CASE WHEN TEST.NO = 1 THEN TEST.NO ELSE NULL END) AS NO_1, " +
+        "   MAX(CASE WHEN TEST.NO = 1 THEN TEST.POINT ELSE NULL END) AS POINT_1, " +
+        "   MAX(CASE WHEN TEST.NO = 2 THEN TEST.NO ELSE NULL END) AS NO_2, " +
+        "   MAX(CASE WHEN TEST.NO = 2 THEN TEST.POINT ELSE NULL END) AS POINT_2 " +
+        "FROM " +
+        "   STUDENT " +
+        "JOIN " +
+        "   TEST ON STUDENT.NO = TEST.STUDENT_NO AND STUDENT.SCHOOL_CD = TEST.SCHOOL_CD " +
+        "JOIN " +
+        "   SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD AND TEST.SCHOOL_CD = SUBJECT.SCHOOL_CD " +
+        "WHERE " +
+        "   STUDENT.NO = ? " + // ここにデータを入力
+        "GROUP BY " +
+        "   STUDENT.NAME, STUDENT.NO, SUBJECT.NAME, TEST.SUBJECT_CD " +
+        "ORDER BY " +
+        "   SUBJECT.NAME";
 
 	// ResultSetからクラスリストを作成するメソッド
 		private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
@@ -21,9 +42,11 @@ public class TestListStudentDao extends Dao {
 			try {
 				//結果セットの各行をクラスオブジェクトに変換
 				while (rSet.next()) {
-
-
-
+					TestListStudent testListStudent = new TestListStudent();
+					testListStudent.setSubjectName(rSet.getString("subjectName"));
+					testListStudent.setSubjectCd(rSet.getString("subjectCd"));
+					testListStudent.setNum(rSet.getInt("subjectNum"));
+					testListStudent.setPoint(rSet.getInt("point"));
 				}
 			} catch (SQLException | NullPointerException e) {
 				e.printStackTrace();
@@ -47,9 +70,7 @@ public class TestListStudentDao extends Dao {
 			try {
 				//SQLを連結
 				statement = connection.prepareStatement(baseSql + condition + order);
-				statement.setString(1, school.getCd());
-				statement.setInt(2, entYear);
-				statement.setString(3, classNum);
+				statement.setString(1, student.getNo());
 
 				//SQLを実行
 				rSet = statement.executeQuery();

@@ -12,7 +12,7 @@
         <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">科目情報登録</h2>
         <div class="my-2 text-end px-4">
         </div>
-        <form method="get" action="SubjectUpdateExecute.action">
+        <form method="get" action="SubjectCreateExecute.action">
 
 
         <div class="col-4">
