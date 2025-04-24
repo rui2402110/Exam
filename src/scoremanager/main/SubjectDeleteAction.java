@@ -10,35 +10,26 @@ import dao.SubjectDao;
 import tool.Action;
 
 public class SubjectDeleteAction extends Action {
-	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		//メソッドとスタブ
-		HttpSession session = req.getSession();
-		Teacher teacher = (Teacher)session.getAttribute("user");
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        // ログイン中の先生情報を取得
+        HttpSession session = req.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("user");
 
-		//JSPから送られたデータを取得
-        String subjectCd = req.getParameter("subject_cd");
+        // JSPから送られた科目コードを取得
+        String subjectCd = req.getParameter("cd");
 
-        // Subjectインスタンスにデータをセット
-        Subject subject = new Subject();
-        subject.setCd(subjectCd);
-        subject.setSchool(teacher.getSchool());
+        System.out.println("受け取ったSubjectDeleteAction subject_cd: " + subjectCd);
+        // 対象のSubjectをDBから取得
+        SubjectDao dao = new SubjectDao();
+        Subject subject = dao.get(subjectCd, teacher.getSchool());
 
+        // subjectが存在しなければエラー処理も追加してよい（ここでは省略）
 
-     // 使用するDAOを定義
-        SubjectDao subDao = new SubjectDao();
-        boolean deleted = subDao.delete(subject);
+        // JSPで使えるように属性にセット
+        req.setAttribute("subject", subject);
 
-//        削除
-        String message;
-        if (deleted) {
-            message = subjectCd + " を削除しました";
-        } else {
-            message = subjectCd + " の削除に失敗しました";
-        }
-
-        req.setAttribute("message", message);
-
-		req.getRequestDispatcher("SubjectList.action").forward(req, res);
-	}
+        // 削除確認画面へフォワード
+        req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
+    }
 }

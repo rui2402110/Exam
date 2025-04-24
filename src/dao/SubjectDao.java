@@ -133,8 +133,8 @@ public class SubjectDao extends Dao {
 				statement.setString(4, subject.getCd());
 			}
 		// 実行して影響を受けた行数を確認
-					int affected = statement.executeUpdate();
-					result = (affected > 0);
+		int affected = statement.executeUpdate();
+		result = (affected > 0);
 
 				} catch (Exception e) {
 					throw e;
@@ -172,8 +172,11 @@ public class SubjectDao extends Dao {
 			school = subject.getSchool();
 			schoolCd = school.getCd();
 
+			System.out.println("削除対象: cd=" + subject.getCd() + ", school_cd=" + subject.getSchool().getCd());
+
+
 			// 科目コードが存在する場合はDELETEを実行
-			if (existingSchool == null) {
+			if (existingSchool != null) {
 				statement = connection.prepareStatement(
 						"DELETE from subject where cd= ? and school_cd= ? ");
 				statement.setString(1, subjectCd);
@@ -191,13 +194,6 @@ public class SubjectDao extends Dao {
 					if (statement != null) {
 						try {
 							statement.close();
-						} catch (SQLException sqle) {
-							throw sqle;
-						}
-					}
-					if (connection != null) {
-						try {
-							connection.close();
 						} catch (SQLException sqle) {
 							throw sqle;
 						}
