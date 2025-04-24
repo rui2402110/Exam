@@ -12,13 +12,13 @@
 <section class="mb-3">
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">科目情報削除</h2>
 
-    <form method="post" action="SubjectDelete.action" class="px-4">
+    <form method="post" action="SubjectDeleteExecute.action" class="px-4">
         <p class="text-danger">
-            「${subject_name}（${subject_cd}）」を削除してよろしいですか？
+            「${subject_name}（${cd}）」を削除してよろしいですか？
         </p>
 
         <!-- hidden inputで情報を送信 -->
-        <input type="hidden" name="subject_cd" value="${subject_cd}">
+        <input type="hidden" name="subject_cd" value="${cd}">
         <input type="hidden" name="subject_name" value="${subject_name}">
 
         <div class="my-2">
