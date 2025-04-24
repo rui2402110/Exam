@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ClassNum;
 import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -22,7 +21,7 @@ public class TestRegistAction extends Action {
 	Teacher teacher = (Teacher)session.getAttribute("user");
 
 	//処理に使う変数を定義
-	List<ClassNum> classNum = null;
+	List<String> classNum = null;
 	List<Subject> subject = null;
 	ClassNumDao cNumDao = new ClassNumDao();
 	SubjectDao subDao =new SubjectDao();

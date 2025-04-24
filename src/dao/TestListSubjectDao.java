@@ -25,10 +25,10 @@ public class TestListSubjectDao extends Dao {
 				//結果セットの各行をクラスオブジェクトに変換
 				while (rSet.next()) {
 					TestListSubject testListSubject = new TestListSubject();
-					testListSubject.setEntYear(rSet.getInt("entYear"));
-					testListSubject.setStudentNo(rSet.getString("studentNo"));
-					testListSubject.setStudentName(rSet.getString("studentName"));
-					testListSubject.setClassNum(rSet.getString("classnum"));
+					testListSubject.setEntYear(rSet.getInt("ent_year"));
+					testListSubject.setStudentNo(rSet.getString("student_no"));
+					testListSubject.setStudentName(rSet.getString("student_name"));
+					testListSubject.setClassNum(rSet.getString("class_num"));
 
 					// Mapを定義
 					Map<Integer, Integer> points = new HashMap<Integer, Integer>();

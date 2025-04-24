@@ -18,7 +18,7 @@
         <div class="col-4">
         <label class="form-label" for="no">科目コード</label>
         <br>
-        <input type="text" id="no" name="no" value="${no}" class="text-input" placeholder="科目コードを入力してください" required>
+        <input type="text" id="cd" name="cd" value="${cd}" class="text-input" placeholder="科目コードを入力してください" readonly>
 
         <c:if test="${not empty errors['notfound']}">
         <div class="text-danger">${errors['notfound']}</div>

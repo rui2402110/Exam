@@ -55,7 +55,7 @@ public class ClassNumDao extends Dao {
 		return classNum;
 	}
 
-	public List<ClassNum> filter(School school) throws Exception {
+	public List<String> filter(School school) throws Exception {
 		List<String> list = new ArrayList<>();
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
