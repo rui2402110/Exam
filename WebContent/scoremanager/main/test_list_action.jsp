@@ -74,6 +74,34 @@ pageEncoding="UTF-8"%>
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
 
+        <!-- 成績一覧表示 -->
+    <c:if test="${not empty test_list}">
+        <div class="px-4 mb-2">
+            科目：${subject_name}
+        </div>
+        <table class="table table-hover">
+            <tr>
+                <th>入学年度</th>
+                <th>クラス</th>
+                <th>学生番号</th>
+                <th>氏名</th>
+                <th>1回目の点数</th>
+                <th>2回目の点数</th>
+            </tr>
+            <c:forEach var="test" items="${test_list}">
+                <tr>
+                    <td>${test.ent_year}</td>
+                    <td>${test.class_num}</td>
+                    <td>${test.student_no}</td>
+                    <td>${test.student_name}</td>
+                    <td>${test.point1}</td>
+                    <td>${test.point2}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+
+
     <!-- 利用方法メッセージ -->
     <div class="text-info mx-3">
         科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
@@ -82,4 +110,6 @@ pageEncoding="UTF-8"%>
 
 </c:param>
 </c:import>
+
+
 
