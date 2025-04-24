@@ -176,7 +176,7 @@ public class SubjectDao extends Dao {
 
 
 			// 科目コードが存在する場合はDELETEを実行
-			if (existingSchool == null) {
+			if (existingSchool != null) {
 				statement = connection.prepareStatement(
 						"DELETE from subject where cd= ? and school_cd= ? ");
 				statement.setString(1, subjectCd);
@@ -194,13 +194,6 @@ public class SubjectDao extends Dao {
 					if (statement != null) {
 						try {
 							statement.close();
-						} catch (SQLException sqle) {
-							throw sqle;
-						}
-					}
-					if (connection != null) {
-						try {
-							connection.close();
 						} catch (SQLException sqle) {
 							throw sqle;
 						}

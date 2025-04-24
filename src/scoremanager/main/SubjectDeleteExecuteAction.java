@@ -17,19 +17,23 @@ public class SubjectDeleteExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         // フォームから送られた科目コードを取得
-        String subjectCd = req.getParameter("subject_cd");
+        String subjectCd = req.getParameter("cd");
+
+        System.out.println("受け取ったSubjectDeleteActionEX subject_cd: " + subjectCd);
+
 
         // 削除対象のSubjectオブジェクトを作成
         Subject subject = new Subject();
         subject.setCd(subjectCd);
+        subject.setName(subjectName);
         subject.setSchool(teacher.getSchool());
 
         // 削除実行
         SubjectDao dao = new SubjectDao();
-        dao.delete(subject);
+        boolean success = dao.delete(subject);
 
         // メッセージを設定して一覧画面へ
         req.setAttribute("message", subjectCd + " を削除しました");
-        req.getRequestDispatcher("SubjectList.action").forward(req, res);
+        req.getRequestDispatcher("subject_delete_done.jsp").forward(req, res);
     }
 }
