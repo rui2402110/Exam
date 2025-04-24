@@ -157,11 +157,19 @@ public class TestDao extends Dao {
 	}
 	public boolean save(List<Test> list) throws Exception {
 		Connection connection = getConnection();
-		PreparedStatement statement = null;
+
 		boolean result = false;
 		School school = null ;
+
+		return result ;
+	}
+
+	private boolean save(Test test , Connection connection ){
+		boolean result = false;
+		PreparedStatement statement = null;
+		connection = getConnection();
 		try {
-			Test test = get(list.get(0), list.get(1), list.get(2), list.get(3));
+			test = get(test.getStudent(), test.getSubject(), test.getSchool() , test.getNo());
 			if ( test == null) {
 				statement = connection.prepareStatement(
 						"INSERT INTO TEST (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?)");
@@ -195,9 +203,10 @@ public class TestDao extends Dao {
 
 		return result ;
 
-	}
-	private boolean save(Test test , Connection connection ){
-		return result ;
+
+
+
+
 	}
 
 }
