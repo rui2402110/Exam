@@ -15,7 +15,7 @@ import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
 	// 基本となるSQL文（school_cdによる検索）
-	private String baseSql = "SELECT  STUDENT_NO, SUBJECT_CD, SCHOOL_CD, MAX(CASE WHEN NO = 1 THEN POINT ELSE NULL END) AS POINT_1, MAX(CASE WHEN NO = 2 THEN POINT ELSE NULL END) AS POINT_2, MAX(CLASS_NUM) AS CLASS_NUMFROM TEST GROUP BY STUDENT_NO, SUBJECT_CD, SCHOOL_CDwhere school_cd= ? ";
+	private String baseSql = "SELECT  STUDENT_NO, SUBJECT_CD, SCHOOL_CD, MAX(CASE WHEN NO = 1 THEN POINT ELSE NULL END) AS POINT_1, MAX(CASE WHEN NO = 2 THEN POINT ELSE NULL END) AS POINT_2, MAX(CLASS_NUM) AS CLASS_NUM FROM TEST GROUP BY STUDENT_NO, SUBJECT_CD, SCHOOL_CD where school_cd= ? ";
 
 	// ResultSetからクラスリストを作成するメソッド
 		private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
