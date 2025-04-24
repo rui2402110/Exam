@@ -16,13 +16,10 @@ public class SubjectUpdateAction extends Action {
 		//必要なものを定義
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
-//		ResultSet rSet = null;
 
 		//使用するDaoを定義
 		SubjectDao subDao = new SubjectDao();
 
-//		//使用する変数を定義
-//		List<Student> subjects = null;
 
 		//StudentUpdateExecuteからエラーメッセージを取得 (使わない)
 		String errors1 = (String)req.getAttribute("errors1");

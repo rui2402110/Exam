@@ -12,7 +12,7 @@ import bean.TestListStudent;
 import bean.TestListSubject;
 
 public class TestListStudentDao extends Dao {
-	// 基本となるSQL文（school_cdによる検索）
+	// 基本となるSQL文（student_noによる検索）
 	private String baseSql = "SELECT " +
         "   STUDENT.NAME AS STUDENT_NAME, " +
         "   STUDENT.NO AS STUDENT_NO, " +
@@ -43,9 +43,9 @@ public class TestListStudentDao extends Dao {
 				//結果セットの各行をクラスオブジェクトに変換
 				while (rSet.next()) {
 					TestListStudent testListStudent = new TestListStudent();
-					testListStudent.setSubjectName(rSet.getString("subjectName"));
-					testListStudent.setSubjectCd(rSet.getString("subjectCd"));
-					testListStudent.setNum(rSet.getInt("subjectNum"));
+					testListStudent.setSubjectName(rSet.getString("subject_name"));
+					testListStudent.setSubjectCd(rSet.getString("subject_cd"));
+					testListStudent.setNum(rSet.getInt("subject_num"));
 					testListStudent.setPoint(rSet.getInt("point"));
 				}
 			} catch (SQLException | NullPointerException e) {
