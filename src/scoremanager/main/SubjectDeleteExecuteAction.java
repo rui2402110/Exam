@@ -18,14 +18,18 @@ public class SubjectDeleteExecuteAction extends Action {
 
         // フォームから送られた科目コードを取得
         String subjectCd = req.getParameter("cd");
+        SubjectDao subDao =new SubjectDao();
 
         System.out.println("受け取ったSubjectDeleteActionEX subject_cd: " + subjectCd);
-
+        Subject subject = new Subject();
+        subject = subDao.get(subjectCd,teacher.getSchool());
+        System.out.println(subject);
+        System.out.println(subject.getName());
 
         // 削除対象のSubjectオブジェクトを作成
-        Subject subject = new Subject();
+
         subject.setCd(subjectCd);
-        subject.setName(subjectName);
+        subject.setName(subject.getName());
         subject.setSchool(teacher.getSchool());
 
         // 削除実行

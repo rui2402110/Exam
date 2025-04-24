@@ -27,7 +27,8 @@ public class SubjectDeleteAction extends Action {
         // subjectが存在しなければエラー処理も追加してよい（ここでは省略）
 
         // JSPで使えるように属性にセット
-        req.setAttribute("subject", subject);
+        req.setAttribute("subject_name", subject.getName());
+        req.setAttribute("cd", subjectCd);
 
         // 削除確認画面へフォワード
         req.getRequestDispatcher("subject_delete.jsp").forward(req, res);
