@@ -79,6 +79,11 @@
                         <td>
                             <input type="text" name="point_${point.student.no}" value="${point.point}" size="4" class="form-control">
                             <input type="hidden" name="regist" value="${point.student.no}">
+
+                            <!--エラーを表示-->
+                            <c:if test="${not empty errors[point.student.no]}">
+                            <div class="text-warning">${errors[point.student.no]}</div>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
