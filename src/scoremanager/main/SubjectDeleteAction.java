@@ -19,7 +19,7 @@ public class SubjectDeleteAction extends Action {
         // JSPから送られた科目コードを取得
         String subjectCd = req.getParameter("cd");
 
-        System.out.println("受け取ったSubjectDeleteAction subject_cd: " + subjectCd);
+        System.out.println("受け取ったSubjectDeleteAction: " + subjectCd);
         // 対象のSubjectをDBから取得
         SubjectDao dao = new SubjectDao();
         Subject subject = dao.get(subjectCd, teacher.getSchool());

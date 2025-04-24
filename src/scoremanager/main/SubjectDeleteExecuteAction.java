@@ -17,10 +17,10 @@ public class SubjectDeleteExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         // フォームから送られた科目コードを取得
-        String subjectCd = req.getParameter("cd");
+        String subjectCd = req.getParameter("subject_cd");
         SubjectDao subDao =new SubjectDao();
 
-        System.out.println("受け取ったSubjectDeleteActionEX subject_cd: " + subjectCd);
+        System.out.println("受け取ったSubjectDeleteActionEX: " + subjectCd);
         Subject subject = new Subject();
         subject = subDao.get(subjectCd,teacher.getSchool());
         System.out.println(subject);
