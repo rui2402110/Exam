@@ -133,8 +133,8 @@ public class SubjectDao extends Dao {
 				statement.setString(4, subject.getCd());
 			}
 		// 実行して影響を受けた行数を確認
-					int affected = statement.executeUpdate();
-					result = (affected > 0);
+		int affected = statement.executeUpdate();
+		result = (affected > 0);
 
 				} catch (Exception e) {
 					throw e;

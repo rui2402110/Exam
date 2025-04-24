@@ -156,57 +156,77 @@ public class TestDao extends Dao {
 	    return list;
 	}
 	public boolean save(List<Test> list) throws Exception {
+		//
 		Connection connection = getConnection();
-
 		boolean result = false;
-		School school = null ;
 
-		return result ;
+			// トランザクション開始
+        	connection.setAutoCommit(false);
+        	try{
+
+        	//送られたlistの回数分saveメソッドを呼び出す
+        	for (int i = 0; i < list.size(); i++) {
+
+        		result = save(list.get(i), connection);
+        	}
+        	} catch(Exception e){
+        		throw e;
+        	}
+
+        	return result ;
 	}
 
-	private boolean save(Test test , Connection connection ){
-		boolean result = false;
-		PreparedStatement statement = null;
-		connection = getConnection();
-		try {
-			test = get(test.getStudent(), test.getSubject(), test.getSchool() , test.getNo());
-			if ( test == null) {
-				statement = connection.prepareStatement(
-						"INSERT INTO TEST (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?)");
-				statement.setString(1, );
-				statement.setString(2, );
-				statement.setString(3, );
-				statement.setString(4, );
-				statement.setString(5, );
-			} else {
-
-			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			// リソースを解放
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-
-		return result ;
-
-
-
-
-
-	}
+	private boolean save(Test test , Connection connection )throws Exception{
+        boolean result = false;
+        PreparedStatement statement = null;
+        try {
+        	// 試験が既に存在するかどうか確認
+            Test tes = get(test.getStudent(), test.getSubject(), test.getSchool() , test.getNo());
+            // 試験が存在していた場合はUPDATE、しなかった場合はINSERTを実行
+            if (tes == null) {
+                statement = connection.prepareStatement(
+                        "INSERT INTO TEST (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?)");
+                // 送られたtestのデータをセット
+                statement.setString(1, test.getStudent().getNo());
+                statement.setString(2, test.getSubject().getCd());
+                statement.setString(3, test.getSchool().getCd());
+                statement.setInt(4, test.getNo());
+                statement.setInt(5, test.getPoint());
+                statement.setString(6, test.getClassNum());
+            } else {
+                statement = connection.prepareStatement(
+                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? NO = ? POINT = ? CLASS_NUM = ? WHERE ...");
+                // 送られたtestのデータをセット
+                statement.setString(1, test.getStudent().getNo());
+                statement.setString(2, test.getSubject().getCd());
+                statement.setString(3, test.getSchool().getCd());
+                statement.setInt(4, test.getNo());
+                statement.setInt(5, test.getPoint());
+                statement.setString(6, test.getClassNum());
+            }
+            // 実行して影響を受けた行数を確認
+            int affected = statement.executeUpdate();
+            result = (affected > 0);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            // リソースを解放
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+        return result ;
+    }
 
 }
