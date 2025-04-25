@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:import url="/common/base.jsp">
@@ -46,7 +46,6 @@ pageEncoding="UTF-8"%>
             <div class="col-2 text-center">
                 <button class="btn btn-secondary">検索</button>
             </div>
-            <!-- hiddenで識別子 -->
             <input type="hidden" name="f" value="sj">
         </div>
     </form>
@@ -64,7 +63,6 @@ pageEncoding="UTF-8"%>
             <div class="col-2 text-center">
                 <button class="btn btn-secondary">検索</button>
             </div>
-            <!-- hiddenで識別子 -->
             <input type="hidden" name="f" value="st">
         </div>
     </form>
@@ -74,7 +72,7 @@ pageEncoding="UTF-8"%>
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
 
-        <!-- 成績一覧表示 -->
+    <!-- 成績一覧表示 -->
     <c:if test="${not empty test_list}">
         <div class="px-4 mb-2">
             科目：${subject_name}
@@ -101,7 +99,6 @@ pageEncoding="UTF-8"%>
         </table>
     </c:if>
 
-
     <!-- 利用方法メッセージ -->
     <div class="text-info mx-3">
         科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
@@ -110,6 +107,5 @@ pageEncoding="UTF-8"%>
 
 </c:param>
 </c:import>
-
 
 
