@@ -20,8 +20,8 @@ pageEncoding="UTF-8"%>
                 <label class="form-label">入学年度</label>
                 <select class="form-select" name="f1">
                     <option value="0">-----</option>
-                    <c:forEach var="year" items="${ent_year_set}">
-                        <option value="${year}" <c:if test="${year==f1}">selected</c:if>>${year}</option>
+                    <c:forEach var="ent_year" items="${ent_year_set}">
+                        <option value="${ent_year}" <c:if test="${ent_year==f1}">selected</c:if>>${ent_year}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -29,8 +29,8 @@ pageEncoding="UTF-8"%>
                 <label class="form-label">クラス</label>
                 <select class="form-select" name="f2">
                     <option value="0">-----</option>
-                    <c:forEach var="classNum" items="${class_num_set}">
-                        <option value="${classNum}" <c:if test="${classNum==f2}">selected</c:if>>${classNum}</option>
+                    <c:forEach var="class_num" items="${class_num_set}">
+                        <option value="${class_num}" <c:if test="${class_num==f2}">selected</c:if>>${class_num}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
                 <select class="form-select" name="f3">
                     <option value="0">-----</option>
                     <c:forEach var="subject" items="${subject_set}">
-                        <option value="${subject.code}" <c:if test="${subject.code==f3}">selected</c:if>>${subject.name}</option>
+                        <option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.name}</option>
                     </c:forEach>
                 </select>
             </div>
