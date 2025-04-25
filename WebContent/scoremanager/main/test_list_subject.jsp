@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
                 <select class="form-select" name="f3">
                     <option value="0">-----</option>
                     <c:forEach var="subject" items="${subject_set}">
-                        <option value="${subject.code}" <c:if test="${subject.code==f3}">selected</c:if>>${subject.name}</option>
+                        <option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -88,12 +88,12 @@ pageEncoding="UTF-8"%>
             </tr>
             <c:forEach var="test" items="${test_list}">
                 <tr>
-                    <td>${test.ent_year}</td>
-                    <td>${test.class_num}</td>
-                    <td>${test.student_no}</td>
-                    <td>${test.student_name}</td>
-                    <td>${test.point1}</td>
-                    <td>${test.point2}</td>
+                    <td>${test.entYear}</td>
+                    <td>${test.classNum}</td>
+                    <td>${test.studentNo}</td>
+                    <td>${test.studentName}</td>
+                    <td>${test.getPoints().get(1)}</td>
+                    <td>${test.getPoints().get(2)}</td>
                 </tr>
             </c:forEach>
         </table>
