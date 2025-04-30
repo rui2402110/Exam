@@ -13,7 +13,7 @@
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
     <!-- 検索フォーム -->
-    <form method="get">
+    <form method="get"action="test_regist.jsp">
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
             <div class="col-2">
                 <label class="form-label" for="f1">入学年度</label>
@@ -38,7 +38,7 @@
                 <select class="form-select" id="f3" name="f3">
                     <option value="0">-----</option>
                     <c:forEach var="subject" items="${subject_set}">
-                        <option value="${subject.code}" <c:if test="${subject.code==f3}">selected</c:if>>${subject.name}</option>
+                        <option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.name}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -58,7 +58,7 @@
 
     <!-- 成績入力フォーム -->
     <c:if test="${not empty points}">
-        <form method="post" action="ScoreRegistExecute.action">
+        <form method="post" action="TestRegistExecute.action">
             <div class="px-4 mb-3">
                 科目：${subject_name}（${count}回目）
             </div>
@@ -90,7 +90,7 @@
             </table>
             <!-- hiddenで共通情報 -->
             <input type="hidden" name="count" value="${count}">
-            <input type="hidden" name="subject" value="${subject_code}">
+            <input type="hidden" name="subject" value="${subject_cd}">
             <div class="mt-3">
                 <button type="submit" class="btn btn-secondary">登録して終了</button>
             </div>

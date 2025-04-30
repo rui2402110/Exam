@@ -1,7 +1,9 @@
 package scoremanager.main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +50,7 @@ public class TestRegistExecuteAction extends Action{
 		String no ="";
 		// List<Test> の作成
 		List<Test> testList = new ArrayList<>();
+		Map<String, String> errorMap = new HashMap<>();
 
 
 		//JSPから送られたデータを取得
@@ -138,6 +141,10 @@ public class TestRegistExecuteAction extends Action{
 				// DAOで保存処理（複数テストデータを一括で保存）
 				tDao.save(testList);
 
+				// points を JSP へ渡す
+				req.setAttribute("points", testList);
+
+
 				// 確認ログ
 				System.out.println("保存されたテストデータの件数: " + testList.size());
 
@@ -147,8 +154,8 @@ public class TestRegistExecuteAction extends Action{
 			}else{
 				// 認証失敗の場合
 				// エラーメッセージをセット
-				String errors = ("0~100の範囲で入力してください");
-				req.setAttribute("errors", errors);
+				errorMap.put(no, "0~100の範囲で入力してください");
+				req.setAttribute("errors", errorMap);
 
 				String url = "test_regist.jsp";
 				req.getRequestDispatcher(url).forward(req, res);
