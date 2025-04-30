@@ -15,37 +15,60 @@ import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
 	// 基本となるSQL文（school_cdによる検索）
-	private String baseSql = "SELECT "
-								+ "STUDENT_NO, "
-								+ "SUBJECT_CD, "
-								+ "SCHOOL_CD, "
-								+ "MAX(CASE WHEN NO = 1 THEN POINT ELSE NULL END) AS POINT_1, "
-								+ "MAX(CASE WHEN NO = 2 THEN POINT ELSE NULL END) AS POINT_2, "
-								+ "MAX(CLASS_NUM) AS CLASS_NUM "
-							+ "FROM "
-								+ "TEST "
-							+ "GROUP BY "
-								+ "STUDENT_NO, SUBJECT_CD, SCHOOL_CD "
-							+ "where "
-								+ "school_cd= ? ";
+	private String baseSql = "SELECT " +
+            " STUDENT.ENT_YEAR, " +
+            " STUDENT.NAME, " +
+            " TEST.STUDENT_NO, " +
+            " TEST.SUBJECT_CD, " +
+            " TEST.SCHOOL_CD, " +
+            " MAX(CASE WHEN TEST.NO = 1 THEN TEST.POINT ELSE NULL END) AS POINT_1, " +
+            " MAX(CASE WHEN TEST.NO = 2 THEN TEST.POINT ELSE NULL END) AS POINT_2, " +
+            " MAX(TEST.CLASS_NUM) AS CLASS_NUM " +
+            "FROM " +
+            " TEST " +
+            "JOIN " +
+            " STUDENT " +
+            " ON " +
+            " TEST.STUDENT_NO = STUDENT.NO " +
+            " WHERE " +
+            " TEST.SCHOOL_CD = ? " ;
 
 	// ResultSetからクラスリストを作成するメソッド
 		private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
 			// Listを作成
 			List<TestListSubject> list = new ArrayList<>();
 			try {
+				System.out.println("xxx");
 				//結果セットの各行をクラスオブジェクトに変換
 				while (rSet.next()) {
+					System.out.println("aaa2");
 					TestListSubject testListSubject = new TestListSubject();
 					testListSubject.setEntYear(rSet.getInt("ent_year"));
-					testListSubject.setStudentNo(rSet.getString("student_no"));
-					testListSubject.setStudentName(rSet.getString("student_name"));
 					testListSubject.setClassNum(rSet.getString("class_num"));
+					testListSubject.setStudentNo(rSet.getString("student_no"));
+					testListSubject.setStudentName(rSet.getString("name"));
+//					if (rSet.getString("point_1") !=null ){
+//						System.out.println(rSet.getInt("point_1"));
+//						testListSubject.putPoint(1,rSet.getInt("point_1"));
+//					} else{
+//						testListSubject.putPoint(1,-1);
+//					}
+//					if (rSet.getString("point_2") !=null ){
+//						testListSubject.putPoint(2,rSet.getInt("point_2"));
+//					} else{
+//						testListSubject.putPoint(2,-1);
+//					}
+//					System.out.println("aaa");
+//					System.out.println(rSet.getInt("point_1"));
+
 
 					// Mapを定義
 					Map<Integer, Integer> points = new HashMap<Integer, Integer>();
 					// Mapにそれぞれデータを入れる
-					points.put(rSet.getInt("point_1"),rSet.getInt("point_2"));
+					int point1 = rSet.getInt("point_1");
+					points.put(1,point1);
+					points.put(2,rSet.getInt("point_2"));
+					System.out.println(rSet.getInt("point_1"));
 					// Mapのデータをクラスオブジェクトに変間
 					testListSubject.setPoints(points);
 
@@ -66,10 +89,9 @@ public class TestListSubjectDao extends Dao {
 			ResultSet rSet = null;
 
 			//条件が適用された時にこのStringがbaseSQLに追加される
-			String condition = "and ent_year=? and class_num=?";
-
+			String condition = " AND STUDENT.ENT_YEAR = ? AND TEST.CLASS_NUM = ? ";
 			//
-			String order = "order by no asc";
+			String order = " GROUP BY TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO ORDER BY TEST.NO ASC";
 
 			try {
 				//SQLを連結
