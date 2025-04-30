@@ -229,9 +229,4 @@ pageEncoding="UTF-8"%>
     <div class="text-info mx-3">
         科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
     </div>
-</section>
 
-</c:param>
-</c:import>
-
->>>>>>> branch 'master' of https://github.com/rui2402110/Exam.git
