@@ -8,7 +8,7 @@ public class TestListSubject implements Serializable {
 	private String studentNo ;
 	private String studentName ;
 	private String classNum ;
-	private Map<Integer , Integer> points = new HashMap<Integer, Integer>();
+	private Map<Integer , Integer> points ;
 	public int getEntYear() {
 		return entYear;
 	}

@@ -12,6 +12,7 @@ public class TestListStudentExecuteAction extends Action {
 		//メソッドとスタブ
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
+		
 
 		// フォワード
 	    req.getRequestDispatcher("test_list_student.jsp").forward(req, res);

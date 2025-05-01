@@ -70,6 +70,7 @@ public class TestListSubjectExecuteAction extends Action {
 		req.setAttribute("class_num_set",classList);
 		req.setAttribute("subject_set", subList);
 		req.setAttribute("test_list",testListSubject);
+		req.setAttribute("subjectCd",subjectCd);
 
 		// フォワード
 	    req.getRequestDispatcher("test_list_subject.jsp").forward(req, res);
