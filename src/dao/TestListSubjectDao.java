@@ -15,7 +15,7 @@ import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
 	// 基本となるSQL文（school_cdによる検索）
-	private String baseSql = "SELECT " +
+	private String baseSql ="SELECT " +
             " STUDENT.ENT_YEAR, " +
             " STUDENT.NAME, " +
             " TEST.STUDENT_NO, " +
@@ -91,7 +91,7 @@ public class TestListSubjectDao extends Dao {
 			//条件が適用された時にこのStringがbaseSQLに追加される
 			String condition = " AND STUDENT.ENT_YEAR = ? AND TEST.CLASS_NUM = ? ";
 			//
-			String order = " GROUP BY TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO ORDER BY TEST.NO ASC";
+			String order = " GROUP BY STUDENT.ENT_YEAR, STUDENT.NAME, TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD ORDER BY TEST.STUDENT_NO ASC, TEST.SUBJECT_CD ASC";
 
 			try {
 				//SQLを連結

@@ -144,7 +144,7 @@ public class StudentDao extends Dao {
 	}
 
 	//学校、入学年度、在学状態を使用したフィルタリング
-	//上記のpostFilterと似たコードなのでコメントは省く
+	//上記のfilterと似たコードなのでコメントは省く
 	public List<Student> filter(School school, int entYear, boolean isAttend) throws Exception {
 		List<Student> list = new ArrayList<>();
 		Connection connection = getConnection();
@@ -185,7 +185,7 @@ public class StudentDao extends Dao {
 	}
 
 	//学校と在学状態のみを使用したフィルタリング
-	//上記のpostFilterと似たコードなのでコメントは省く
+	//上記のfilterと似たコードなのでコメントは省く
 	public List<Student> filter(School school, boolean isAttend) throws Exception {
 		List<Student> list = new ArrayList<>();
 		Connection connection = getConnection();
