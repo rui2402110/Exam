@@ -13,27 +13,24 @@ import bean.TestListStudent;
 public class TestListStudentDao extends Dao {
 	// 基本となるSQL文（student_noによる検索）// 明日CLASS_NUMをSQLで取るところから
 	private String baseSql = "SELECT " +
-        "   STUDENT.NAME AS STUDENT_NAME, " +
-        "   STUDENT.NO AS STUDENT_NO, " +
-        "   SUBJECT.NAME AS SUBJECT_NAME, " +
-        "   SUBJECT.CD AS SUBJECT_CD, "+
-        "   TEST.SUBJECT_CD, " +
-        "   MAX(CASE WHEN TEST.NO = 1 THEN TEST.NO ELSE NULL END) AS NO_1, " +
-        "   MAX(CASE WHEN TEST.NO = 1 THEN TEST.POINT ELSE NULL END) AS POINT_1, " +
-        "   MAX(CASE WHEN TEST.NO = 2 THEN TEST.NO ELSE NULL END) AS NO_2, " +
-        "   MAX(CASE WHEN TEST.NO = 2 THEN TEST.POINT ELSE NULL END) AS POINT_2 " +
-        "FROM " +
-        "   STUDENT " +
-        "JOIN " +
-        "   TEST ON STUDENT.NO = TEST.STUDENT_NO AND STUDENT.SCHOOL_CD = TEST.SCHOOL_CD " +
-        "JOIN " +
-        "   SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD AND TEST.SCHOOL_CD = SUBJECT.SCHOOL_CD " +
-        "WHERE " +
-        "   STUDENT.NO = ? " + // ここにデータを入力
-        "GROUP BY " +
-        "   STUDENT.NAME, STUDENT.NO, SUBJECT.NAME, TEST.SUBJECT_CD " +
-        "ORDER BY " +
-        "   STUDENT.NO ASC ";
+            "  STUDENT.NAME AS STUDENT_NAME, " +
+            "  STUDENT.CLASS_NUM AS CLASS_NUM, " +
+            "  STUDENT.NO AS STUDENT_NO, " +
+            "  SUBJECT.NAME AS SUBJECT_NAME, " +
+            "  SUBJECT.CD AS SUBJECT_CD, " +
+            "  TEST.SUBJECT_CD, " +
+            "  TEST.NO AS TEST_NO, " +
+            "  TEST.POINT AS TEST_POINT " +
+            "FROM " +
+            "  STUDENT " +
+            "JOIN " +
+            "  TEST ON STUDENT.NO = TEST.STUDENT_NO AND STUDENT.SCHOOL_CD = TEST.SCHOOL_CD " +
+            "JOIN " +
+            "  SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD AND TEST.SCHOOL_CD = SUBJECT.SCHOOL_CD " +
+            "WHERE " +
+            "  STUDENT.NO = ? " + //ここにデータを入力
+            "ORDER BY " +
+            "  STUDENT.NO, SUBJECT.CD, TEST.NO";
 
 	// ResultSetからクラスリストを作成するメソッド
 		private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
@@ -45,8 +42,15 @@ public class TestListStudentDao extends Dao {
 					TestListStudent testListStudent = new TestListStudent();
 					testListStudent.setSubjectName(rSet.getString("subject_name"));
 					testListStudent.setSubjectCd(rSet.getString("subject_cd"));
-					testListStudent.setNum(rSet.getInt("class_num"));
-					testListStudent.setPoint(rSet.getInt("point"));
+					testListStudent.setNum(rSet.getInt("TEST_NO"));
+					testListStudent.setPoint(rSet.getInt("TEST_POINT"));
+					System.out.println(rSet.getString("subject_name"));
+					System.out.println(rSet.getString("subject_cd"));
+					System.out.println(rSet.getInt("TEST_NO"));
+					System.out.println(rSet.getInt("TEST_POINT"));
+					System.out.println("------------------");
+
+					list.add(testListStudent);
 				}
 			} catch (SQLException | NullPointerException e) {
 				e.printStackTrace();
@@ -68,7 +72,6 @@ public class TestListStudentDao extends Dao {
 
 				//SQLを実行
 				rSet = statement.executeQuery();
-
 
 				list = postFilter(rSet);
 
