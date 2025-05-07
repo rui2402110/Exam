@@ -69,9 +69,9 @@ public class TestRegistAction extends Action {
 		    entYearSet.add(i);
 		}
 
-		if (entYearStr != null && !entYearStr.isEmpty()) {
-		    entYear = Integer.parseInt(entYearStr);
-		}
+//		if (entYearStr != null && !entYearStr.isEmpty()) {
+//		    entYear = Integer.parseInt(entYearStr);
+//		}
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classList = cNumDao.filter(teacher.getSchool());
 
@@ -103,6 +103,8 @@ public class TestRegistAction extends Action {
         for (Student student : stuList) {
         	test.setStudent(student);
         }
+
+
 
         test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
         req.setAttribute("points", test);
