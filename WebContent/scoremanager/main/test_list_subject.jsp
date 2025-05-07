@@ -10,7 +10,6 @@ pageEncoding="UTF-8"%>
 <c:param name="content">
 
 <section class="mb-3">
-<<<<<<< HEAD
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
     <!-- 検索条件1：入学年度・クラス・科目 -->
