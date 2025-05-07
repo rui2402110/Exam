@@ -41,7 +41,7 @@ public class TestRegistAction extends Action {
 		String subjectCd = "";
 		String countStr ="";
 		int entYear = 0;
-		boolean isAttend =false;
+		boolean isAttend =true;
 
 		Map<String, String> errorMap = new HashMap<>();
 
@@ -68,10 +68,10 @@ public class TestRegistAction extends Action {
 		for (int i = year - 10; i < year + 1; i++) {
 		    entYearSet.add(i);
 		}
-
-//		if (entYearStr != null && !entYearStr.isEmpty()) {
-//		    entYear = Integer.parseInt(entYearStr);
-//		}
+//
+		if (entYearStr != null && !entYearStr.isEmpty()) {
+		    entYear = Integer.parseInt(entYearStr);
+		}
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classList = cNumDao.filter(teacher.getSchool());
 
@@ -99,15 +99,20 @@ public class TestRegistAction extends Action {
             req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;
         }
-        //listをStudent studentに変換
-        for (Student student : stuList) {
-        	test.setStudent(student);
-        }
+
+    	// ログインユーザーの学校コードをもとに一覧を取得
+        List<Test> testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()), Integer.parseInt(countStr), teacher.getSchool());
 
 
+//        //listをStudent studentに変換
+//        for (Student student : stuList) {
+//        	test.setStudent(student);
+//        }
 
-        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
-        req.setAttribute("points", test);
+//
+//
+//        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
+        req.setAttribute("points", testList);
 		// フォワード
 	    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}

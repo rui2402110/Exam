@@ -60,7 +60,7 @@
     <c:if test="${student_set.size()>0}">
         <form method="post" action="TestRegistExecute.action">
             <div class="px-4 mb-3">
-                科目：${subject_set.name}（${count}回目）
+
             </div>
             <table class="table table-hover">
                 <tr>
