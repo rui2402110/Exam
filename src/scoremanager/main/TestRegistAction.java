@@ -17,6 +17,7 @@ import bean.Test;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class TestRegistAction extends Action {
@@ -29,6 +30,9 @@ public class TestRegistAction extends Action {
 		Teacher teacher = (Teacher)session.getAttribute("user");
 		LocalDate todaysDate = LocalDate.now();
 		int year = todaysDate.getYear();
+		Test test =new Test();
+//		Student student =new Student();
+//		Subject subject =new Subject();
 
 
 		// 値の取得に使う変数を定義
@@ -37,16 +41,16 @@ public class TestRegistAction extends Action {
 		String subjectCd = "";
 		String countStr ="";
 		int entYear = 0;
-		boolean isAttend = false;
+		boolean isAttend =false;
 
 		Map<String, String> errorMap = new HashMap<>();
-        List<Test> testList = new ArrayList<>();
 
 
 		// 使用するDAOを定義
 		ClassNumDao cNumDao =new ClassNumDao();
 		SubjectDao subDao =new SubjectDao();
 		StudentDao stuDao =new StudentDao();
+		TestDao testDao =new TestDao();
 
 		// 入力された変数を取得
 		entYearStr = req.getParameter("f1");//入学年度
@@ -65,6 +69,9 @@ public class TestRegistAction extends Action {
 		    entYearSet.add(i);
 		}
 
+		if (entYearStr != null && !entYearStr.isEmpty()) {
+		    entYear = Integer.parseInt(entYearStr);
+		}
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> classList = cNumDao.filter(teacher.getSchool());
 
@@ -75,13 +82,14 @@ public class TestRegistAction extends Action {
 		List<Student> stuList = stuDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
 		// 入学年度とクラス番号を指定
 
+		System.out.println("stuList: " +teacher.getSchool()+ " : "+entYear+ " : "+ classNum+ " : "+ isAttend);
 		// JSPに送るデータをセット
 		req.setAttribute("ent_year_set",entYearSet);
 		req.setAttribute("class_num_set",classList);
 		req.setAttribute("subject_set", subList);
 		req.setAttribute("student_set", stuList);
-//		req.setAttribute("errors1",errors1);
-//		req.setAttribute("errors2",errors2);
+
+		System.out.println("取得した学生数: " + stuList.size());
 
 		// 入力検証
         if (entYearStr == null || classNum == null || subjectCd == null || countStr == null
@@ -91,11 +99,13 @@ public class TestRegistAction extends Action {
             req.getRequestDispatcher("test_regist.jsp").forward(req, res);
             return;
         }
-        // entYearStrが非nullだった場合、entYearに数値にしたentyearstrを代入
- 		if (entYearStr != null) {
- 			entYear = Integer.parseInt(entYearStr);
- 		}
+        //listをStudent studentに変換
+        for (Student student : stuList) {
+        	test.setStudent(student);
+        }
 
+        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
+        req.setAttribute("points", test);
 		// フォワード
 	    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}

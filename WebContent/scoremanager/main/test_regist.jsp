@@ -57,10 +57,10 @@
     </form>
 
     <!-- 成績入力フォーム -->
-    <c:if test="${not empty points}">
+    <c:if test="${student_set.size()>0}">
         <form method="post" action="TestRegistExecute.action">
             <div class="px-4 mb-3">
-                科目：${subject_name}（${count}回目）
+                科目：${subject_set.name}（${count}回目）
             </div>
             <table class="table table-hover">
                 <tr>

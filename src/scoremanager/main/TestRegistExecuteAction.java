@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Student;
-import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.StudentDao;
@@ -41,19 +40,6 @@ public class TestRegistExecuteAction extends Action {
 
         Map<String, String> errorMap = new HashMap<>();
         List<Test> testList = new ArrayList<>();
-
-        // 入力検証
-        if (entYear == null || classNum == null || subjectCd == null || countStr == null
-                || entYear.isEmpty() || classNum.isEmpty() || subjectCd.isEmpty() || countStr.isEmpty()) {
-
-            req.setAttribute("errors", "入学年度・クラス・科目・回数をすべて選択してください");
-            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
-            return;
-        }
-
-        // 科目情報の取得
-        Subject subject = subjectDao.get(subjectCd, teacher.getSchool());
-        int count = Integer.parseInt(countStr);
 
         // 各学生の点数処理
         for (String studentNo : studentNos) {
