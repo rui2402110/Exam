@@ -15,8 +15,8 @@
         </div>
          <table class="table table-hover">
              <tr>
-                 <th>科目名</th>
                  <th>科目コード</th>
+                 <th>科目名</th>
              </tr>
              <c:forEach var="subject" items="${subject}">
                  <tr>
