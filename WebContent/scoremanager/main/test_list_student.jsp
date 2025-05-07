@@ -75,33 +75,6 @@ pageEncoding="UTF-8"%>
         <div class="text-danger mx-3">学生情報が存在しませんでした</div>
     </c:if>
 
-    <!-- 成績一覧表示 -->
-    <c:if test="${not empty test_list}">
-        <div class="px-4 mb-2">
-            科目：<c:out value="${subject_name}" />
-        </div>
-        <table class="table table-hover">
-            <tr>
-                <th>入学年度</th>
-                <th>クラス</th>
-                <th>学生番号</th>
-                <th>氏名</th>
-                <th>1回目の点数</th>
-                <th>2回目の点数</th>
-            </tr>
-            <c:forEach var="test" items="${test_list}">
-                <tr>
-                    <td>${test.ent_year}</td>
-                    <td>${test.class_num}</td>
-                    <td>${test.student_no}</td>
-                    <td>${test.student_name}</td>
-                    <td>${test.point1}</td>
-                    <td>${test.point2}</td>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:if>
-
     <!-- 成績一覧（学生） -->
     <c:if test="${not empty student_info}">
        <div class="px-4 mb-2">
@@ -114,11 +87,11 @@ pageEncoding="UTF-8"%>
                    <th>回数</th>
                    <th>点数</th>
                 </tr>
-        <c:forEach var="score" items="${score_list}">
+        <c:forEach var="score" items="${score}">
             <tr>
-                <td>${score.subject_name}</td>
-                <td>${score.subject_code}</td>
-                <td>${score.count}</td>
+                <td>${score.subjectName}</td>
+                <td>${score.subjectCd}</td>
+                <td>${score.num}</td>
                 <td>${score.point}</td>
             </tr>
           </c:forEach>

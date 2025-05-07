@@ -29,7 +29,7 @@ public class TestListStudentExecuteAction extends Action {
 		// JSPから送られてきたデータを取得
 		studentNo =req.getParameter("f4");
 
-		// Studentを定義
+		// JSPから送られてきたデータを利用し生徒のデータを取得
 		Student student = sDao.get(studentNo);
 
 		//
@@ -37,7 +37,8 @@ public class TestListStudentExecuteAction extends Action {
 
 		System.out.println(testListStudent);
 
-		req.setAttribute("student_info",testListStudent);
+		req.setAttribute("student_info",student);
+		req.setAttribute("score",testListStudent);
 
 		// フォワード
 	    req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
