@@ -13,7 +13,10 @@ import bean.Subject;
 import bean.Test;
 public class TestDao extends Dao {
 	// 基本となるSQL文（subject_cdによる検索）
-	private String baseSql = "SELECT * FROM TEST WHERE SUBJECT_CD = ? ";
+	private String baseSql = " SELECT TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO, " +
+            " TEST.POINT, TEST.CLASS_NUM, STUDENT.ent_year " +
+            " FROM TEST " +
+            " JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO ";
 
 	public Test get(Student student, Subject subject, School school, int no) throws Exception {
 		// SQLに接続
@@ -80,7 +83,7 @@ public class TestDao extends Dao {
 		List<Test> list = new ArrayList<>();
 		try{
 			Test test =new Test();
-			// 最終的にreturnするデータはstudent_no , subject_cd , school_cd , no , point , class_numなのでそれを取る
+			// 最終的にreturnするデータはstudent , subject , school , no , point , class_numなのでそれを取る
 
 			// studentオブジェクトを作成
 			Student student = new Student();
@@ -113,7 +116,7 @@ public class TestDao extends Dao {
 	    ResultSet rSet = null;
 
 	    //条件が適用された時にこのStringがbaseSQLに追加される
-	    String condition = "and ent_year=? and class_num=?";
+	    String condition = " WHERE TEST.SUBJECT_CD = ? AND TEST.class_num = ? AND STUDENT.ENT_YEAR = ? ";
 	    String order = "order by no asc";
 
 	    try {
