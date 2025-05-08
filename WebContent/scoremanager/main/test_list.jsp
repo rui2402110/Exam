@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 <section class="mb-3">
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
-    <!-- 検索条件1：入学年度・クラス・科目 -->
+    <%-- 検索条件1：入学年度・クラス・科目 --%>
     <p class="fw-bold px-4">科目情報</p>
     <form method="get" action="TestListSubjectExecute.action">
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
@@ -46,12 +46,12 @@ pageEncoding="UTF-8"%>
             <div class="col-2 text-center">
                 <button class="btn btn-secondary">検索</button>
             </div>
-            <!-- hiddenで識別子 -->
+            <%-- hiddenで識別子 --%>
             <input type="hidden" name="f" value="sj">
         </div>
     </form>
 
-    <!-- 検索条件2：学生番号 -->
+    <%-- 検索条件2：学生番号 --%>
     <p class="fw-bold px-4">学生情報</p>
     <form method="get" action="TestListStudentExecute.action">
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
@@ -64,17 +64,17 @@ pageEncoding="UTF-8"%>
             <div class="col-2 text-center">
                 <button class="btn btn-secondary">検索</button>
             </div>
-            <!-- hiddenで識別子 -->
+            <%-- hiddenで識別子 --%>
             <input type="hidden" name="f" value="st">
         </div>
     </form>
 
-    <!-- エラーメッセージ -->
+    <%-- エラーメッセージ --%>
     <c:if test="${not empty errors['f1']}">
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
 
-    <!-- 利用方法メッセージ -->
+    <%-- 利用方法メッセージ --%>
     <div class="text-info mx-3">
         科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
     </div>

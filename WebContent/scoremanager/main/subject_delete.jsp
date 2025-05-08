@@ -17,7 +17,7 @@
             「${subject_name}（${cd}）」を削除してよろしいですか？
         </p>
 
-        <!-- hidden inputで情報を送信 -->
+        <%-- hidden inputで情報を送信 --%>
         <input type="hidden" name="subject_cd" value="${cd}">
         <input type="hidden" name="subject_name" value="${subject_name}">
 

@@ -1,4 +1,4 @@
-<!-- 成績管理（仮） -->
+<%-- 成績管理（仮） --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -12,7 +12,7 @@
 <section class="mb-3">
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
 
-    <!-- 検索フォーム -->
+    <%-- 検索フォーム --%>
     <form method="get"action="TestRegist.action">
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
             <div class="col-2">
@@ -56,7 +56,7 @@
         </div>
     </form>
 
-    <!-- 成績入力フォーム -->
+    <%-- 成績入力フォーム --%>
     <c:if test="${student_set.size()>0}">
         <form method="post" action="TestRegistExecute.action">
             <div class="px-4 mb-3">
@@ -80,7 +80,7 @@
                             <input type="text" name="point_${points.student.no}" value="${points.point}" size="4" class="form-control">
                             <input type="hidden" name="regist" value="${points.student.no}">
 
-                            <!--エラーを表示-->
+                            <%--エラーを表示--%>
                             <c:if test="${not empty errors[points.student.no]}">
                             <div class="text-warning">${errors[points.student.no]}</div>
                             </c:if>
@@ -88,7 +88,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <!-- hiddenで共通情報 -->
+            <%-- hiddenで共通情報 --%>
             <input type="hidden" name="count" value="${count}">
             <input type="hidden" name="subject" value="${subject_cd}">
             <div class="mt-3">

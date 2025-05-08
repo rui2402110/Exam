@@ -2,24 +2,24 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- base.jsp を読み込み -->
+<%-- base.jsp を読み込み --%>
 <c:import url="/common/base.jsp">
-<!--タイトル設定-->
+<%--タイトル設定--%>
 <c:param name="title">
 得点管理システム
 </c:param>
 <c:param name="scripts"></c:param>
 
-<!-- メイン -->
+<%-- メイン --%>
 <c:param name="content">
     <section class="mb-3">
-    <!-- 見出し -->
+    <%-- 見出し --%>
         <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">クラス管理</h2>
         <div class="my-2 text-end px-4">
             <a href="ClassCreate.action">新規登録</a>
         </div>
 
-		<!-- メッセージ表示 -->
+		<%-- メッセージ表示 --%>
         <%String message = (String)request.getAttribute("message"); %>
         <% if(message != null) { %>
     	<div style="color: orange; background-color: #e0f7fa; width: 250px; font-size: 20pt; position: absolute; top: 30%; left: 50%;">
@@ -27,7 +27,7 @@
     	</div>
 		<% } %>
 
-<!-- クラス一覧 -->
+<%-- クラス一覧 --%>
         <c:choose>
             <c:when test="${classMap.size() > 0}">
                 <div>検索結果：${classMap.size()}件</div>
@@ -37,7 +37,7 @@
                         <th>クラス</th>
                         <th></th>
                     </tr>
-                    <!-- classMap（Map<String, String>）の内容をループで表示 -->
+                    <%-- classMap（Map<String, String>）の内容をループで表示 --%>
                     <c:forEach var="data" items="${classMap}">
         			<tr>
             			<td>${data.value}</td>

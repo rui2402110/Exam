@@ -3,14 +3,14 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!-- base.jsp を読み込み -->
+<%-- base.jsp を読み込み --%>
 <c:import url="/common/base.jsp">
-<!-- タイトル設定 -->
+<%-- タイトル設定 --%>
 	<c:param name="title">
 		得点管理システム
 	</c:param>
 
-<!-- メイン -->
+<%-- メイン --%>
 	<c:param name="content">
 		<div id="wrap_box">
 		<!-- 見出し -->
