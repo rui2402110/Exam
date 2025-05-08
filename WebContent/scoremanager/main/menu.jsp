@@ -5,14 +5,14 @@
 
 <!-- base.jsp を読み込み -->
 <c:import url="/common/base.jsp">
-<!-- タイトル設定 -->
+<%-- タイトル設定 --%>
 	<c:param name="title">
 		得点管理システム
 	</c:param>
 
 	<c:param name="scripts"></c:param>
 
-<!-- メイン -->
+	<%-- メイン --%>
 	<c:param name="content">
 		<section class="me-4">
 		<!-- 見出し -->
@@ -20,24 +20,24 @@
 
 			<div class="row text-center px-4 fs-3 my-5">
 
-				<!-- 学生管理欄 -->
+				<%-- 学生管理欄 --%>
 				<div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow"
 					style="height: 10rem; background-color: #dbb;">
 					<a href="StudentList.action">学生管理</a>
 				</div>
 
-				<!-- 成績管理欄 -->
+				<%-- 成績管理欄 --%>
 				<div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow"
 					style="height: 10rem; background-color: #bdb;">
 					<div>
 						<div class="">成績管理</div>
 						<div class="">
-						<!-- 成績登録欄 -->
+						<%-- 成績登録欄 --%>
 							<a href="TestRegist.action">成績登録</a>
 						</div>
 
 						<div class="">
-						<!-- 成績参照欄 -->
+						<%-- 成績参照欄 --%>
 							<a href="TestList.action">成績参照</a>
 						</div>
 					</div>
