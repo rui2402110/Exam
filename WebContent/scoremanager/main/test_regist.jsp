@@ -70,19 +70,19 @@
                     <th>氏名</th>
                     <th>点数</th>
                 </tr>
-                <c:forEach var="point" items="${points}">
+                <c:forEach var="points" items="${points}">
                     <tr>
-                        <td>${point.student.entYear}</td>
-                        <td>${point.student.classNum}</td>
-                        <td>${point.student.no}</td>
-                        <td>${point.student.name}</td>
+                        <td>${points.student.entYear}</td>
+                        <td>${points.student.classNum}</td>
+                        <td>${points.student.no}</td>
+                        <td>${points.student.name}</td>
                         <td>
-                            <input type="text" name="point_${point.student.no}" value="${point.point}" size="4" class="form-control">
-                            <input type="hidden" name="regist" value="${point.student.no}">
+                            <input type="text" name="point_${points.student.no}" value="${points.point}" size="4" class="form-control">
+                            <input type="hidden" name="regist" value="${points.student.no}">
 
                             <!--エラーを表示-->
-                            <c:if test="${not empty errors[point.student.no]}">
-                            <div class="text-warning">${errors[point.student.no]}</div>
+                            <c:if test="${not empty errors[points.student.no]}">
+                            <div class="text-warning">${errors[points.student.no]}</div>
                             </c:if>
                         </td>
                     </tr>

@@ -13,7 +13,7 @@ import bean.Subject;
 import bean.Test;
 public class TestDao extends Dao {
 	// 基本となるSQL文（subject_cdによる検索）
-	private String baseSql = " SELECT TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO, " +
+	private String baseSql = " SELECT TEST.STUDENT_NO as student_no, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO, " +
             " TEST.POINT, TEST.CLASS_NUM, STUDENT.ent_year " +
             " FROM TEST " +
             " JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO ";
@@ -82,12 +82,14 @@ public class TestDao extends Dao {
 		// Listを作成
 		List<Test> list = new ArrayList<>();
 		try{
+			System.out.println("値があるか:" + rSet.next());
 			Test test =new Test();
 			// 最終的にreturnするデータはstudent , subject , school , no , point , class_numなのでそれを取る
 
 			// studentオブジェクトを作成
 			Student student = new Student();
 			// rSetのデータを使用してstudentからデータを取得
+			System.out.println(rSet.getString("student_no"));
 			student.setNo(rSet.getString("student_no"));
 			// setterでset
             test.setStudent(student);
@@ -123,9 +125,13 @@ public class TestDao extends Dao {
 	        connection = getConnection();
 	        //SQLを連結
 	        statement = connection.prepareStatement(baseSql + condition + order);
+	        System.out.println(baseSql + condition + order);
 	        statement.setString(1, subject.getCd());
-	        statement.setInt(2, entYear);
-	        statement.setString(3, classNum);
+	        statement.setString(2, classNum);
+	        statement.setInt(3, entYear);
+	        System.out.println("1,"+ subject.getCd());
+	        System.out.println("2,"+ entYear);
+	        System.out.println("3,"+ classNum);
 
 	        //SQLを実行
 	        rSet = statement.executeQuery();
