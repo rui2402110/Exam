@@ -41,6 +41,7 @@ public class StudentCreateAction extends Action {
 		//StudentCreateExecuteActionからエラー処理用のデータを取得
 		String errors1 = (String)req.getAttribute("errors1");
 		String errors2 = (String)req.getAttribute("errors2");
+		String errors3 = (String)req.getAttribute("errors3");
 
 		//教師データなどを取得
 		List<String> list = cNumDao.filter(teacher.getSchool());
@@ -54,6 +55,7 @@ public class StudentCreateAction extends Action {
 		//エラー文章をセット
 		req.setAttribute("errors1", errors1);
 		req.setAttribute("errors2", errors2);
+		req.setAttribute("errors3", errors3);
 		//フォワード
 		req.getRequestDispatcher("student_create.jsp").forward(req, res);
 

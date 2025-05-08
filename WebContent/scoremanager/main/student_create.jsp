@@ -31,7 +31,7 @@
 
                         <%-- DBのデータを表示するため、JSTLでIF文を記述 --%>
                         <c:forEach var="year" items="${ent_year_set}">
-                            <option value="${year}" <c:if test="${year==f1}">selected</c:if>>${year}</option>
+                            <option value="${year}" <c:if test="${year==ent_year}">selected</c:if>>${year}</option>
                         </c:forEach>
                     </select>
                     <%-- エラー処理 --%>
@@ -77,10 +77,17 @@
 
                        <%-- DBのデータを表示するため、JSTLでIF文を記述 --%>
                         <c:forEach var="num" items="${class_num_set}">
-                            <option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
+                            <option value="${num}" <c:if test="${num==class_num}">selected</c:if>>${num}</option>
                         </c:forEach>
                     </select>
                 </div>
+
+                <%
+                String errors3 = (String)request.getAttribute("errors3"); %>
+                <% if(errors2 != null) { %>
+    			<div style="color: orange;"><%= errors3 %></div>
+				<% } %>
+
                 <%-- 登録ボタン --%>
         <div class="col-2 text-center">
         			<br>
