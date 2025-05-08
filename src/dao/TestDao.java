@@ -81,6 +81,9 @@ public class TestDao extends Dao {
 	private List<Test> postFilter(ResultSet rSet , School school) throws Exception {
 		// Listを作成
 		List<Test> list = new ArrayList<>();
+		//
+		StudentDao stuDao = new StudentDao();
+		SubjectDao subDao =new SubjectDao();
 		try{
 			System.out.println("値があるか:" + rSet.next());
 			Test test =new Test();
@@ -89,15 +92,18 @@ public class TestDao extends Dao {
 			// studentオブジェクトを作成
 			Student student = new Student();
 			// rSetのデータを使用してstudentからデータを取得
-			System.out.println(rSet.getString("student_no"));
-			student.setNo(rSet.getString("student_no"));
+			String studentNo =rSet.getString("student_no");
+			//
+			student =stuDao.get(studentNo);
 			// setterでset
             test.setStudent(student);
 
             // subjectオブジェクトを作成
             Subject subject = new Subject();
             // rSetのデータを使用してsubjectからデータを取得
-            subject.setCd(rSet.getString("subject_cd"));
+            String subjectCd = (rSet.getString("subject_cd"));
+            //
+            subject=subDao.get(subjectCd, school);
             // setterでset
             test.setSubject(subject);
 
@@ -106,6 +112,8 @@ public class TestDao extends Dao {
 			test.setNo(rSet.getInt("no"));
 			test.setPoint(rSet.getInt("point"));
 			test.setClassNum(rSet.getString("class_num"));
+
+			list.add(test);
 		}catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
 		}

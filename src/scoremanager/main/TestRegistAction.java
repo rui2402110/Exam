@@ -103,6 +103,7 @@ public class TestRegistAction extends Action {
     	// ログインユーザーの学校コードをもとに一覧を取得
         List<Test> testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()), Integer.parseInt(countStr), teacher.getSchool());
 
+        System.out.println(testList.size());
 
 //        //listをStudent studentに変換
 //        for (Student student : stuList) {

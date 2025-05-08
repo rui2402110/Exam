@@ -117,7 +117,7 @@ pageEncoding="UTF-8"%>
         <c:forEach var="score" items="${score_list}">
             <tr>
                 <td>${score.subject_name}</td>
-                <td>${score.subject_code}</td>
+                <td>${score.subject_cd}</td>
                 <td>${score.count}</td>
                 <td>${score.point}</td>
             </tr>

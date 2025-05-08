@@ -72,10 +72,10 @@
                 </tr>
                 <c:forEach var="points" items="${points}">
                     <tr>
-                        <td>${points.student.entYear}</td>
-                        <td>${points.student.classNum}</td>
-                        <td>${points.student.no}</td>
-                        <td>${points.student.name}</td>
+                        <td>${points.student.getEntYear()}</td>
+                        <td>${points.classNum}</td>
+                        <td>${points.student.getNo()}</td>
+                        <td>${points.student.getName()}</td>
                         <td>
                             <input type="text" name="point_${points.student.no}" value="${points.point}" size="4" class="form-control">
                             <input type="hidden" name="regist" value="${points.student.no}">
