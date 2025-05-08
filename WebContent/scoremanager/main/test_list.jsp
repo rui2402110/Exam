@@ -1,21 +1,31 @@
+<%--成績管理一覧 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%-- base.jsp を読み込み --%>
 <c:import url="/common/base.jsp">
+
+<%--タイトル設定 --%>
 <c:param name="title">
 得点管理システム
 </c:param>
 <c:param name="scripts"></c:param>
+
+<%--メイン --%>
 <c:param name="content">
 
 <section class="mb-3">
+	<%--見出し --%>
     <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績参照</h2>
 
     <%-- 検索条件1：入学年度・クラス・科目 --%>
     <p class="fw-bold px-4">科目情報</p>
+    <%-- formタグを設定 あて先はExecuteAction --%>
     <form method="get" action="TestListSubjectExecute.action">
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
+
+        	<%--入学年度 --%>
             <div class="col-2">
                 <label class="form-label">入学年度</label>
                 <select class="form-select" name="f1">
@@ -25,6 +35,9 @@ pageEncoding="UTF-8"%>
                     </c:forEach>
                 </select>
             </div>
+
+
+            <%--クラス --%>
             <div class="col-2">
                 <label class="form-label">クラス</label>
                 <select class="form-select" name="f2">
@@ -34,6 +47,9 @@ pageEncoding="UTF-8"%>
                     </c:forEach>
                 </select>
             </div>
+
+
+            <%--科目 --%>
             <div class="col-4">
                 <label class="form-label">科目</label>
                 <select class="form-select" name="f3">
@@ -53,7 +69,9 @@ pageEncoding="UTF-8"%>
 
     <%-- 検索条件2：学生番号 --%>
     <p class="fw-bold px-4">学生情報</p>
+    <%-- formタグを設定 あて先はExecuteAction --%>
     <form method="get" action="TestListStudentExecute.action">
+
         <div class="row border mx-3 mb-3 py-2 align-items-center rounded">
             <div class="col-2">
                 <label class="form-label">学生番号</label>
