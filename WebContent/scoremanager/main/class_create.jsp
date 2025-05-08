@@ -4,7 +4,7 @@
 
 <%-- base.jsp を読み込み --%>
 <c:import url="/common/base.jsp">
-<!-- タイトル設定 -->
+<%-- タイトル設定 --%>
 <c:param name="title">
 得点管理システム
 </c:param>
