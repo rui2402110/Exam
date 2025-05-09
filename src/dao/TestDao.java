@@ -183,8 +183,9 @@ public class TestDao extends Dao {
 
         	//送られたlistの回数分saveメソッドを呼び出す
         	for (int i = 0; i < list.size(); i++) {
-
+        		System.out.println(list.get(i));
         		result = save(list.get(i), connection);
+
         	}
         	} catch(Exception e){
         		throw e;

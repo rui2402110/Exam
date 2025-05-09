@@ -39,9 +39,16 @@ public class TestRegistExecuteAction extends Action {
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
         for(String studentNo:regists){ //学生番号をstudentNoに代入
         	// パラメータ取得
-        	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
+       	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
         	String No = req.getParameter("count");  // 試験回数
             String subjectCd = req.getParameter("subject");  // 科目コード
+
+            System.out.println("a");
+         // デバッグ用出力
+            System.out.println("StudentNo: " + studentNo);
+            System.out.println("PointStr: " + pointStr);
+            System.out.println("No (試験回数): " + No);
+            System.out.println("SubjectCd: " + subjectCd);
 
             //未入力
             if (pointStr == null || pointStr.trim().isEmpty()) {
@@ -69,6 +76,7 @@ public class TestRegistExecuteAction extends Action {
 	            	testList.add(test);
 
 	            }
+	            System.out.println(testList);
 //            	セーブ
             	testDao.save(testList);
             } catch (NumberFormatException e) {
