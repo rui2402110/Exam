@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.Student;
 import bean.Teacher;
 import bean.Test;
 import dao.StudentDao;
@@ -26,18 +27,20 @@ public class TestRegistExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
         Map<String, String> errorMap = new HashMap<>();
         List<Test> testList = new ArrayList<>();
+        Student students =new Student();
 
         // DAO 初期化
-        StudentDao studentDao = new StudentDao();
-        SubjectDao subjectDao = new SubjectDao();
+        StudentDao stuDao = new StudentDao();
+        SubjectDao subDao = new SubjectDao();
         TestDao testDao = new TestDao();
+//        ClassNumDao classDao =new ClassNumDao();
 
         // 各学生の点数処理
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
         for(String studentNo:regists){ //学生番号をstudentNoに代入
         	// パラメータ取得
-        	String pointStr = req.getParameter("point_" + Integer.parseInt(studentNo));  // 学生ごとの点数
-        	String count = req.getParameter("count");  // 試験回数
+        	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
+        	String No = req.getParameter("count");  // 試験回数
             String subjectCd = req.getParameter("subject");  // 科目コード
 
             //未入力
@@ -52,12 +55,26 @@ public class TestRegistExecuteAction extends Action {
 	            if (point < 0 || point > 100) {
 	                errorMap.put(studentNo, "0～100の範囲で入力してください");
 	                continue;
+	            }else{
+	            	//データを格納
+	            	Test test =new Test();
+	            	students=stuDao.get(studentNo);
+	            	test.setStudent(students);
+	            	test.setSubject(subDao.get(subjectCd, teacher.getSchool()));
+	            	test.setSchool(teacher.getSchool());
+	            	test.setNo(Integer.parseInt(No));
+	            	test.setPoint(point);
+	            	test.setClassNum(students.getClassNum());
+	            	//testlistに追加
+	            	testList.add(test);
+
 	            }
-                
-               
+//            	セーブ
+            	testDao.save(testList);
             } catch (NumberFormatException e) {
                 errorMap.put(studentNo, "数値で入力してください");
             }
+
         }
 
         // 処理分岐
@@ -71,10 +88,9 @@ public class TestRegistExecuteAction extends Action {
             req.setAttribute("points", testList);
         }
 
-//        // 再表示
-//        req.setAttribute("subject_name", subject.getName());
-//        req.setAttribute("subject_cd", subjectCd);
-//        req.setAttribute("count", count);
-//        req.getRequestDispatcher("TestRegist.action").forward(req, res);
+        // 表示
+//        エラー
+        req.setAttribute("errors", errorMap);
+        req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
     }
 }
