@@ -65,6 +65,8 @@ public class SubjectCreateExecuteAction extends Action{
 			req.setAttribute("errors1", errors1);
 
 			String url = "subject_create.jsp";
+			req.setAttribute("cd_set", cd);
+			req.setAttribute("name_set", name);
 			req.getRequestDispatcher(url).forward(req, res);
 		}
 

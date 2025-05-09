@@ -27,11 +27,10 @@
         <div class="col-4">
 	        <label class="form-label" for="cd">科目コード</label>
 	        <br>
-	        <input type="text" id="cd" name="cd" value="${cd}" class="text-input" placeholder="科目コードを入力してください" required>
+	        <input type="text" id="cd" name="cd" value="${cd_set}" class="text-input" placeholder="科目コードを入力してください" required>
 	        <%--エラー処理 --%>
-	        <c:if test="${not empty errors['cd']}">
-	        <div class="text-danger">${errors['cd']}</div>
-	        </c:if>
+    			<div style="color: orange;">${errors1}</div>
+    			<div style="color: orange;">${errors2}</div>
         </div>
 
 
@@ -39,11 +38,7 @@
         <div class="col-4">
 	        <label class="form-label" for="name">科目名</label>
 	        <br>
-	        <input type="text" id="name" name="name" value="${name}" class="text-input" placeholder="科目名を入力してください" required>
-			<%--エラー処理 --%>
-	        <c:if test="${not empty errors['name']}">
-	        <div class="text-danger">${errors['name']}</div>
-	        </c:if>
+	        <input type="text" id="name" name="name" value="${name_set}" class="text-input" placeholder="科目名を入力してください" required>
         </div>
 
 
