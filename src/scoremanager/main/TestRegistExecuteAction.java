@@ -78,6 +78,8 @@ public class TestRegistExecuteAction extends Action {
 	            	System.out.println("No: " + test.getNo());
 	            	System.out.println("Point: " + test.getPoint());
 	            	System.out.println("ClassNum: " + test.getClassNum());
+	            	System.out.println("---------------------");
+
 
 	            	//testlistに追加
 	            	testList.add(test);
