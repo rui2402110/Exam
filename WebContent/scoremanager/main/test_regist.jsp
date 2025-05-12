@@ -89,8 +89,8 @@
                 </c:forEach>
             </table>
             <%-- hiddenで共通情報 --%>
-            <input type="hidden" name="count" value="${count}">
-            <input type="hidden" name="subject" value="${subject_cd}">
+            <input type="hidden" name="count" value="${f4}">
+            <input type="hidden" name="subject" value="${f3}">
             <div class="mt-3">
                 <button type="submit" class="btn btn-secondary">登録して終了</button>
             </div>

@@ -123,6 +123,10 @@ public class TestRegistAction extends Action {
 //
 //        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
         req.setAttribute("points", testList);
+        req.setAttribute("f1", entYearStr);
+        req.setAttribute("f2", classNum);
+        req.setAttribute("f3", subjectCd);
+        req.setAttribute("f4", countStr);
 		// フォワード
 	    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}

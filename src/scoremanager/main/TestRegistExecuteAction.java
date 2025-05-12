@@ -43,12 +43,12 @@ public class TestRegistExecuteAction extends Action {
         	String No = req.getParameter("count");  // 試験回数
             String subjectCd = req.getParameter("subject");  // 科目コード
 
-            System.out.println("a");
-         // デバッグ用出力
-            System.out.println("StudentNo: " + studentNo);
-            System.out.println("PointStr: " + pointStr);
-            System.out.println("No (試験回数): " + No);
-            System.out.println("SubjectCd: " + subjectCd);
+//            System.out.println("a");
+//         // デバッグ用出力
+//            System.out.println("StudentNo: " + studentNo);
+//            System.out.println("PointStr: " + pointStr);
+//            System.out.println("No (試験回数): " + No);
+//            System.out.println("SubjectCd: " + subjectCd);
 
             //未入力
             if (pointStr == null || pointStr.trim().isEmpty()) {
@@ -72,6 +72,13 @@ public class TestRegistExecuteAction extends Action {
 	            	test.setNo(Integer.parseInt(No));
 	            	test.setPoint(point);
 	            	test.setClassNum(students.getClassNum());
+	            	System.out.println("Student: " + test.getStudent());
+	            	System.out.println("Subject: " + test.getSubject());
+	            	System.out.println("School: " + test.getSchool());
+	            	System.out.println("No: " + test.getNo());
+	            	System.out.println("Point: " + test.getPoint());
+	            	System.out.println("ClassNum: " + test.getClassNum());
+
 	            	//testlistに追加
 	            	testList.add(test);
 
