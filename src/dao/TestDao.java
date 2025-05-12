@@ -184,6 +184,7 @@ public class TestDao extends Dao {
 			// トランザクション開始
         	connection.setAutoCommit(false);
         	try{
+        		System.out.println("Listサイズ：" + list.size());
 
         	//送られたlistの回数分saveメソッドを呼び出す
         	for (int i = 0; i < list.size(); i++) {
@@ -194,7 +195,19 @@ public class TestDao extends Dao {
         	}
         	} catch(Exception e){
         		throw e;
-        	}
+        	} finally {
+        		//connectionの閉じる処理を移動
+
+                if (connection != null) {
+                    try {
+                    	//connectionのオートコミットが無効になっているので追加
+                    	connection.commit();
+                        connection.close();
+                    } catch (SQLException sqle) {
+                        throw sqle;
+                    }
+                }
+            }
 
         	return result ;
 	}
@@ -219,13 +232,15 @@ public class TestDao extends Dao {
                 statement.setString(6, test.getClassNum());
             } else {
                 statement = connection.prepareStatement(
-                		" UPDATE TEST SET  POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ? AND CLASS_NUM = ? ");
+                		" UPDATE TEST SET POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ? AND CLASS_NUM = ? ");
                 // 送られたtestのデータをセット
                 statement.setInt(1, test.getPoint());
                 statement.setString(2, test.getStudent().getNo());
                 statement.setString(3, test.getSubject().getCd());
                 statement.setString(4, test.getSchool().getCd());
                 statement.setInt(5, test.getNo());
+                //足らなかったから追加
+                statement.setString(6,test.getClassNum());
             }
             // 実行して影響を受けた行数を確認
             int affected = statement.executeUpdate();
@@ -233,18 +248,11 @@ public class TestDao extends Dao {
             System.out.println(result);
         } catch (Exception e) {
             throw e;
-        } finally {
+        }finally {
             // リソースを解放
             if (statement != null) {
                 try {
                     statement.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
                 } catch (SQLException sqle) {
                     throw sqle;
                 }

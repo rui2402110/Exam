@@ -37,6 +37,7 @@ public class TestRegistExecuteAction extends Action {
 
         // 各学生の点数処理
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
+        System.out.println("registsのサイズ" + regists.length);
         for(String studentNo:regists){ //学生番号をstudentNoに代入
         	// パラメータ取得
        	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
@@ -87,7 +88,8 @@ public class TestRegistExecuteAction extends Action {
 	            }
 	            System.out.println(testList);
 //            	セーブ
-            	testDao.save(testList);
+	            //下で実行するのでコメントアウト
+            	//testDao.save(testList);
             } catch (NumberFormatException e) {
                 errorMap.put(studentNo, "数値で入力してください");
             }
