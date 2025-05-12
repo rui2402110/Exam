@@ -213,7 +213,7 @@ public class TestDao extends Dao {
                 statement.setString(6, test.getClassNum());
             } else {
                 statement = connection.prepareStatement(
-                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? NO = ? POINT = ? CLASS_NUM = ? WHERE ...");
+                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? NO = ? POINT = ? CLASS_NUM = ? WHERE STUDENT_NO = ?");
                 // 送られたtestのデータをセット
                 statement.setString(1, test.getStudent().getNo());
                 statement.setString(2, test.getSubject().getCd());
@@ -221,6 +221,7 @@ public class TestDao extends Dao {
                 statement.setInt(4, test.getNo());
                 statement.setInt(5, test.getPoint());
                 statement.setString(6, test.getClassNum());
+                statement.setString(1, test.getStudent().getNo());
             }
             // 実行して影響を受けた行数を確認
             int affected = statement.executeUpdate();
