@@ -183,6 +183,7 @@ public class TestDao extends Dao {
 
         	//送られたlistの回数分saveメソッドを呼び出す
         	for (int i = 0; i < list.size(); i++) {
+        		System.out.println("saveメソッド開始");
         		System.out.println(list.get(i));
         		result = save(list.get(i), connection);
 
@@ -195,6 +196,7 @@ public class TestDao extends Dao {
 	}
 
 	private boolean save(Test test , Connection connection )throws Exception{
+
         boolean result = false;
         PreparedStatement statement = null;
         try {
@@ -226,6 +228,7 @@ public class TestDao extends Dao {
             // 実行して影響を受けた行数を確認
             int affected = statement.executeUpdate();
             result = (affected > 0);
+            System.out.println(result);
         } catch (Exception e) {
             throw e;
         } finally {
