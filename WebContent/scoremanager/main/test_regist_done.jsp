@@ -17,7 +17,7 @@
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2">成績管理</h2>
 			<div id="wrap_box">
 			<%--メッセージ --%>
-				<p class="text-center" style="background-color:#66CC99">成績が完了しました</p>
+				<p class="text-center" style="background-color:#66CC99">成績の更新が完了しました</p>
 				<%--成績参照リンク --%>
 				<a href="TestRegist.action">成績参照</a>
 				<%--戻るリンク --%>

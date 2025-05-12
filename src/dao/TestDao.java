@@ -85,35 +85,39 @@ public class TestDao extends Dao {
 		StudentDao stuDao = new StudentDao();
 		SubjectDao subDao =new SubjectDao();
 		try{
-			System.out.println("値があるか:" + rSet.next());
-			Test test =new Test();
-			// 最終的にreturnするデータはstudent , subject , school , no , point , class_numなのでそれを取る
+			while (rSet.next()){
+				System.out.println("値があるか:" + rSet.next());
+				Test test =new Test();
+				// 最終的にreturnするデータはstudent , subject , school , no , point , class_numなのでそれを取る
 
-			// studentオブジェクトを作成
-			Student student = new Student();
-			// rSetのデータを使用してstudentからデータを取得
-			String studentNo =rSet.getString("student_no");
-			//
-			student =stuDao.get(studentNo);
-			// setterでset
-            test.setStudent(student);
+				// studentオブジェクトを作成
+				Student student = new Student();
+				// rSetのデータを使用してstudentからデータを取得
+				String studentNo =rSet.getString("student_no");
+				//
+				student =stuDao.get(studentNo);
+				// setterでset
+	            test.setStudent(student);
 
-            // subjectオブジェクトを作成
-            Subject subject = new Subject();
-            // rSetのデータを使用してsubjectからデータを取得
-            String subjectCd = (rSet.getString("subject_cd"));
-            //
-            subject=subDao.get(subjectCd, school);
-            // setterでset
-            test.setSubject(subject);
+	            // subjectオブジェクトを作成
+	            Subject subject = new Subject();
+	            // rSetのデータを使用してsubjectからデータを取得
+	            String subjectCd = (rSet.getString("subject_cd"));
+	            //
+	            subject=subDao.get(subjectCd, school);
+	            // setterでset
+	            test.setSubject(subject);
 
-			test.setSchool(school);
+				test.setSchool(school);
 
-			test.setNo(rSet.getInt("no"));
-			test.setPoint(rSet.getInt("point"));
-			test.setClassNum(rSet.getString("class_num"));
+				test.setNo(rSet.getInt("no"));
+				test.setPoint(rSet.getInt("point"));
+				test.setClassNum(rSet.getString("class_num"));
 
-			list.add(test);
+				list.add(test);
+			}
+
+
 		}catch (SQLException | NullPointerException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +130,7 @@ public class TestDao extends Dao {
 	    ResultSet rSet = null;
 
 	    //条件が適用された時にこのStringがbaseSQLに追加される
-	    String condition = " WHERE TEST.SUBJECT_CD = ? AND TEST.class_num = ? AND STUDENT.ENT_YEAR = ? ";
+	    String condition = " WHERE TEST.SUBJECT_CD = ? AND TEST.class_num = ? AND STUDENT.ENT_YEAR = ? AND TEST.NO = ? ";
 	    String order = "order by no asc";
 
 	    try {
@@ -137,6 +141,7 @@ public class TestDao extends Dao {
 	        statement.setString(1, subject.getCd());
 	        statement.setString(2, classNum);
 	        statement.setInt(3, entYear);
+	        statement.setInt(4, num);
 	        System.out.println("1,"+ subject.getCd());
 	        System.out.println("2,"+ entYear);
 	        System.out.println("3,"+ classNum);
