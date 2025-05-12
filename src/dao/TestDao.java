@@ -213,7 +213,7 @@ public class TestDao extends Dao {
                 statement.setString(6, test.getClassNum());
             } else {
                 statement = connection.prepareStatement(
-                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? NO = ? POINT = ? CLASS_NUM = ? WHERE STUDENT_NO = ?");
+                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? , NO = ? , POINT = ? , CLASS_NUM = ? WHERE STUDENT_NO = ?");
                 // 送られたtestのデータをセット
                 statement.setString(1, test.getStudent().getNo());
                 statement.setString(2, test.getSubject().getCd());
