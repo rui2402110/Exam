@@ -195,11 +195,19 @@ public class TestDao extends Dao {
 	}
 
 	private boolean save(Test test , Connection connection )throws Exception{
+		System.out.println("testdao.save_method");
+		System.out.println(test.getStudent());
+		System.out.println(test.getSubject());
+		System.out.println(test.getSchool());
+		System.out.println(test.getNo());
+		System.out.println(test.getPoint());
+		System.out.println(test.getClassNum());
         boolean result = false;
         PreparedStatement statement = null;
         try {
         	// 試験が既に存在するかどうか確認
             Test tes = get(test.getStudent(), test.getSubject(), test.getSchool() , test.getNo());
+            System.out.println(tes);
             // 試験が存在していた場合はUPDATE、しなかった場合はINSERTを実行
             if (tes == null) {
                 statement = connection.prepareStatement(
@@ -213,15 +221,14 @@ public class TestDao extends Dao {
                 statement.setString(6, test.getClassNum());
             } else {
                 statement = connection.prepareStatement(
-                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? , NO = ? , POINT = ? , CLASS_NUM = ? WHERE STUDENT_NO = ?");
+                		"UPDATE TEST SET  POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ? AND CLASS_NUM = ?");
                 // 送られたtestのデータをセット
-                statement.setString(1, test.getStudent().getNo());
-                statement.setString(2, test.getSubject().getCd());
-                statement.setString(3, test.getSchool().getCd());
-                statement.setInt(4, test.getNo());
-                statement.setInt(5, test.getPoint());
+                statement.setInt(1, test.getPoint());
+                statement.setString(2, test.getStudent().getNo());
+                statement.setString(3, test.getSubject().getCd());
+                statement.setString(4, test.getSchool().getCd());
+                statement.setInt(5, test.getNo());
                 statement.setString(6, test.getClassNum());
-                statement.setString(7, test.getStudent().getNo());
             }
             // 実行して影響を受けた行数を確認
             int affected = statement.executeUpdate();

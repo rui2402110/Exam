@@ -19,9 +19,9 @@
 			1<%--メッセージ --%>
 				<p class="text-center" style="background-color:#66CC99">成績が完了しました</p>
 				<%--成績参照リンク --%>
-				<a href="test_regist_List.action">成績参照</a>
+				<a href="TestRegist.action">成績参照</a>
 				<%--戻るリンク --%>
-                <a href="Menut.action">戻る</a>
+                <a href="Menu.action">戻る</a>
 			</div>
 		</div>
 	</c:param>
