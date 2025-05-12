@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import bean.School;
 import bean.Teacher;
 
 public class TeacherDao extends Dao {
@@ -90,5 +93,57 @@ public class TeacherDao extends Dao {
 			return null;
 		}
 		return teacher;
+	}
+	public List<Teacher> filter(School school) throws Exception {
+	    List<Teacher> list = new ArrayList<>();
+	    Connection connection = null;
+	    PreparedStatement statement = null;
+	    ResultSet rSet = null;
+
+	    try {
+	        connection = getConnection();
+	        statement = connection.prepareStatement("SELECT * FROM TEACHER WHERE SCHOOL = ?");
+	        statement.setString(1, school.getCd());
+
+	        // Execute the query - this was missing in the original code
+	        rSet = statement.executeQuery();
+
+	        while (rSet.next()) {
+	            Teacher teacher = new Teacher();
+	            teacher.setAuth(rSet.getBoolean("AUTH"));
+	            teacher.setId(rSet.getString("ID"));
+	            teacher.setPassword(rSet.getString("PASSWORD"));
+	            teacher.setName(rSet.getString("NAME"));
+	            teacher.setSchool(school);
+	            list.add(teacher);
+	        }
+	    } catch (SQLException e) {
+	        throw e;
+	    } finally {
+	        // Close resources in reverse order of creation
+	        if (rSet != null) {
+	            try {
+	                rSet.close();
+	            } catch (SQLException e) {
+	                // Log exception but continue closing resources
+	            }
+	        }
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException e) {
+	                // Log exception but continue closing resources
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException e) {
+	                throw e; // Re-throw the exception if connection close fails
+	            }
+	        }
+	    }
+
+	    return list;
 	}
 }

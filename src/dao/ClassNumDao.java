@@ -175,9 +175,12 @@ public class ClassNumDao extends Dao {
 	public boolean save(ClassNum classNum, String newClassNum ,String school_cd) throws Exception {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
+		PreparedStatement statement2 = null;
 		boolean result = false;
+		boolean result2 = false;
 
 		try {
+//			System.out.println("元のclass_num = "+classNum.getClass_num());
 			statement = connection.prepareStatement(
 					"UPDATE class_num SET class_num = ? WHERE class_num = ? AND school_cd = ?");
 			statement.setString(1, newClassNum);
@@ -186,6 +189,17 @@ public class ClassNumDao extends Dao {
 
 			int affected = statement.executeUpdate();
 			result = (affected > 0);
+			statement2 = connection.prepareStatement("UPDATE STUDENT SET CLASS_NUM = ? WHERE CLASS_NUM = ? ");
+			statement2.setString(1, newClassNum);
+			statement2.setString(2, classNum.getClass_num());
+
+			int affected2 = statement2.executeUpdate();
+//			System.out.println(affected2);
+			result2 = (affected2 > 0);
+			if (result2 == false){
+				result = false ;
+			}
+
 		} catch (Exception e) {
 			throw e;
 		} finally {

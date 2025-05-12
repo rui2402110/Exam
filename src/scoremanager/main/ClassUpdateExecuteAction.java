@@ -33,8 +33,7 @@ public class ClassUpdateExecuteAction extends Action {
 		System.out.println(classNumStr);
 		System.out.println(NewClassNumStr);
 
-
-		if (cNumDao.get(classNumStr, teacher.getSchool()) == null){
+		if (cNumDao.get(NewClassNumStr, teacher.getSchool()) == null){
 			//classNumに取得したデータをsetterでセット
 			classNum.setClass_num(classNumStr);
 			classNum.setSchool(teacher.getSchool());
@@ -48,6 +47,7 @@ public class ClassUpdateExecuteAction extends Action {
 			req.setAttribute("errors1", errors1);
 
 			String url = "ClassUpdate.action";
+			System.out.println("-------------------------------");
 			req.getRequestDispatcher(url).forward(req, res);
 		}
 

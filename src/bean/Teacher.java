@@ -23,6 +23,8 @@ public class Teacher extends User implements Serializable {
 	 */
 	private School school;
 
+	private boolean auth ;
+
 	/**
 	 * ゲッター・セッター
 	 */
@@ -56,5 +58,13 @@ public class Teacher extends User implements Serializable {
 
 	public void setSchool(School school) {
 		this.school = school;
+	}
+
+	public boolean getAuth() {
+		return auth;
+	}
+
+	public void setAuth(boolean auth) {
+		this.auth = auth;
 	}
 }
