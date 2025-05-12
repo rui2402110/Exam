@@ -86,7 +86,6 @@ public class TestDao extends Dao {
 		SubjectDao subDao =new SubjectDao();
 		try{
 			while (rSet.next()){
-				System.out.println("値があるか:" + rSet.next());
 				Test test =new Test();
 				// 最終的にreturnするデータはstudent , subject , school , no , point , class_numなのでそれを取る
 
@@ -220,7 +219,7 @@ public class TestDao extends Dao {
                 statement.setString(6, test.getClassNum());
             } else {
                 statement = connection.prepareStatement(
-                		"UPDATE TEST SET STUDENT_NO = ?, SUBJECT_CD = ?, SCHOOL_CD = ? , NO = ? , POINT = ? , CLASS_NUM = ? WHERE STUDENT_NO = ?");
+                		" UPDATE TEST SET  POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ? AND CLASS_NUM = ? ");
                 // 送られたtestのデータをセット
                 statement.setString(1, test.getStudent().getNo());
                 statement.setString(2, test.getSubject().getCd());
