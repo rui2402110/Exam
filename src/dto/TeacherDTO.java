@@ -11,6 +11,7 @@ public class TeacherDTO {
     private String name;
     private String maskedPassword;
     private String school;
+    private boolean auth;
 
     /**
      * 教員オブジェクトからDTOオブジェクトを生成
@@ -22,6 +23,7 @@ public class TeacherDTO {
         this.name = teacher.getName();
         this.maskedPassword = "******";  // パスワードの加工
         this.school = teacher.getSchool().getName();
+        this.auth = teacher.getAuth();
     }
 
     // Getterメソッド
@@ -29,4 +31,5 @@ public class TeacherDTO {
     public String getName() { return name; }
     public String getMaskedPassword() { return maskedPassword; }
     public String getSchool() { return school; }
+    public boolean getAuth() {return auth;}
 }
