@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Teacher;
 import dao.TeacherDao;
+import dto.TeacherDTO;
 import tool.Action;
 
 public class TeacherListAction extends Action {
@@ -18,37 +19,26 @@ public class TeacherListAction extends Action {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
+        // 未ログインならログインページへリダイレクト
+        if (teacher == null) {
+            res.sendRedirect("login.jsp");
+            return;
+        }
+
         // DAOを利用して教師データを取得
         TeacherDao tDao = new TeacherDao();
         List<TeacherDTO> teacherList = tDao.filter(teacher.getSchool())
-            .stream()  // ここで Stream を作成
-            .map(TeacherDTO::new) // DTOへ変換
+            .stream()
+            .map(TeacherDTO::new)
             .collect(Collectors.toList());
 
         // JSPにデータをセット
-        req.setAttribute("teacher", teacherList);
+        req.setAttribute("teacherList", teacherList);
+        req.setAttribute("school", teacher.getSchool());
+
+        // セッションにも保存 (JSP で使いやすい形に)
+        session.setAttribute("userAuth", teacher.getAuth());
+
         req.getRequestDispatcher("teacher_list.jsp").forward(req, res);
     }
-}
-
-// DTO (加工用データクラス)
-class TeacherDTO {
-    private String id;
-    private String name;
-    private String maskedPassword;
-    private String school;
-
-    // コンストラクタでデータを加工
-    public TeacherDTO(Teacher teacher) {
-        this.id = teacher.getId();
-        this.name = teacher.getName();
-        this.maskedPassword = "******"; // パスワードを伏せる
-        this.school = teacher.getSchool().getName();
-    }
-
-    // Getter (必要に応じて追加)
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public String getMaskedPassword() { return maskedPassword; }
-    public String getSchool() { return school; }
 }

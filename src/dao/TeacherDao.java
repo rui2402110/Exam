@@ -102,7 +102,7 @@ public class TeacherDao extends Dao {
 
 	    try {
 	        connection = getConnection();
-	        statement = connection.prepareStatement("SELECT * FROM TEACHER WHERE SCHOOL = ?");
+	        statement = connection.prepareStatement("SELECT * FROM TEACHER WHERE SCHOOL_CD = ?");
 	        statement.setString(1, school.getCd());
 
 	        // Execute the query - this was missing in the original code

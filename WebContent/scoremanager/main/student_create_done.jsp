@@ -17,7 +17,7 @@
 			<div id="wrap_box">
 				<p class="text-center" style="background-color:#66CC99">登録が完了しました</p>
 				<a href="StudentCreate.action">戻る</a>
-				<a href="StudentList.action">学生番号一覧リンク</a>
+				<a href="StudentList.action">学生番号一覧</a>
 			</div>
 		</div>
 	</c:param>
