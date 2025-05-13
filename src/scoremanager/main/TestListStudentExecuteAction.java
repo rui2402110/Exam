@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Student;
+import bean.Subject;
 import bean.Teacher;
 import bean.TestListStudent;
 import dao.ClassNumDao;
 import dao.StudentDao;
+import dao.SubjectDao;
 import dao.TestListStudentDao;
 import tool.Action;
 
@@ -27,7 +29,7 @@ public class TestListStudentExecuteAction extends Action {
 		//使用するDAOを定義
 		TestListStudentDao tesStuDao =new TestListStudentDao();
 		StudentDao sDao = new StudentDao();
-//		SubjectDao subDao =new SubjectDao();
+		SubjectDao subDao =new SubjectDao();
 		ClassNumDao cNumDao =new ClassNumDao();
 
 		// JSPから送られてくるデータを定義
@@ -54,11 +56,11 @@ public class TestListStudentExecuteAction extends Action {
 		List<String> classList = cNumDao.filter(teacher.getSchool());
 //
 		// ログインユーザーの学校コードをもとに科目の一覧を取得
-//		List<Subject> subList = subDao.filter(teacher.getSchool());
+		List<Subject> subList = subDao.filter(teacher.getSchool());
 
 		req.setAttribute("student_info",student);
 		req.setAttribute("score",testListStudent);
-//		req.setAttribute("subject_set", subList);
+		req.setAttribute("subject_set", subList);
 		req.setAttribute("ent_year_set",entYearSet);
 		req.setAttribute("class_num_set",classList);
 
