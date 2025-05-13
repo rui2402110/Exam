@@ -39,10 +39,11 @@ public class TestRegistExecuteAction extends Action {
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
         System.out.println("registsのサイズ" + regists.length);
         for(String studentNo:regists){ //学生番号をstudentNoに代入
-        	// パラメータ取得
+
+        // パラメータ取得
        	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
-        	String No = req.getParameter("count");  // 試験回数
-            String subjectCd = req.getParameter("subject");  // 科目コード
+        String No = req.getParameter("count");  // 試験回数
+        String subjectCd = req.getParameter("subject");  // 科目コード
 
 //            System.out.println("a");
 //         // デバッグ用出力
@@ -53,9 +54,12 @@ public class TestRegistExecuteAction extends Action {
 
             //未入力
             if (pointStr == null || pointStr.trim().isEmpty()) {
-//                errorMap.put(studentNo, "点数を入力してください");
+//              errorMap.put(studentNo, "点数を入力してください");
                 System.out.print("点数を入力してください");
-                continue;
+                String error1 = "点数を入力してください";
+                req.setAttribute("error1", error1);
+                String url = "TestRegist.action";
+				req.getRequestDispatcher(url).forward(req, res);
             }
             try{
 	          //pointSrtをpointに変換

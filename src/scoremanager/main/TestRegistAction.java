@@ -2,9 +2,7 @@ package scoremanager.main;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +41,7 @@ public class TestRegistAction extends Action {
 		int entYear = 0;
 		boolean isAttend =true;
 
-		Map<String, String> errorMap = new HashMap<>();
+//		Map<String, String> errorMap = new HashMap<>();
 
 
 		// 使用するDAOを定義
@@ -91,34 +89,40 @@ public class TestRegistAction extends Action {
 
 		System.out.println("取得した学生数: " + stuList.size());
 
-		// 入力検証
-        if (entYearStr == null || classNum == null || subjectCd == null || countStr == null
-                || entYearStr.isEmpty() || classNum.isEmpty() || subjectCd.isEmpty() || countStr.isEmpty()) {
 
-            req.setAttribute("errors", "入学年度とクラスと科目と回数を選択してください");
-            req.getRequestDispatcher("test_regist.jsp").forward(req, res);
-            return;
-        }
 
-    	// ログインユーザーの学校コードをもとに一覧を取得
         List<Test> testList = null ;
-        testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()), Integer.parseInt(countStr), teacher.getSchool());
+        if (entYearStr  != null || classNum != null || subjectCd != null || countStr != null){
+        	System.out.println("nullじゃないです");
+        	// 入力検証
+            if (entYearStr.equals("0") || classNum.equals("0") || subjectCd.equals("0") || countStr.equals("0") ) {
+            	System.out.println("エラー通ってます");
+                req.setAttribute("error1", "入学年度とクラスと科目と回数を選択してください");
+                req.setAttribute("f1", entYearStr);
+                req.setAttribute("f2", classNum);
+                req.setAttribute("f3", subjectCd);
+                req.setAttribute("f4", countStr);
+                req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+            }
+            // ログインユーザーの学校コードをもとに一覧を取得
+            testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()), Integer.parseInt(countStr), teacher.getSchool());
+            System.out.println(testList.size());
+            // testListの中身を確認
+            System.out.println("取得したテスト数: " + testList.size());
 
-        System.out.println(testList.size());
+            	for (Test test1 : testList) {
+            		System.out.println("学生番号: " + test1.getStudent().getNo());
+            		System.out.println("科目コード: " + test1.getSubject().getCd());
+            		System.out.println("点数: " + test1.getPoint());
+            		System.out.println("クラス: " + test1.getClassNum());
+            	}
+        }
 
 //        //listをStudent studentに変換
 //        for (Student student : stuList) {
 //        	test.setStudent(student);
 //        }
 
-     // testListの中身を確認
-        System.out.println("取得したテスト数: " + testList.size());
-        for (Test test1 : testList) {
-            System.out.println("学生番号: " + test1.getStudent().getNo());
-            System.out.println("科目コード: " + test1.getSubject().getCd());
-            System.out.println("点数: " + test1.getPoint());
-            System.out.println("クラス: " + test1.getClassNum());
-        }
 
 //
 //
