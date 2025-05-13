@@ -7,15 +7,15 @@
 </div>
 <style>
 	.rainbow-bg {
-            background: linear-gradient(to right, #e60000, #f39800, #fff100, #009944, #0068b7, #1d2088, #920783, #e60000) 0 / 200%;
-            animation: rainbow-move 5s linear infinite;
-        }
+    background: linear-gradient(to right, #f8dede, #fbe8d0, #fcf7d0, #e3f2e3, #d6e7f3, #dcd6f0, #f0dcef, #f8dede) 0 / 200%;
+    animation: rainbow-move 5s linear infinite;
+}
 
-        @keyframes rainbow-move {
-            100% {
-                background-position: 200%;
-            }
-        }
+@keyframes rainbow-move {
+    100% {
+        background-position: 200%;
+    }
+}
 	#rainbow-background {
             background: linear-gradient(
                 to right,
