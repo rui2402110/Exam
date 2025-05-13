@@ -6,6 +6,16 @@
 	<h1 class="fs-1">得点管理システム</h1>
 </div>
 <style>
+	.rainbow-bg {
+            background: linear-gradient(to right, #e60000, #f39800, #fff100, #009944, #0068b7, #1d2088, #920783, #e60000) 0 / 200%;
+            animation: rainbow-move 5s linear infinite;
+        }
+
+        @keyframes rainbow-move {
+            100% {
+                background-position: 200%;
+            }
+        }
 	#rainbow-background {
             background: linear-gradient(
                 to right,

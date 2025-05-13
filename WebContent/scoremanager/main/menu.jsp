@@ -51,8 +51,8 @@
 					style="height: 10rem; background-color: #ddb;">
 					<a href="ClassList.action">クラス管理</a>
 				</div>
-				<div style="width: 145px; height: 160px; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
-					<a href="SubjectList.action">教員管理</a>
+				<div class="rainbow-bg" style="width: 145px; height: 160px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
+					<a href="TeacherList.action">教員管理</a>
 				</div>
 			</div>
 		</section>
