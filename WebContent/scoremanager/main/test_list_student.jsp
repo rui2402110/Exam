@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
                 <select class="form-select" name="f3">
                     <option value="0">-----</option>
                     <c:forEach var="subject" items="${subject_set}">
-                        <option value="${subject.code}" <c:if test="${subject.code==f3}">selected</c:if>>${subject.name}</option>
+                        <option value="${subject.cd}" <c:if test="${subject.cd==f3}">selected</c:if>>${subject.name}</option>
                     </c:forEach>
                 </select>
             </div>

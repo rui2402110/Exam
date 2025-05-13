@@ -89,7 +89,7 @@ public class TestListSubjectDao extends Dao {
 			ResultSet rSet = null;
 
 			//条件が適用された時にこのStringがbaseSQLに追加される
-			String condition = " AND STUDENT.ENT_YEAR = ? AND TEST.CLASS_NUM = ? ";
+			String condition = " AND STUDENT.ENT_YEAR = ? AND TEST.CLASS_NUM = ? AND TEST.SUBJECT_CD = ? ";
 			//
 			String order = " GROUP BY STUDENT.ENT_YEAR, STUDENT.NAME, TEST.STUDENT_NO, TEST.SUBJECT_CD, TEST.SCHOOL_CD ORDER BY TEST.STUDENT_NO ASC, TEST.SUBJECT_CD ASC";
 
@@ -99,6 +99,7 @@ public class TestListSubjectDao extends Dao {
 				statement.setString(1, school.getCd());
 				statement.setInt(2, entYear);
 				statement.setString(3, classNum);
+				statement.setString(4, subject.getCd());
 
 				//SQLを実行
 				rSet = statement.executeQuery();
