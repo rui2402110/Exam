@@ -15,7 +15,7 @@
 	<%-- メイン --%>
 	<c:param name="content">
 		<section class="me-4">
-		<!-- 見出し -->
+		<%-- 見出し --%>
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">メニュー</h2>
 
 			<div class="row text-center px-4 fs-3 my-5">
@@ -51,7 +51,9 @@
 					style="height: 10rem; background-color: #ddb;">
 					<a href="ClassList.action">クラス管理</a>
 				</div>
-				<div class="rainbow-bg" style="width: 145px; height: 160px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
+				<%-- class="rainbow-bg" style="width: 145px; height: 160px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;" --%>
+				<div class="col d-flex align-items-center justify-content-center mx-2 rounded shadow"
+					style="height: 10rem; background-color: #dcdcdc;">
 					<a href="TeacherList.action">教員管理</a>
 				</div>
 			</div>
