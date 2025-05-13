@@ -41,13 +41,13 @@ public class TestListSubjectExecuteAction extends Action {
 		subjectCd =req.getParameter("f3");
 
 		System.out.println(" TestListSubjectExecuteAction");
-		System.out.println("entYear="+ entYear);
-		System.out.println("classNum="+ classNum);
-		System.out.println("cd="+subjectCd);
+		System.out.println("entYear = "+ entYear);
+		System.out.println("classNum = "+ classNum);
+		System.out.println("cd = "+subjectCd);
 
 		Subject subject =subDao.get(subjectCd, teacher.getSchool());
 
-		List<TestListSubject> testListSubject =tesSubDao.filter(entYear, classNum, subject, teacher.getSchool());
+		List<TestListSubject> testListSubject = tesSubDao.filter(entYear, classNum, subject, teacher.getSchool());
 
 		// 表示用の年度リストを作成
 		List<Integer> entYearSet = new ArrayList<>();
@@ -71,6 +71,7 @@ public class TestListSubjectExecuteAction extends Action {
 		req.setAttribute("subject_set", subList);
 		req.setAttribute("test_list",testListSubject);
 		req.setAttribute("subjectCd",subjectCd);
+
 
 		// フォワード
 	    req.getRequestDispatcher("test_list_subject.jsp").forward(req, res);
