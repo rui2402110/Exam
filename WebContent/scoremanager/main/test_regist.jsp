@@ -57,6 +57,11 @@
     </form>
 
     <%-- 成績入力フォーム --%>
+    <%
+    String error1 = (String)request.getAttribute("error1"); %>
+    <% if(error1 != null) { %>
+   	<div style="color: orange;"><%= error1 %></div>
+	<% } %>
     <c:if test="${student_set.size()>0}">
         <form method="post" action="TestRegistExecute.action">
             <div class="px-4 mb-3">
