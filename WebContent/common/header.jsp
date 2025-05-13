@@ -6,6 +6,20 @@
 	<h1 class="fs-1">得点管理システム</h1>
 </div>
 <style>
+	#rainbow-background {
+            background: linear-gradient(
+                to right,
+                red,
+                orange,
+                yellow,
+                green,
+                blue,
+                indigo,
+                violet
+            );
+            padding: 20px;
+            color: white;
+        }
     /* 基本的なテキストボックスのスタイル */
     .text-input {
       width: 400px;
