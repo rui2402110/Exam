@@ -90,6 +90,7 @@
                             <input type="text" name="point_${points.student.no}" value="${points.point}" size="4" class="form-control">
                             <input type="hidden" name="regist" value="${points.student.no}">
 
+
                             <%--エラーを表示--%>
                             <c:if test="${not empty errors[points.student.no]}">
                             <div class="text-warning">${errors[points.student.no]}</div>

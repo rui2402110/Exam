@@ -35,15 +35,24 @@ public class TestRegistExecuteAction extends Action {
         TestDao testDao = new TestDao();
 //        ClassNumDao classDao =new ClassNumDao();
 
+        System.out.println("TestRegistExecute開始-------------------------");
+
         // 各学生の点数処理
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
         System.out.println("registsのサイズ" + regists.length);
+
+        String error1 = "点数を入力してください";
+        String error2 = "0～100の範囲で入力してください";
+
+        int errorCount = 0 ;
+
         for(String studentNo:regists){ //学生番号をstudentNoに代入
 
         // パラメータ取得
        	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
         String No = req.getParameter("count");  // 試験回数
         String subjectCd = req.getParameter("subject");  // 科目コード
+
 
 //            System.out.println("a");
 //         // デバッグ用出力
@@ -55,18 +64,20 @@ public class TestRegistExecuteAction extends Action {
             //未入力
             if (pointStr == null || pointStr.trim().isEmpty()) {
 //              errorMap.put(studentNo, "点数を入力してください");
-                System.out.print("点数を入力してください");
-                String error1 = "点数を入力してください";
+                System.out.println("点数を入力してください");
                 req.setAttribute("error1", error1);
-                String url = "TestRegist.action";
-				req.getRequestDispatcher(url).forward(req, res);
+                errorCount +=1 ;
+                break ;
             }
             try{
 	          //pointSrtをpointに変換
 	            int point=Integer.parseInt(pointStr);
 	            if (point < 0 || point > 100) {
-	                errorMap.put(studentNo, "0～100の範囲で入力してください");
-	                continue;
+//	                errorMap.put(studentNo, "0～100の範囲で入力してください");
+	                System.out.println("0～100の範囲で入力してください");
+	                req.setAttribute("error2", error2);
+	                errorCount +=1 ;
+	                break ;
 	            }else{
 	            	//データを格納
 	            	Test test =new Test();
@@ -100,20 +111,21 @@ public class TestRegistExecuteAction extends Action {
 
         }
 
-        // 処理分岐
-        if (!errorMap.isEmpty()) {
+		// 処理分岐
+        if (errorCount >= 1) {
             // エラーがある場合はエラーマップと入力データを保持してJSPへ返す
-            req.setAttribute("errors", errorMap);
-            req.setAttribute("points", testList);
+        	System.out.println("エラーあります");
+        	String url = "TestRegist.action";
+//            res.sendRedirect(url);
+        	req.getRequestDispatcher(url).forward(req, res);
         } else {
             // 成績を保存
+        	System.out.println("エラー無いです");
             testDao.save(testList);
             req.setAttribute("points", testList);
+            req.setAttribute("errors", errorMap);
+            req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
         }
-
-        // 表示
-//        エラー
-        req.setAttribute("errors", errorMap);
-        req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
+        System.out.println("TestRegistExecute終了-------------------------");
     }
 }
