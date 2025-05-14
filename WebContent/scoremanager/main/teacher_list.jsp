@@ -48,7 +48,18 @@
                                     <a href="TeacherUpdate.action?id=${teacher.id}">編集</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <button disabled>編集</button>
+                                    <button onclick="alert('管理者権限がないため編集ができません')">編集</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <%-- ログインユーザーが管理者の場合のみ削除可能 --%>
+                                <c:when test="${sessionScope.userAuth}">
+                                    <a href="TeacherDelete.action?id=${teacher.id}">削除</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <button onclick="alert('管理者権限がないため削除ができません')">削除</button>
                                 </c:otherwise>
                             </c:choose>
                         </td>

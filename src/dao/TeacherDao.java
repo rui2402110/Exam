@@ -199,4 +199,45 @@ public class TeacherDao extends Dao {
 		}
 		return result;
 	}
+
+	public boolean delete(Teacher teacher) throws Exception {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
+		try {
+			Teacher teach = get(teacher.getId());
+
+			// 貰った値からidとidを取得
+			String id = "";
+
+			System.out.println("削除対象: id=" + teacher.getId() );
+
+
+			// idが存在する場合はDELETEを実行
+			if (teach != null) {
+				statement = connection.prepareStatement(
+						"DELETE FROM TEACHER WHERE ID= ?");
+				statement.setString(1, id);
+	            statement.executeUpdate();
+			}
+			// 実行して影響を受けた行数を確認
+			int affected = statement.executeUpdate();
+			result = (affected > 0);
+
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					// リソースを解放
+					if (statement != null) {
+						try {
+							statement.close();
+						} catch (SQLException sqle) {
+							throw sqle;
+						}
+					}
+				}
+			return result;
+
+	}
+
 }
