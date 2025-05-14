@@ -55,6 +55,7 @@ public class TestRegistAction extends Action {
 		classNum = req.getParameter("f2");//クラス
 		subjectCd = req.getParameter("f3");//科目コード
 		countStr = req.getParameter("f4");//回数
+		String error1 =req.getParameter("error1");
 
 		System.out.println(entYearStr);
 		System.out.println(classNum);
@@ -123,15 +124,13 @@ public class TestRegistAction extends Action {
 //        	test.setStudent(student);
 //        }
 
-
-//
-//
 //        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
         req.setAttribute("points", testList);
         req.setAttribute("f1", entYearStr);
         req.setAttribute("f2", classNum);
         req.setAttribute("f3", subjectCd);
         req.setAttribute("f4", countStr);
+        req.setAttribute("error1", error1);
 		// フォワード
 	    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}

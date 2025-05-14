@@ -142,6 +142,9 @@ pageEncoding="UTF-8"%>
           </c:forEach>
         </table>
       </c:if>
+	  <c:if test="${score_list == null}">
+    	<div style="color: orange;">学生情報が存在しませんでした</div>
+	  </c:if>
 
 
     <%-- 利用方法メッセージ --%>

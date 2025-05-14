@@ -91,6 +91,16 @@ pageEncoding="UTF-8"%>
     <c:if test="${not empty errors['f1']}">
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
+    	<%
+	    String error1 = (String)request.getAttribute("error1");
+    	String error2 = (String)request.getAttribute("error2");
+    	%>
+    	<% if(error1 != null) { %>
+   		<div style="color: orange;"><%= error1 %></div>
+		<% } %>
+		<% if(error2 != null) { %>
+   		<div style="color: orange;"><%= error2 %></div>
+		<% } %>
 
     <%-- 利用方法メッセージ --%>
     <div class="text-info mx-3">
