@@ -47,7 +47,7 @@
         <div class="col-4">
         <label class="form-label" for="student-fl-select">氏名</label>
         <br>
-        <input type="text" id="name" name="name" value="${name}" class="text-input" placeholder="氏名を入力してください" required>
+        <input type="text" id="name" name="name" value="${name}" class="text-input" maxlength="10" placeholder="氏名を入力してください" required>
         </div>
 
 

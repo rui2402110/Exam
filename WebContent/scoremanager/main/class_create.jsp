@@ -25,7 +25,7 @@
 	        <label class="form-label" for="student-fl-select">クラス</label>
 	        <br>
 	        <!-- クラス名入力 -->
-	        <input type="text" id="name" name="class_num" class="text-input" value="${name}" placeholder="クラス名を入力してください" required>
+	        <input type="text" id="name" name="class_num" class="text-input" value="${name}" maxlength="5" placeholder="クラス名を入力してください" required>
         </div>
 
         <%-- -登録ボタン --%>

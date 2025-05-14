@@ -49,7 +49,7 @@
         <label class="form-label" for="student-fl-select">学生番号</label>
          <br>
          <%-- 学生番号入力フォーム --%>
-        <input type="text" id="no" name="no" value="${no}" class="text-input" placeholder="学生番号を入力してください" required>
+        <input type="text" id="no" name="no" value="${no}" class="text-input" maxlength="10" placeholder="学生番号を入力してください" required>
         <%-- エラー処理 --%>
         </div>
         		<%
@@ -64,7 +64,7 @@
         <label class="form-label" for="student-fl-select">氏名</label>
         <br>
         <%-- 氏名入力フォーム --%>
-        <input type="text" id="name" name="name" value="${name}" class="text-input" placeholder="氏名を入力してください" required>
+        <input type="text" id="name" name="name" value="${name}" class="text-input" maxlength="10" placeholder="氏名を入力してください" required>
         </div>
 
 
