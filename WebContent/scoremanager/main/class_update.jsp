@@ -32,7 +32,7 @@
 
         <div class="col-4">
                     <label class="form-label" for="student-f2-select">クラス</label>
-                    <input type="text" class="text-input" id="class_num" name="new_class_num" value="${class_num_set}" placeholder="クラスを入力してください" required>
+                    <input type="text" class="text-input" id="class_num" name="new_class_num" maxlength="5" value="${class_num_set}" placeholder="クラスを入力してください" required>
                 </div>
 
                 <%-- エラー処理 --%>
