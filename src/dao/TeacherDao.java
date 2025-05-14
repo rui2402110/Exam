@@ -46,6 +46,7 @@ public class TeacherDao extends Dao {
 				teacher.setName(resultSet.getString("name"));
 				// 学校フィールドには学校コードで検索した学校インスタンスをセット
 				teacher.setSchool(schoolDao.get(resultSet.getString("school_cd")));
+				teacher.setAuth(resultSet.getBoolean("auth"));
 			} else {
 				// リザルトセットが存在しない場合
 				// 教員インスタンスにnullをセット
@@ -145,5 +146,57 @@ public class TeacherDao extends Dao {
 	    }
 
 	    return list;
+	}
+
+	// ユーザーを保存するメソッド　(INSERT、UPDATEのどちらにも対応予定)
+	public boolean save(Teacher teacher)throws Exception{
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
+		School school = null ;
+
+		try{
+			Teacher teach =get(teacher.getId());
+			// Idが既に存在する場合はUPDATE、していない場合はINSERTを実行
+			if(teach ==null){
+				statement = connection.prepareStatement(
+						"INSERT INTO TEACHER ( ID, PASSWORD, NAME, SCHOOL_CD, AUTH) VALUES(?, ?, ?, ?, ?)");
+				statement.setString(1, teacher.getId());
+				statement.setString(2, teacher.getPassword());
+				statement.setString(3, teacher.getName());
+				statement.setString(4, teacher.getSchool().getCd());
+				statement.setBoolean(5, teacher.getAuth());
+			}else{
+				statement = connection.prepareStatement(
+						"UPDATE TEACHER SET PASSWORD = ? , NAME = ? , SCHOOL_CD = ? ,AUTH=? WHERE ID = ?");
+				statement.setString(1, teacher.getPassword());
+				statement.setString(2, teacher.getName());
+				statement.setString(3, teacher.getSchool().getCd());
+				statement.setBoolean(4, teacher.getAuth());
+				statement.setString(5, teacher.getId());
+			}
+			// 実行して影響を受けた行数を確認
+			int affected = statement.executeUpdate();
+			result = (affected > 0);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// リソースを解放
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		return result;
 	}
 }

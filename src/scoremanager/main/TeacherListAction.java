@@ -36,6 +36,9 @@ public class TeacherListAction extends Action {
         req.setAttribute("teacherList", teacherList);
         req.setAttribute("school", teacher.getSchool());
 
+//        System.out.println( teacher.getAuth());
+//        System.out.println( teacher.getName());
+
         // セッションにも保存 (JSP で使いやすい形に)
         session.setAttribute("userAuth", teacher.getAuth());
 

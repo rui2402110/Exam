@@ -54,11 +54,12 @@
                         </td>
                     </tr>
                 </c:forEach>
-                <c:choose>
-	                <c:when test="${sessionScope.userAuth == false}">
-	                	<p>管理者権限がありません</p>
-	                </c:when>
-                </c:choose>
+
+				<c:choose>
+				    <c:when test="${not userAuth}">
+				        <p>管理者権限がStandard Userのため編集できません</p>
+				    </c:when>
+				</c:choose>
             </table>
         </section>
     </c:param>
