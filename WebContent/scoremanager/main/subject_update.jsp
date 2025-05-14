@@ -27,7 +27,7 @@
                 <div class="col-4">
                     <label class="form-label" for="no">科目コード</label><br>
                     <input type="text" id="cd" name="cd" value="${cd}" class="text-input"
-                           placeholder="科目コードを入力してください" required>
+                           placeholder="科目コードを入力してください" readonly>
 
                     <%-- エラー表示（該当データが存在しない場合） --%>
                     <c:if test="${not empty errors['notfound']}">
