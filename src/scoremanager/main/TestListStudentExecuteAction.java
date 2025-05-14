@@ -41,6 +41,13 @@ public class TestListStudentExecuteAction extends Action {
 		// JSPから送られてきたデータを利用し生徒のデータを取得
 		Student student = sDao.get(studentNo);
 
+		if (student == null){
+			String error1 ="成績情報が存在しませんでした";
+			req.setAttribute("error1",error1);
+			String url ="TestList.action";
+			req.getRequestDispatcher(url).forward(req, res);
+		}
+
 		//
 		List<TestListStudent> testListStudent = tesStuDao.filter(student);
 

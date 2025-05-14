@@ -77,7 +77,7 @@ pageEncoding="UTF-8"%>
                 <label class="form-label">学生番号</label>
             </div>
             <div class="col-4">
-                <input type="text" class="form-control" name="f4" value="${f4}" placeholder="学生番号を入力してください">
+                <input type="text" class="form-control" name="f4" value="${f4}" placeholder="学生番号を入力してください" required>
             </div>
             <div class="col-2 text-center">
                 <button class="btn btn-secondary">検索</button>
