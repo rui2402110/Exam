@@ -9,27 +9,41 @@ import dao.TeacherDao;
 import tool.Action;
 
 public class TeacherDeleteExecuteAction extends Action {
-    @Override
-    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        // ログイン中の先生情報を取得
-        HttpSession session = req.getSession();
-        Teacher teacher = (Teacher) session.getAttribute("user");
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session = req.getSession();
+	    // フォームから送られた教師IDを取得
+	    String id = req.getParameter("id");
+	    TeacherDao tDao = new TeacherDao();
 
-        // フォームから送られた科目コードを取得
-        String id = req.getParameter("id");
-        TeacherDao tDao =new TeacherDao();
+	    System.out.println("受け取ったTeacherDeleteActionEX: " + id);
 
-        System.out.println("受け取ったTeacherDeleteActionEX: " + id);
-        Teacher teach = new Teacher();
-        teach = tDao.get(id);
-        System.out.println(teach);
-        System.out.println(teach.getName());
+	    // 該当教師を取得
+	    Teacher teach = tDao.get(id);
 
-        // 削除実行
-        boolean success = tDao.delete(teach);
+	    if (teach == null) {
+	        req.setAttribute("error", "指定されたIDの教師は存在しません。");
+	        req.getRequestDispatcher("teach_delete_done.jsp").forward(req, res);
+	        return;
+	    }
 
-        // メッセージを設定して一覧画面へ
-        req.setAttribute("message", teach.getId() + " を削除しました");
-        req.getRequestDispatcher("teach_delete_done.jsp").forward(req, res);
-    }
+	    System.out.println(teach);
+	    System.out.println(teach.getName());
+
+	    // 削除実行
+	    boolean success = tDao.delete(teach);
+
+	    System.out.println("success=" + success);
+
+	    if (success) {
+	        String message = "教員「" + teach.getName() + "」を削除しました";
+	        req.setAttribute("message", message);
+	    } else {
+	        String message = "削除に失敗しました";
+	        req.setAttribute("message", message);
+	    }
+
+	    req.getRequestDispatcher("TeacherList.action").forward(req, res);
+	}
+
 }
