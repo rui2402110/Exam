@@ -49,11 +49,15 @@
                            placeholder="氏名を入力してください" required>
                 </div>
 
-                <%-- 管理者権限入力欄 --%>
-                <div class="col-4">
-				    <input type="checkbox" id="auth" name="auth" value="true"
-				        <c:if test="${auth}">checked</c:if>
-				    > 管理者権限を付与
+				<%-- 管理者権限入力欄（カスタムスライドスイッチ対応） --%>
+				<div class="col-4 d-flex align-items-center">
+				    <label class="switch">
+				        <input type="checkbox" id="auth" name="auth" value="true"
+				            <c:if test="${auth}">checked</c:if>
+				        >
+				        <span class="slider"></span>
+				    </label>
+				    <label for="auth" class="ms-2 mb-0">管理者権限を付与</label>
 				</div>
 
 
@@ -72,7 +76,7 @@
 
             <%-- 戻るリンク --%>
             <div>
-                <a href="SubjectList.action">戻る</a>
+                <a href="TeacherList.action">戻る</a>
             </div>
         </section>
     </c:param>
