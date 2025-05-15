@@ -44,7 +44,7 @@ public class StudentCreateExeciteAction extends Action{
 
 		// entYearが0だった場合は通常の処理を行わずにentYearが0だった場合のエラーデータを取得しStudentCreateActionにフォワード
 		if (entYear != 0 ) {
-			// noび被りがあった場合は通常の処理を行わずにnoが被りだった場合のエラーデータを取得しStudentCreateActionにフォワード
+			// noに被りがあった場合は通常の処理を行わずにnoが被りだった場合のエラーデータを取得しStudentCreateActionにフォワード
 			if( sDao.get(no) ==null){
 				if (classNum != "0"){
 					// エラーの表示が必要ない場合データをセット

@@ -104,6 +104,10 @@
             <a href="StudentList.action">戻る</a>
         </div>
 
+        <div>
+          <a href="Csv.action">CSVファイルの登録はこちらから</a>
+        </div>
+
 </section>
 </c:param>
 </c:import>
