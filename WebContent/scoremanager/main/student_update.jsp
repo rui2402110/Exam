@@ -28,11 +28,6 @@
                     <input type="text" id="Year" name="ent_year" class="text-input" value="${ent_year}" placeholder="入学年度" readonly>
                 </div>
                 <%--エラー処理 --%>
-                <%
-                String errors1 = (String)request.getAttribute("errors1"); %>
-                <% if(errors1 != null) { %>
-    			<div style="color: orange;"><%= errors1 %></div>
-				<% } %>
 
 
 		<%--学生番号 --%>
@@ -63,6 +58,12 @@
                         </c:forEach>
                     </select>
                 </div>
+                <%
+                String errors1 = (String)request.getAttribute("errors1"); %>
+                <% if(errors1 != null) { %>
+    			<div style="color: orange;"><%= errors1 %></div>
+				<% } %>
+
 
 
         <%--在学中チェックボックス --%>

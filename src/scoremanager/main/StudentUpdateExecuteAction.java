@@ -24,6 +24,7 @@ public class StudentUpdateExecuteAction extends Action {
 		String name = "" ;
 		String classNum = "";
 		String isAttendStr ="" ;
+		String errors1 =null;
 
 		// 使用するDaoを定義
 		StudentDao sDao = new StudentDao();
@@ -42,19 +43,28 @@ public class StudentUpdateExecuteAction extends Action {
 //		System.out.println("isAttend="+ isAttendStr);
 		entYear = Integer.parseInt(entYearStr);
 
-		//studentsに取得したデータをまとめてsetterでセット
-		students.setEntYear(entYear);
-		students.setNo(no);
-		students.setName(name);
-		students.setClassNum(classNum);
-		students.setAttend(isAttend);
-		students.setSchool(teacher.getSchool());
 
-		//UPDATEを呼び出し
-		sDao.save(students);
+		if (classNum.equals("0")){
+			errors1 = "class_numの入力が済んでいません";
+			req.setAttribute("errors1", errors1);
+			String url = "StudentUpdate.action";
+			req.getRequestDispatcher(url).forward(req, res);
+		} else{
+			//studentsに取得したデータをまとめてsetterでセット
+			students.setEntYear(entYear);
+			students.setNo(no);
+			students.setName(name);
+			students.setClassNum(classNum);
+			students.setAttend(isAttend);
+			students.setSchool(teacher.getSchool());
 
-		// フォワード
-		req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+
+			//UPDATEを呼び出し
+			sDao.save(students);
+
+			// フォワード
+			req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+		}
 
 	}
 
