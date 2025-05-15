@@ -201,43 +201,44 @@ public class TeacherDao extends Dao {
 	}
 
 	public boolean delete(Teacher teacher) throws Exception {
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-		boolean result = false;
-		try {
-			Teacher teach = get(teacher.getId());
+	    Connection connection = null;
+	    PreparedStatement statement = null;
+	    boolean result = false;
 
-			// 貰った値からidとidを取得
-			String id = "";
+	    try {
+	        connection = getConnection();
+	        Teacher teach = get(teacher.getId());
 
-			System.out.println("削除対象: id=" + teacher.getId() );
+	        System.out.println("削除対象: id=" + teacher.getId());
 
-
-			// idが存在する場合はDELETEを実行
-			if (teach != null) {
-				statement = connection.prepareStatement(
-						"DELETE FROM TEACHER WHERE ID= ?");
-				statement.setString(1, id);
-	            statement.executeUpdate();
-			}
-			// 実行して影響を受けた行数を確認
-			int affected = statement.executeUpdate();
-			result = (affected > 0);
-
-				} catch (Exception e) {
-					throw e;
-				} finally {
-					// リソースを解放
-					if (statement != null) {
-						try {
-							statement.close();
-						} catch (SQLException sqle) {
-							throw sqle;
-						}
-					}
-				}
-			return result;
-
+	        if (teach != null) {
+	            statement = connection.prepareStatement(
+	                    "DELETE FROM TEACHER WHERE ID = ?");
+	            statement.setString(1, teacher.getId());
+	            int affected = statement.executeUpdate();
+	            result = (affected > 0);
+	        }
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        // ステートメントとコネクションをクローズ
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+	    return result;
 	}
+
 
 }

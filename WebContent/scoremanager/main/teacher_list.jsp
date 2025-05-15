@@ -72,6 +72,15 @@
 				    </c:when>
 				</c:choose>
             </table>
+
+            <%-- メッセージ表示 --%>
+	        <%String message = (String)request.getAttribute("message"); %>
+	        <% if(message != null) { %>
+	    	<script>
+	           alert("${message}");
+           </script>
+			<% } %>
         </section>
     </c:param>
+
 </c:import>
