@@ -1,0 +1,68 @@
+/* card.css */
+.card {
+  width: 145px;
+  height: 160px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* スライドスイッチのスタイル */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align: middle;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+input:disabled + .slider {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+@font-face {
+  font-family: 'PankijiKanaLine';
+  src: url('/exam/common/PANKIJI_KANA-Line.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.pankiji-font {
+  font-family: 'PankijiKanaLine', sans-serif;
+}
+
