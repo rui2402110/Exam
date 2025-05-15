@@ -15,7 +15,7 @@
 <c:param name="content">
     <section class="mb-3">
     <%-- 見出し --%>
-        <h2 class="rainbow-bg" style="width: 830px; height: 50px;padding-left: 18px;padding-top: 8px;"><font face="ぱんきじ かな Line">クラスかんり </font></h2>
+        <h2 class="rainbow-bg" style="width: 830px; height: 50px;padding-left: 18px;padding-top: 8px;"><font face="暗黒ゾン字">クラス管理 </font></h2>
         <div class="my-2 text-end px-4">
             <a href="ClassCreate.action">新規登録</a>
         </div>
@@ -46,7 +46,7 @@
             			<td>
                             <a href="ClassUpdate.action?classnum=${data.key}" style="margin-left: auto; margin-right: 0;">編集</a>
                             <div style="display: inline-block; width: 50px;"  style="margin-left: auto; margin-right: 0;"></div>
-                            <a href="ClassDelete.action?classnum=${data.key}" style="margin-left: auto; margin-right: 0;">削除</a>
+                             <%--<a href="ClassDelete.action?classnum=${data.key}" style="margin-left: auto; margin-right: 0;">削除</a>--%>
                         </td>
         			</tr>
    					</c:forEach>
