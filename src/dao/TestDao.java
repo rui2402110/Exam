@@ -136,7 +136,7 @@ public class TestDao extends Dao {
 	        connection = getConnection();
 	        //SQLを連結
 	        statement = connection.prepareStatement(baseSql + condition + order);
-	        System.out.println(baseSql + condition + order);
+//	        System.out.println(baseSql + condition + order);
 	        statement.setString(1, subject.getCd());
 	        statement.setString(2, classNum);
 	        statement.setInt(3, entYear);

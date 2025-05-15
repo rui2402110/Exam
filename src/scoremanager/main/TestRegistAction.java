@@ -50,6 +50,8 @@ public class TestRegistAction extends Action {
 		StudentDao stuDao =new StudentDao();
 		TestDao testDao =new TestDao();
 
+		System.out.println("---------------"+"TestRegistAction開始"+"---------------");
+
 		// 入力された変数を取得
 		entYearStr = req.getParameter("f1");//入学年度
 		classNum = req.getParameter("f2");//クラス
@@ -57,10 +59,10 @@ public class TestRegistAction extends Action {
 		countStr = req.getParameter("f4");//回数
 		String error1 =req.getParameter("error1");
 
-		System.out.println(entYearStr);
-		System.out.println(classNum);
-		System.out.println(subjectCd);
-		System.out.println(countStr);
+		System.out.println("入学年度:"+entYearStr);
+		System.out.println("クラス:"+classNum);
+		System.out.println("科目コード:"+subjectCd);
+		System.out.println("回数:"+countStr);
 
 		// 表示用の年度リストを作成
 		List<Integer> entYearSet = new ArrayList<>();
@@ -82,6 +84,7 @@ public class TestRegistAction extends Action {
 		// 入学年度とクラス番号を指定
 
 		System.out.println("stuList: " +teacher.getSchool()+ " : "+entYear+ " : "+ classNum+ " : "+ isAttend);
+		System.out.println(" ");
 		// JSPに送るデータをセット
 		req.setAttribute("ent_year_set",entYearSet);
 		req.setAttribute("class_num_set",classList);
@@ -94,7 +97,8 @@ public class TestRegistAction extends Action {
 
         List<Test> testList = null ;
         if (entYearStr  != null || classNum != null || subjectCd != null || countStr != null){
-        	System.out.println("nullじゃないです");
+
+        	System.out.println("成績を確認");
         	// 入力検証
             if (entYearStr.equals("0") || classNum.equals("0") || subjectCd.equals("0") || countStr.equals("0") ) {
             	System.out.println("エラー通ってます");
@@ -112,10 +116,12 @@ public class TestRegistAction extends Action {
             System.out.println("取得したテスト数: " + testList.size());
 
             	for (Test test1 : testList) {
+            		System.out.println("----------");
             		System.out.println("学生番号: " + test1.getStudent().getNo());
             		System.out.println("科目コード: " + test1.getSubject().getCd());
             		System.out.println("点数: " + test1.getPoint());
             		System.out.println("クラス: " + test1.getClassNum());
+
             	}
         }
 

@@ -15,7 +15,7 @@
 <c:param name="content">
     <section class="mb-3">
     <%-- 見出し --%>
-        <h2 class="rainbow-bg" style="width: 830px; height: 50px;"><font face="暗黒ゾン字">クラス管理 </font></h2>
+        <h2 class="rainbow-bg" style="width: 830px; height: 50px;padding-left: 18px;padding-top: 8px;"><font face="ぱんきじ かな Line">クラスかんり </font></h2>
         <div class="my-2 text-end px-4">
             <a href="ClassCreate.action">新規登録</a>
         </div>
