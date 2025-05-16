@@ -284,4 +284,56 @@ public class StudentDao extends Dao {
 		}
 		return result;
 	}
+	public Student get2(String name) throws Exception {
+		//SQLに接続
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		//使用する変数を定義
+		ResultSet rSet = null;
+		Student student = null;
+
+		try {
+			// 学生番号で検索するSQL文を準備
+			statement = connection.prepareStatement("select * from student where name = ?");
+			statement.setString(1, name);
+			//SQL文を起動
+			rSet = statement.executeQuery();
+
+			//結果が存在する場合、studentオブジェクトに変換していく
+			if (rSet.next()) {
+				student = new Student();
+				student.setNo(rSet.getString("no"));
+				student.setName(rSet.getString("name"));
+				student.setEntYear(rSet.getInt("ent_year"));
+				student.setClassNum(rSet.getString("class_num"));
+				student.setAttend(rSet.getBoolean("is_attend"));
+
+				//関連する学校情報も取得
+				SchoolDao schoolDao = new SchoolDao();
+				School school = schoolDao.get(rSet.getString("school_cd"));
+				student.setSchool(school);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// リソースをclose
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		return student;
+	}
+
 }
