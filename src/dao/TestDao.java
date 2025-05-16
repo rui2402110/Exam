@@ -260,5 +260,43 @@ public class TestDao extends Dao {
         }
         return result ;
     }
+	public boolean save1(List<List<String>> list)throws Exception{
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		boolean result = false;
+		try {
+			statement = connection.prepareStatement(
+					"INSERT INTO test (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?, ?)");
+					for (int i = 0; i < list.size(); i++) {
+						List<String> test = new ArrayList<String>();
+						test =list.get(i);
+						statement.setString(1 ,test.get(0));
+						statement.setString(2 ,test.get(1));
+						statement.setString(3 ,test.get(2));
+						statement.setString(4 ,test.get(3));
+						statement.setString(5 ,test.get(4));
+						statement.setString(6 ,test.get(5));
+					}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// リソースを解放
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		return result;
+	}
 
 }
