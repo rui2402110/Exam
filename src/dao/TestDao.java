@@ -266,16 +266,28 @@ public class TestDao extends Dao {
 		boolean result = false;
 		try {
 			statement = connection.prepareStatement(
-					"INSERT INTO test (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?, ?)");
+					"INSERT INTO test (STUDENT_NO , SUBJECT_CD , NO , POINT , SCHOOL_CD , CLASS_NUM) VALUES (?, ?, ?, ?, ?, ?)");
 					for (int i = 0; i < list.size(); i++) {
 						List<String> test = new ArrayList<String>();
 						test =list.get(i);
+						System.out.println("------------------------------------save1method");
+						System.out.println(test.get(0));
+						System.out.println(test.get(1));
+						System.out.println(test.get(2));
+						System.out.println(test.get(3));
+						System.out.println(test.get(4));
+						System.out.println(test.get(5));
+
 						statement.setString(1 ,test.get(0));
 						statement.setString(2 ,test.get(1));
-						statement.setString(3 ,test.get(2));
-						statement.setString(4 ,test.get(3));
+						statement.setInt(3 ,Integer.parseInt(test.get(2)));
+						statement.setInt(4 ,Integer.parseInt(test.get(3)));
 						statement.setString(5 ,test.get(4));
 						statement.setString(6 ,test.get(5));
+
+						int affected = statement.executeUpdate();
+						result = (affected > 0);
+			            System.out.println(result);
 					}
 		} catch (Exception e) {
 			throw e;

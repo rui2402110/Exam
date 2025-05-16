@@ -15,6 +15,7 @@ import dao.SubjectDao;
 import tool.Action;
 
 public class TestRegistAddAction extends Action{
+
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// メソッドとスタブ

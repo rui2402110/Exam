@@ -16,17 +16,17 @@ public class TestRegistAddExecuteAction extends Action {
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
 
-		StudentDao stuDao =new StudentDao();
+		StudentDao stuDao = new StudentDao();
 		// フォームから複数データを取得
-        String[] students = req.getParameterValues("student[]");
-        String[] subjects = req.getParameterValues("subject[]");
-        String[] testNumbers = req.getParameterValues("testNumber[]");
-        String[] scores = req.getParameterValues("score[]");
+        String[] students = req.getParameterValues("f1");
+        String[] subjects = req.getParameterValues("f2");
+        String[] testNumbers = req.getParameterValues("f3");
+        String[] scores = req.getParameterValues("f4");
 
         System.out.println(Arrays.toString(students));
-        System.out.println(subjects);
-        System.out.println(testNumbers);
-        System.out.println(scores);
+        System.out.println(Arrays.toString(subjects));
+        System.out.println(Arrays.toString(testNumbers));
+        System.out.println(Arrays.toString(scores));
 
         // データが存在するか確認
         if (students == null || subjects == null || testNumbers == null || scores == null) {
@@ -35,7 +35,8 @@ public class TestRegistAddExecuteAction extends Action {
             req.getRequestDispatcher("TestRegistAdd.action").forward(req, res);
             return;
         }
-     // データの長さが一致するか確認
+
+        // データの長さが一致するか確認
         if (students.length != subjects.length ||
             students.length != testNumbers.length ||
             students.length != scores.length) {
@@ -44,7 +45,8 @@ public class TestRegistAddExecuteAction extends Action {
             req.getRequestDispatcher("TestRegistAdd.action").forward(req, res);
             return;
         }
-     // テストデータのリストを作成
+
+        // テストデータのリストを作成
         List<List<String>> testList = new ArrayList<List<String>>();
         boolean hasError = false;
         String errorMessage = "";
@@ -54,17 +56,6 @@ public class TestRegistAddExecuteAction extends Action {
                 // スコアを数値に変換
                 int score = Integer.parseInt(scores[i]);
 
-                // テストデータオブジェクトを作成
-                List<String> list = new ArrayList<String>();
-                list.add(students[i]);
-                list.add(subjects[i]);
-                list.add(testNumbers[i]);
-                list.add(scores[i]);
-                list.add(teacher.getSchool().getCd());
-                list.add(stuDao.get2(students[i]).getClassNum());
-
-                testList.add(list);
-
                 // バリデーション
                 if (score < 0 || score > 100) {
                     hasError = true;
@@ -72,24 +63,49 @@ public class TestRegistAddExecuteAction extends Action {
                     break;
                 }
 
-	} catch (NumberFormatException e) {
-        hasError = true;
-        errorMessage = "数値の形式が正しくありません。";
-        break;
-    }
-         // テストデータをデータベースに保存
-            TestDao tesdao = new TestDao();
-            boolean result = tesdao.save1(testList);
+                // テストデータオブジェクトを作成
+                List<String> list = new ArrayList<String>();
+                System.out.println(students[i]);
+                System.out.println(subjects[i]);
+                System.out.println(testNumbers[i]);
+                System.out.println(scores[i]);
+                System.out.println(teacher.getSchool().getCd());
+                System.out.println(stuDao.get(students[i]).getClassNum());
 
-            if (result) {
-                // 成功時の処理
-                req.setAttribute("message", "テストデータが正常に保存されました。");
-                req.getRequestDispatcher("/success.jsp").forward(req, res);
-            } else {
-                // 失敗時の処理
-                req.setAttribute("errorMessage", "データの保存に失敗しました。");
-                req.getRequestDispatcher("/error.jsp").forward(req, res);
+                list.add(students[i]);
+                list.add(subjects[i]);
+                list.add(testNumbers[i]);
+                list.add(scores[i]);
+                list.add(teacher.getSchool().getCd());
+                list.add(stuDao.get(students[i]).getClassNum());
+
+                testList.add(list);
+            } catch (NumberFormatException e) {
+                hasError = true;
+                errorMessage = "数値の形式が正しくありません。";
+                break;
             }
+        }
+
+        // エラーがあった場合の処理
+        if (hasError) {
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("TestRegistAdd.action").forward(req, res);
+            return;
+        }
+
+        // テストデータをデータベースに保存
+        TestDao tesdao = new TestDao();
+        boolean result = tesdao.save1(testList);
+
+        if (result) {
+            // 成功時の処理
+            req.setAttribute("message", "テストデータが正常に保存されました。");
+            req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
+        } else {
+            // 失敗時の処理
+            req.setAttribute("errorMessage", "データの保存に失敗しました。");
+            req.getRequestDispatcher("TestRegistAdd.action").forward(req, res);
         }
 	}
 }
