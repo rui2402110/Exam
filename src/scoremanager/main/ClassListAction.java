@@ -41,6 +41,8 @@ public class ClassListAction extends Action {
 
 		// JSPに送るデータをセット
 		req.setAttribute("classMap", classToSchoolMap);
+		// セッションにも保存 (JSP で使いやすい形に)
+        session.setAttribute("userAuth", teacher.getAuth());
 		// フォワード
 	    req.getRequestDispatcher("class_list.jsp").forward(req, res);
 	}

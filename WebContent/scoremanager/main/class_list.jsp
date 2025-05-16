@@ -48,7 +48,14 @@
             			<td>
                             <a href="ClassUpdate.action?classnum=${data.key}" style="margin-left: auto; margin-right: 0;">編集</a>
                             <div style="display: inline-block; width: 50px;"  style="margin-left: auto; margin-right: 0;"></div>
-                             <%--<a href="ClassDelete.action?classnum=${data.key}" style="margin-left: auto; margin-right: 0;">削除</a>--%>
+                            <c:choose>
+							    <%-- ログインユーザーが管理者の場合のみ削除可能 --%>
+							    <c:when test="${sessionScope.userAuth}">
+							        <a href="ClassDelete.action?classnum=${data.key}"
+							           onclick="return confirm('本当に削除しますか？クラス内に生徒がいた場合は変更ページに移動します。');"
+							           style="margin-left: auto; margin-right: 0;">削除</a>
+							    </c:when>
+							</c:choose>
                         </td>
         			</tr>
    					</c:forEach>

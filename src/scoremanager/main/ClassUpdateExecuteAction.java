@@ -10,48 +10,36 @@ import dao.ClassNumDao;
 import tool.Action;
 
 public class ClassUpdateExecuteAction extends Action {
-	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		//メソッドとスタブ
-		HttpSession session = req.getSession();
-		Teacher teacher = (Teacher)session.getAttribute("user");
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        // セッションからログインユーザー情報を取得
+        HttpSession session = req.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("user");
 
-		// 使用する変数を定義
-		ClassNum classNum = new ClassNum();
-		String classNumStr = "";
-		String NewClassNumStr = "";
-		String schoolCdStr ="" ;
+        // パラメータ取得
+        String classNumStr = req.getParameter("class_num");
+        String schoolCdStr = req.getParameter("school_cd");
+        String newClassNumStr = req.getParameter("new_class_num");
 
-		// 使用するDAOを定義
-		ClassNumDao cNumDao = new ClassNumDao();
+        // DAOの準備
+        ClassNumDao cNumDao = new ClassNumDao();
 
-		// JSPからデータを取得
-		classNumStr = req.getParameter("class_num");
-		schoolCdStr = req.getParameter("school_cd");
-		NewClassNumStr = req.getParameter("new_class_num");
+        // 新しいクラスが既に存在しないかチェック
+        if (cNumDao.get(newClassNumStr, teacher.getSchool()) == null) {
+            // クラス情報の更新処理を実行
+            ClassNum classNum = new ClassNum();
+            classNum.setClass_num(classNumStr);
+            classNum.setSchool(teacher.getSchool());
 
-		System.out.println(classNumStr);
-		System.out.println(NewClassNumStr);
+            cNumDao.save(classNum, newClassNumStr, schoolCdStr);
 
-		if (cNumDao.get(NewClassNumStr, teacher.getSchool()) == null){
-			//classNumに取得したデータをsetterでセット
-			classNum.setClass_num(classNumStr);
-			classNum.setSchool(teacher.getSchool());
-
-			//UPDATEを呼び出し
-			cNumDao.save(classNum , NewClassNumStr , schoolCdStr);
-			// フォワード
-			req.getRequestDispatcher("class_update_done.jsp").forward(req, res);
-		}else {
-			String errors1 = ("クラスに被りがあります");
-			req.setAttribute("errors1", errors1);
-
-			String url = "ClassUpdate.action";
-			System.out.println("-------------------------------");
-			req.getRequestDispatcher(url).forward(req, res);
-		}
-
-
-	}
-
+            // 更新完了後、遷移ページへフォワード
+            req.setAttribute("message", "クラス " + classNumStr + " を " + newClassNumStr + " に更新しました。");
+            req.getRequestDispatcher("class_update_done.jsp").forward(req, res);
+        } else {
+            // クラス番号が重複している場合、エラーを設定して再入力画面へ
+            req.setAttribute("errors1", "クラス番号が既に存在します。");
+            req.getRequestDispatcher("ClassUpdate.action").forward(req, res);
+        }
+    }
 }

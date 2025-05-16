@@ -220,32 +220,29 @@ public class ClassNumDao extends Dao {
 		}
 		return result;
 	}
-	public void delete (String classNumStr , String schoolCd)throws Exception{
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-		try {
-            statement = connection.prepareStatement("DELETE from class_num where class_num = ? and school_cd = ?");
-            statement.setString(1, classNumStr);
-            statement.setString(2, schoolCd);
-            statement.executeUpdate();
+	public boolean delete(String classNumStr, String schoolCd) throws Exception {
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    boolean result = false;
 
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-        }
+	    try {
+	        statement = connection.prepareStatement("DELETE from class_num where class_num = ? and school_cd = ?");
+	        statement.setString(1, classNumStr);
+	        statement.setString(2, schoolCd);
+
+	        int affectedRows = statement.executeUpdate();
+	        result = (affectedRows > 0);  // 更新された行数が1以上なら成功
+
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        if (statement != null) {
+	            statement.close();
+	        }
+	        if (connection != null) {
+	            connection.close();
+	        }
+	    }
+	    return result;
 	}
 }

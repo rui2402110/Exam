@@ -4,6 +4,7 @@ import java.io.Serializable;
 public class ClassNum implements Serializable {
 	private String class_num ;
 	private School school ;
+	private boolean attribute ;
 
 	public String getClass_num() {
 		return class_num;
@@ -17,6 +18,13 @@ public class ClassNum implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+	public boolean isAttribute() {
+		return attribute;
+	}
+	public void setAttribute(boolean attribute) {
+		this.attribute = attribute;
+	}
+
 
 
 }
