@@ -40,7 +40,7 @@ public class TestListSubjectExecuteAction extends Action {
 		classNum =req.getParameter("f2");
 		subjectCd =req.getParameter("f3");
 
-		String error1 = "点数を入力してください";
+		String error1 = "入学年度とクラスと科目を選択肢してください";
         String error2 = "0～100の範囲で入力してください";
 
         int errorCount = 0 ;
