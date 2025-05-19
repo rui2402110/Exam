@@ -163,6 +163,52 @@ public class ClassNumDao extends Dao {
 	    return classInfoList;
 	}
 
+	public List<String> findNames(String classNum) throws Exception {
+	    List<String> list = new ArrayList<>();
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet rSet = null;
+
+	    try {
+	        statement = connection.prepareStatement(
+	            "SELECT s.name FROM class_num AS c " +
+	            "JOIN student AS s ON s.class_num = c.class_num " +
+	            "WHERE s.class_num = ?"
+	        );
+	        statement.setString(1, classNum);
+	        rSet = statement.executeQuery();
+
+	        while (rSet.next()) {
+	            list.add(rSet.getString("name"));
+	        }
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        if (rSet != null) {
+	            try {
+	                rSet.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+
+	    return list;
+	}
 
 
 

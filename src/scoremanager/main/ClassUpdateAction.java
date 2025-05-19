@@ -34,11 +34,13 @@ public class ClassUpdateAction extends Action {
 		Map<String, String> classToSchoolMap ;
 		classToSchoolMap = cNumDao.filter2(teacher.getSchool());
 		String school_cd = classToSchoolMap.get(class_num);
+		List<String> names = cNumDao.findNames(class_num);
 
 
 
 //		System.out.println(class_num);
 //		System.out.println(school_cd);
+		req.setAttribute("names", names);
 		req.setAttribute("class_num", list);
 		req.setAttribute("class_num_set", class_num);
 		req.setAttribute("school_cd_set", school_cd);
