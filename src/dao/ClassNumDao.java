@@ -132,6 +132,41 @@ public class ClassNumDao extends Dao {
 	    return classToSchoolMap;
 	}
 
+	public List<ClassNum> filter3(School school) throws Exception {
+	    List<ClassNum> classInfoList = new ArrayList<>();
+	    String sql = "SELECT CLASS_NUM.class_num, COUNT(STUDENT.no) AS student_count " +
+	                 "FROM CLASS_NUM " +
+	                 "LEFT JOIN STUDENT ON CLASS_NUM.class_num = STUDENT.class_num AND STUDENT.school_cd = ? " +
+	                 "WHERE CLASS_NUM.school_cd = ? " +
+	                 "GROUP BY CLASS_NUM.class_num " +
+	                 "ORDER BY CLASS_NUM.class_num";
+
+	    try (Connection connection = getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        statement.setString(1, school.getCd()); // STUDENT.school_cd 用
+	        statement.setString(2, school.getCd()); // CLASS_NUM.school_cd 用
+
+	        try (ResultSet rSet = statement.executeQuery()) {
+	            while (rSet.next()) {
+	                ClassNum classNumBean = new ClassNum();
+
+	                classNumBean.setClass_num(rSet.getString("class_num"));
+	                classNumBean.setSchool(school);  // 渡されたSchoolオブジェクトをそのままセット
+	                classNumBean.setStudentCount(rSet.getInt("student_count"));
+
+	                classInfoList.add(classNumBean);
+	            }
+	        }
+	    }
+
+	    return classInfoList;
+	}
+
+
+
+
+
 	public boolean save(ClassNum classNum) throws Exception {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
@@ -220,32 +255,29 @@ public class ClassNumDao extends Dao {
 		}
 		return result;
 	}
-	public void delete (String classNumStr , String schoolCd)throws Exception{
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-		try {
-            statement = connection.prepareStatement("DELETE from class_num where class_num = ? and school_cd = ?");
-            statement.setString(1, classNumStr);
-            statement.setString(2, schoolCd);
-            statement.executeUpdate();
+	public boolean delete(String classNumStr, String schoolCd) throws Exception {
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    boolean result = false;
 
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-        }
+	    try {
+	        statement = connection.prepareStatement("DELETE from class_num where class_num = ? and school_cd = ?");
+	        statement.setString(1, classNumStr);
+	        statement.setString(2, schoolCd);
+
+	        int affectedRows = statement.executeUpdate();
+	        result = (affectedRows > 0);  // 更新された行数が1以上なら成功
+
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        if (statement != null) {
+	            statement.close();
+	        }
+	        if (connection != null) {
+	            connection.close();
+	        }
+	    }
+	    return result;
 	}
 }

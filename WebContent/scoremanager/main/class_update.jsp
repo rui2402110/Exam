@@ -56,6 +56,7 @@
             <a href="ClassList.action">戻る</a>
         </div>
 
+
 </section>
 </c:param>
 </c:import>

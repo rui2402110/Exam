@@ -223,6 +223,7 @@ public class StudentDao extends Dao {
 		return list;
 	}
 
+
 	// 学生データを保存するメソッド　(INSERT、UPDATEのどちらにも対応)
 	public boolean save(Student student) throws Exception {
 		Connection connection = getConnection();
@@ -284,6 +285,43 @@ public class StudentDao extends Dao {
 		}
 		return result;
 	}
+
+	public int countStudents(String classNum) throws Exception {
+	    int count = 0;
+	    Connection connection = getConnection();
+	    PreparedStatement statement = null;
+	    ResultSet rSet = null;
+
+	    try {
+	        String countSql = "SELECT COUNT(*) FROM student WHERE class_num = ?";
+	        statement = connection.prepareStatement(countSql);
+	        statement.setString(1, classNum);
+	        rSet = statement.executeQuery();
+
+	        if (rSet.next()) {
+	            count = rSet.getInt(1);
+	        }
+	    } catch (Exception e) {
+	        throw e;
+	    } finally {
+	        if (statement != null) {
+	            try {
+	                statement.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	        if (connection != null) {
+	            try {
+	                connection.close();
+	            } catch (SQLException sqle) {
+	                throw sqle;
+	            }
+	        }
+	    }
+	    return count;
+	}
+
 	public Student get2(String name) throws Exception {
 		//SQLに接続
 		Connection connection = getConnection();
@@ -335,5 +373,25 @@ public class StudentDao extends Dao {
 
 		return student;
 	}
+
+	public void updateClassNum(String fromClassNum, String toClassNum) throws Exception {
+
+	    // SQLを準備
+		Connection connection = getConnection();
+	    String sql = "UPDATE student SET class_num = ? WHERE class_num = ?";
+	    PreparedStatement stmt = connection.prepareStatement(sql);
+
+	    // パラメータを設定
+	    stmt.setString(1, toClassNum);
+	    stmt.setString(2, fromClassNum);
+
+	    // 更新を実行
+	    stmt.executeUpdate();
+
+	    // リソースをクローズ
+	    stmt.close();
+	    connection.close();
+	}
+
 
 }

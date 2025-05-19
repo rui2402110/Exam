@@ -29,7 +29,6 @@ public class ClassUpdateAction extends Action {
 		// classlistから届いたclass_numを取得
 		String class_num = (String)req.getParameter("classnum");
 
-
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
 		Map<String, String> classToSchoolMap ;
