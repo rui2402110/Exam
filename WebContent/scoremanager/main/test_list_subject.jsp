@@ -89,9 +89,9 @@ pageEncoding="UTF-8"%>
     <c:if test="${not empty errors['f1']}">
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
-    <c:if test="${empty test_list && not empty searched}">
-        <div class="text-danger mx-3">学生情報が存在しませんでした</div>
-    </c:if>
+    <c:if test="${test_list.size() == 0}">
+    	<div style="color: orange;">学生情報が存在しませんでした</div>
+	  </c:if>
 
     <%-- 成績一覧表示 --%>
     <c:if test="${not empty test_list}">
@@ -142,10 +142,6 @@ pageEncoding="UTF-8"%>
           </c:forEach>
         </table>
       </c:if>
-	  <c:if test="${score_list == null}">
-    	<div style="color: orange;">学生情報が存在しませんでした</div>
-	  </c:if>
-
 
     <%-- 利用方法メッセージ --%>
     <div class="text-info mx-3">

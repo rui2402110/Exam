@@ -84,12 +84,16 @@ pageEncoding="UTF-8"%>
     </form>
 
     <%-- ✅ エラーメッセージまとめ --%>
+    <%-- エラーメッセージまとめ --%>
     <c:if test="${not empty errors['f1']}">
         <div class="text-danger mx-3">${errors['f1']}</div>
     </c:if>
-    <c:if test="${empty test_list && not empty searched}">
-        <div class="text-danger mx-3">学生情報が存在しませんでした</div>
-    </c:if>
+    <%
+    String error1 = (String)request.getAttribute("error1");
+    %>
+    <% if(error1 != null) { %>
+   	<div style="color: orange;"><%= error1 %></div>
+	<% } %>
 
     <%-- 成績一覧（学生） --%>
     <c:if test="${not empty student_info}">
