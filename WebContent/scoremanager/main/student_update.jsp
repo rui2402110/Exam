@@ -70,7 +70,7 @@
         <div class="col-4">
         <p><input type="checkbox" name="is_attend" ${is_attend}>在学中</p>
         </div>
-        <div class="col-2 text-center">
+        <div class="col-2">
         			<br>
         			<%--編子変更ボタン --%>
                     <button class="btn btn-secondary" id="filter-button">変更</button>

@@ -32,6 +32,8 @@
                             <th>学校コード</th>
                             <th>クラス</th>
                             <th>生徒数</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         <c:forEach var="data" items="${classList}">
                             <tr>

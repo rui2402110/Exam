@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="col-2 text-center">
+        <div class="col-2">
          <br>
          <%--登録ボタン --%>
          <button class="btn btn-secondary" id="filter-button">登録</button>
