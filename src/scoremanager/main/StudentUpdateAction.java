@@ -39,6 +39,7 @@ public class StudentUpdateAction extends Action {
 
 		// studentlistから届いたnoを取得
 		String no = (String)req.getParameter("no");
+		String class_num = req.getParameter("classnum");
 //		System.out.println(no);
 
 		// noを使用してそのnoの人のデータを取得
@@ -70,6 +71,7 @@ public class StudentUpdateAction extends Action {
 		req.setAttribute("no", no);
 		req.setAttribute("name", name);
 		req.setAttribute("class_num_set", list);
+		req.setAttribute("class_num", class_num);
 		req.setAttribute("ent_year", entYearStr);
 		req.setAttribute("is_attend", isAttendStr);
 

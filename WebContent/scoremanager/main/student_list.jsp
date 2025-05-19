@@ -78,7 +78,7 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <a href="StudentUpdate.action?no=${student.no}">編集</a>
+                                <a href="StudentUpdate.action?no=${student.no}&classnum=${student.classNum}">編集</a>
                             </td>
                         </tr>
                     </c:forEach>
