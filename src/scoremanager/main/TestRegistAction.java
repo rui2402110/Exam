@@ -115,14 +115,14 @@ public class TestRegistAction extends Action {
             // testListの中身を確認
             System.out.println("取得したテスト数: " + testList.size());
 
-            	for (Test test1 : testList) {
-            		System.out.println("----------");
-            		System.out.println("学生番号: " + test1.getStudent().getNo());
-            		System.out.println("科目コード: " + test1.getSubject().getCd());
-            		System.out.println("点数: " + test1.getPoint());
-            		System.out.println("クラス: " + test1.getClassNum());
-
-            	}
+//            	for (Test test1 : testList) {
+//            		System.out.println("----------");
+//            		System.out.println("学生番号: " + test1.getStudent().getNo());
+//            		System.out.println("科目コード: " + test1.getSubject().getCd());
+//            		System.out.println("点数: " + test1.getPoint());
+//            		System.out.println("クラス: " + test1.getClassNum());
+//
+//            	}
         }
 
 //        //listをStudent studentに変換

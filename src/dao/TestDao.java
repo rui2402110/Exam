@@ -13,10 +13,13 @@ import bean.Subject;
 import bean.Test;
 public class TestDao extends Dao {
 	// 基本となるSQL文（subject_cdによる検索）
-	private String baseSql = " SELECT TEST.STUDENT_NO as student_no, TEST.SUBJECT_CD, TEST.SCHOOL_CD, TEST.NO, " +
-            " TEST.POINT, TEST.CLASS_NUM, STUDENT.ent_year " +
-            " FROM TEST " +
-            " JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO ";
+	private String baseSql = "SELECT STUDENT.NO as student_no, TEST.SUBJECT_CD, STUDENT.SCHOOL_CD, TEST.NO, "+
+		       "TEST.POINT, STUDENT.CLASS_NUM, STUDENT.ent_year " +
+		       "FROM STUDENT "+
+		       "LEFT OUTER JOIN TEST ON STUDENT.NO = TEST.STUDENT_NO AND TEST.SUBJECT_CD = ? "+
+		                             "AND TEST.class_num = ? AND TEST.NO = ?"+
+		       "WHERE STUDENT.ENT_YEAR = ? AND STUDENT.IS_ATTEND =TRUE AND STUDENT.CLASS_NUM = ?"+
+		       "ORDER BY STUDENT.NO ASC";
 
 	public Test get(Student student, Subject subject, School school, int no) throws Exception {
 		// SQLに接続
@@ -129,18 +132,20 @@ public class TestDao extends Dao {
 	    ResultSet rSet = null;
 
 	    //条件が適用された時にこのStringがbaseSQLに追加される
-	    String condition = " WHERE TEST.SUBJECT_CD = ? AND TEST.class_num = ? AND STUDENT.ENT_YEAR = ? AND TEST.NO = ? ";
-	    String order = "order by no asc";
+//	    String condition = " WHERE TEST.SUBJECT_CD = ? AND TEST.class_num = ? AND STUDENT.ENT_YEAR = ? AND TEST.NO = ? ";
+//	    String order = "order by no asc";
 
 	    try {
 	        connection = getConnection();
 	        //SQLを連結
-	        statement = connection.prepareStatement(baseSql + condition + order);
+	        statement = connection.prepareStatement(baseSql);
 //	        System.out.println(baseSql + condition + order);
 	        statement.setString(1, subject.getCd());
 	        statement.setString(2, classNum);
-	        statement.setInt(3, entYear);
-	        statement.setInt(4, num);
+	        statement.setInt(3, num);
+	        statement.setInt(4, entYear);
+	        statement.setString(5, classNum);
+
 	        System.out.println("1,"+ subject.getCd());
 	        System.out.println("2,"+ entYear);
 	        System.out.println("3,"+ classNum);
@@ -185,6 +190,14 @@ public class TestDao extends Dao {
         	connection.setAutoCommit(false);
         	try{
         		System.out.println("Listサイズ：" + list.size());
+        		for (Test test1 : list) {
+            		System.out.println("----------");
+            		System.out.println("学生番号: " + test1.getStudent().getNo());
+            		System.out.println("科目コード: " + test1.getSubject().getCd());
+            		System.out.println("点数: " + test1.getPoint());
+            		System.out.println("クラス: " + test1.getClassNum());
+
+            	}
 
         	//送られたlistの回数分saveメソッドを呼び出す
         	for (int i = 0; i < list.size(); i++) {
@@ -222,7 +235,7 @@ public class TestDao extends Dao {
             // 試験が存在していた場合はUPDATE、しなかった場合はINSERTを実行
             if (tes == null) {
                 statement = connection.prepareStatement(
-                        "INSERT INTO TEST (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ?)");
+                        "INSERT INTO TEST (STUDENT_NO , SUBJECT_CD , SCHOOL_CD , NO , POINT , CLASS_NUM) VALUES (?, ?, ?, ?, ? , ?)");
                 // 送られたtestのデータをセット
                 statement.setString(1, test.getStudent().getNo());
                 statement.setString(2, test.getSubject().getCd());
@@ -260,55 +273,6 @@ public class TestDao extends Dao {
         }
         return result ;
     }
-	public boolean save1(List<List<String>> list)throws Exception{
-		Connection connection = getConnection();
-		PreparedStatement statement = null;
-		boolean result = false;
-		try {
-			statement = connection.prepareStatement(
-					"INSERT INTO test (STUDENT_NO , SUBJECT_CD , NO , POINT , SCHOOL_CD , CLASS_NUM) VALUES (?, ?, ?, ?, ?, ?)");
-					for (int i = 0; i < list.size(); i++) {
-						List<String> test = new ArrayList<String>();
-						test =list.get(i);
-						System.out.println("------------------------------------save1method");
-						System.out.println(test.get(0));
-						System.out.println(test.get(1));
-						System.out.println(test.get(2));
-						System.out.println(test.get(3));
-						System.out.println(test.get(4));
-						System.out.println(test.get(5));
 
-						statement.setString(1 ,test.get(0));
-						statement.setString(2 ,test.get(1));
-						statement.setInt(3 ,Integer.parseInt(test.get(2)));
-						statement.setInt(4 ,Integer.parseInt(test.get(3)));
-						statement.setString(5 ,test.get(4));
-						statement.setString(6 ,test.get(5));
-
-						int affected = statement.executeUpdate();
-						result = (affected > 0);
-			            System.out.println(result);
-					}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			// リソースを解放
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		return result;
-	}
 
 }
