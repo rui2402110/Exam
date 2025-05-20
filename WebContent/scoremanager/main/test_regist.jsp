@@ -56,7 +56,6 @@
             </div>
         </div>
     </form>
-
     <%-- 成績入力フォーム --%>
     <%
     String error1 = (String)request.getAttribute("error1");
@@ -103,6 +102,8 @@
             <%-- hiddenで共通情報 --%>
             <input type="hidden" name="count" value="${f4}">
             <input type="hidden" name="subject" value="${f3}">
+            <input type="hidden" name="entYear" value="${f1}">
+            <input type="hidden" name="classNum" value="${f2}">
             <div class="mt-3">
                 <button type="submit" class="btn btn-secondary">登録して終了</button>
             </div>

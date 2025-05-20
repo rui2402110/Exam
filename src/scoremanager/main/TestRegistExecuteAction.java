@@ -27,100 +27,111 @@ public class TestRegistExecuteAction extends Action {
         Teacher teacher = (Teacher) session.getAttribute("user");
         Map<String, String> errorMap = new HashMap<>();
         List<Test> testList = new ArrayList<>();
-        Student students =new Student();
 
         // DAO 初期化
         StudentDao stuDao = new StudentDao();
         SubjectDao subDao = new SubjectDao();
         TestDao testDao = new TestDao();
-//        ClassNumDao classDao =new ClassNumDao();
 
         System.out.println("TestRegistExecute開始-------------------------");
 
+        // フォームからパラメータを取得
+        String subjectCd = req.getParameter("subject");  // 科目コード
+        String countStr = req.getParameter("count");    // 試験回数
+
+        System.out.println("受け取ったパラメータ:");
+        System.out.println("科目コード: " + subjectCd);
+        System.out.println("回数: " + countStr);
+
+        // TestRegist.actionで使用する属性をセット
+        req.setAttribute("f3", subjectCd);
+        req.setAttribute("f4", countStr);
+
         // 各学生の点数処理
         String[] regists = req.getParameterValues("regist");  // すべての学生番号を取得
-        System.out.println("registsのサイズ" + regists.length);
+        System.out.println("registsのサイズ: " + (regists != null ? regists.length : 0));
 
         String error1 = "点数を入力してください";
         String error2 = "0～100の範囲で入力してください";
 
-        int errorCount = 0 ;
+        int errorCount = 0;
 
-        for(String studentNo:regists){ //学生番号をstudentNoに代入
+        if (regists != null) {
+            for(String studentNo : regists) { // 学生番号をstudentNoに代入
+                // パラメータ取得
+                String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
 
-        // パラメータ取得
-       	String pointStr = req.getParameter("point_" + studentNo);  // 学生ごとの点数
-        String No = req.getParameter("count");  // 試験回数
-        String subjectCd = req.getParameter("subject");  // 科目コード
+                // 未入力
+                if (pointStr == null || pointStr.trim().isEmpty()) {
+                    System.out.println("点数を入力してください");
+                    req.setAttribute("error1", error1);
+                    errorCount += 1;
+                    break;
+                }
 
+                try {
+                    // pointStrをpointに変換
+                    int point = Integer.parseInt(pointStr);
+                    if (point < 0 || point > 100) {
+                        System.out.println("0～100の範囲で入力してください");
+                        req.setAttribute("error2", error2);
+                        errorCount += 1;
+                        break;
+                    } else {
+                        // データを格納
+                        Test test = new Test();
 
-//            System.out.println("a");
-//         // デバッグ用出力
-//            System.out.println("StudentNo: " + studentNo);
-//            System.out.println("PointStr: " + pointStr);
-//            System.out.println("No (試験回数): " + No);
-//            System.out.println("SubjectCd: " + subjectCd);
+                        // 学生情報の取得（この学生オブジェクトにはクラス情報も含まれている）
+                        Student student = stuDao.get(studentNo);
+                        test.setStudent(student);
 
-            //未入力
-            if (pointStr == null || pointStr.trim().isEmpty()) {
-//              errorMap.put(studentNo, "点数を入力してください");
-                System.out.println("点数を入力してください");
-                req.setAttribute("error1", error1);
-                errorCount +=1 ;
-                break ;
+                        // 科目情報のセット
+                        test.setSubject(subDao.get(subjectCd, teacher.getSchool()));
+
+                        // その他の情報をセット
+                        test.setSchool(teacher.getSchool());
+                        test.setNo(Integer.parseInt(countStr));
+                        test.setPoint(point);
+
+                        // 学生オブジェクトからクラス情報を取得
+                        test.setClassNum(student.getClassNum());
+
+                        System.out.println("Student: " + test.getStudent().getNo() + " " + test.getStudent().getName());
+                        System.out.println("Subject: " + test.getSubject().getCd() + " " + test.getSubject().getName());
+                        System.out.println("School: " + test.getSchool());
+                        System.out.println("No: " + test.getNo());
+                        System.out.println("Point: " + test.getPoint());
+                        System.out.println("ClassNum: " + test.getClassNum());
+                        System.out.println("入学年度: " + test.getStudent().getEntYear());
+                        System.out.println("---------------------");
+
+                        // testlistに追加
+                        testList.add(test);
+                    }
+
+                } catch (NumberFormatException e) {
+                    errorMap.put(studentNo, "数値で入力してください");
+                    errorCount += 1;
+                    break;
+                }
             }
-            try{
-	          //pointSrtをpointに変換
-	            int point=Integer.parseInt(pointStr);
-	            if (point < 0 || point > 100) {
-//	                errorMap.put(studentNo, "0～100の範囲で入力してください");
-	                System.out.println("0～100の範囲で入力してください");
-	                req.setAttribute("error2", error2);
-	                errorCount +=1 ;
-	                break ;
-	            }else{
-	            	//データを格納
-	            	Test test =new Test();
-	            	students=stuDao.get(studentNo);
-	            	test.setStudent(students);
-	            	test.setSubject(subDao.get(subjectCd, teacher.getSchool()));
-	            	test.setSchool(teacher.getSchool());
-	            	test.setNo(Integer.parseInt(No));
-	            	test.setPoint(point);
-	            	test.setClassNum(students.getClassNum());
-	            	System.out.println("Student: " + test.getStudent());
-	            	System.out.println("Subject: " + test.getSubject());
-	            	System.out.println("School: " + test.getSchool());
-	            	System.out.println("No: " + test.getNo());
-	            	System.out.println("Point: " + test.getPoint());
-	            	System.out.println("ClassNum: " + test.getClassNum());
-	            	System.out.println("---------------------");
-
-
-	            	//testlistに追加
-	            	testList.add(test);
-
-	            }
-	            System.out.println(testList);
-//            	セーブ
-	            //下で実行するのでコメントアウト
-            	//testDao.save(testList);
-            } catch (NumberFormatException e) {
-                errorMap.put(studentNo, "数値で入力してください");
-            }
-
         }
 
-		// 処理分岐
+        // 処理分岐
         if (errorCount >= 1) {
             // エラーがある場合はエラーマップと入力データを保持してJSPへ返す
-        	System.out.println("エラーあります");
-        	String url = "TestRegist.action";
-//            res.sendRedirect(url);
-        	req.getRequestDispatcher(url).forward(req, res);
+            System.out.println("エラーあります");
+
+            // Test一覧画面に戻る
+            // hiddenフィールドから入学年度とクラスを取得しておく（エラー時のリダイレクト用）
+            String entYearStr = req.getParameter("entYear");
+            String classNumStr = req.getParameter("classNum");
+
+            String url = "TestRegist.action?f1=" + entYearStr + "&f2=" + classNumStr + "&f3=" + subjectCd + "&f4=" + countStr;
+            req.getRequestDispatcher(url).forward(req, res);
         } else {
             // 成績を保存
-        	System.out.println("エラー無いです");
+            System.out.println("エラー無いです");
             testDao.save(testList);
             req.setAttribute("points", testList);
             req.setAttribute("errors", errorMap);

@@ -104,7 +104,6 @@ public class TestRegistAction extends Action {
 
                 System.out.println("取得したテスト数: " + testList.size());
                 req.setAttribute("points", testList);
-
             }
         }
 
