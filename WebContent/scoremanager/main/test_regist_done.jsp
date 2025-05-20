@@ -19,7 +19,7 @@
 			<%--メッセージ --%>
 				<p class="text-center" style="background-color:#66CC99">学生の登録が完了しました</p>
 				<%--成績参照リンク --%>
-				<a href="TestRegist.action">成績参照</a>
+				<a href="TestList.action">成績参照</a>
 				<%--戻るリンク --%>
                 <a href="Menu.action">戻る</a>
 			</div>

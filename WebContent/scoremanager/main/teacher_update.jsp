@@ -65,7 +65,7 @@
 
 
                 <%-- 登録ボタン --%>
-                <div class="col-2 text-center">
+                <div class="col-2">
                     <br>
                     <button class="btn btn-secondary" id="filter-button">変更</button>
                 </div>

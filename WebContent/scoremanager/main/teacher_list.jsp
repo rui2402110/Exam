@@ -16,16 +16,16 @@
             <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">教員管理</h2>
 
             <div class="my-2 text-end px-4">
-            	<c:choose>
+                <c:choose>
                     <%-- ログインユーザーが管理者の場合のみ編集可能 --%>
                     <c:when test="${sessionScope.userAuth}">
                         <%-- 新規登録リンク --%>
-                		<a href="TeacherCreate.action">新規登録</a>
+                        <a href="TeacherCreate.action">新規登録</a>
                     </c:when>
                     <c:otherwise>
                         <a href="TeacherCreate.action" onclick="return confirm('新規登録できますが管理者権限の設定ができません。');">
-						    新規登録
-						</a>
+                            新規登録
+                        </a>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -38,6 +38,8 @@
                     <th>パスワード</th>
                     <th>教員名</th>
                     <th>管理者権限</th>
+                    <th></th>
+                    <th></th>
                 </tr>
 
                 <c:forEach var="teacher" items="${teacherList}">
@@ -53,7 +55,6 @@
                         </td>
                         <td>
                             <c:choose>
-                                <%-- ログインユーザーが管理者の場合のみ編集可能 --%>
                                 <c:when test="${sessionScope.userAuth}">
                                     <a href="TeacherUpdate.action?id=${teacher.id}">編集</a>
                                 </c:when>
@@ -64,7 +65,6 @@
                         </td>
                         <td>
                             <c:choose>
-                                <%-- ログインユーザーが管理者の場合のみ削除可能 --%>
                                 <c:when test="${sessionScope.userAuth}">
                                     <a href="TeacherDelete.action?id=${teacher.id}">削除</a>
                                 </c:when>
@@ -76,21 +76,25 @@
                     </tr>
                 </c:forEach>
 
-				<c:choose>
-				    <c:when test="${not userAuth}">
-				        <p>一般ユーザーは一部の機能を制限されています</p>
-				    </c:when>
-				</c:choose>
+                <c:choose>
+                    <c:when test="${not userAuth}">
+                        <p>一般ユーザーは一部の機能を制限されています</p>
+                    </c:when>
+                </c:choose>
             </table>
 
             <%-- メッセージ表示 --%>
-	        <%String message = (String)request.getAttribute("message"); %>
-	        <% if(message != null) { %>
-	    	<script>
-	           alert("${message}");
-           </script>
-			<% } %>
+            <% String message = (String) request.getAttribute("message"); %>
+            <% if (message != null) { %>
+                <script>
+                    alert("${message}");
+                </script>
+            <% } %>
         </section>
-    </c:param>
 
+
+
+
+
+    </c:param>
 </c:import>

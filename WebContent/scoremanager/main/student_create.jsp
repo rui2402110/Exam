@@ -68,7 +68,7 @@
 				</div>
 
 				<!-- 登録ボタン -->
-				<div class="col-2 text-center mt-3">
+				<div class="col-2">
 					<button class="btn btn-secondary">登録して終了</button>
 				</div>
 			</form>
