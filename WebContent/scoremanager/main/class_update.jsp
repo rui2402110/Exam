@@ -53,16 +53,24 @@
         </form>
 
         <%-- 該当者リスト --%>
-        <div style="flex: 1;">
-            <table class="table table-hover">
-                <tr><th>該当者</th></tr>
-                <c:forEach var="data" items="${names}">
-                    <tr><td>${data}</td></tr>
-                </c:forEach>
-            </table>
-        </div>
-    </div>
-
+        <c:choose>
+		    <c:when test="${empty names}">
+		        <div style="flex: 1;">
+		            <p>該当者なし</p>
+		        </div>
+		    </c:when>
+		    <c:otherwise>
+		        <div style="flex: 1;">
+		            <table class="table table-hover">
+		                <tr><th>該当者</th></tr>
+		                <c:forEach var="data" items="${names}">
+		                    <tr><td>${data}</td></tr>
+		                </c:forEach>
+		            </table>
+		        </div>
+		    </c:otherwise>
+		</c:choose>
+	</div>
     <%-- 戻るリンク --%>
     <div class="mt-3">
         <a href="ClassList.action">戻る</a>
