@@ -20,7 +20,6 @@ import tool.Action;
 
 public class TestRegistAction extends Action {
 	@Override
-
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		//メソッドとスタブ
@@ -28,27 +27,22 @@ public class TestRegistAction extends Action {
 		Teacher teacher = (Teacher)session.getAttribute("user");
 		LocalDate todaysDate = LocalDate.now();
 		int year = todaysDate.getYear();
-		Test test =new Test();
-//		Student student =new Student();
-//		Subject subject =new Subject();
-
+		Test test = new Test();
 
 		// 値の取得に使う変数を定義
 		String entYearStr = "";
 		String classNum = "";
 		String subjectCd = "";
-		String countStr ="";
+		String countStr = "";
 		int entYear = 0;
-		boolean isAttend =true;
-
-//		Map<String, String> errorMap = new HashMap<>();
-
+		boolean isAttend = true;
+		String url = "test_regist.jsp"; // デフォルトのURL
 
 		// 使用するDAOを定義
-		ClassNumDao cNumDao =new ClassNumDao();
-		SubjectDao subDao =new SubjectDao();
-		StudentDao stuDao =new StudentDao();
-		TestDao testDao =new TestDao();
+		ClassNumDao cNumDao = new ClassNumDao();
+		SubjectDao subDao = new SubjectDao();
+		StudentDao stuDao = new StudentDao();
+		TestDao testDao = new TestDao();
 
 		System.out.println("---------------"+"TestRegistAction開始"+"---------------");
 
@@ -57,7 +51,7 @@ public class TestRegistAction extends Action {
 		classNum = req.getParameter("f2");//クラス
 		subjectCd = req.getParameter("f3");//科目コード
 		countStr = req.getParameter("f4");//回数
-		String error1 =req.getParameter("error1");
+		String error1 = req.getParameter("error1");
 
 		System.out.println("入学年度:"+entYearStr);
 		System.out.println("クラス:"+classNum);
@@ -69,7 +63,7 @@ public class TestRegistAction extends Action {
 		for (int i = year - 10; i < year + 1; i++) {
 		    entYearSet.add(i);
 		}
-//
+
 		if (entYearStr != null && !entYearStr.isEmpty()) {
 		    entYear = Integer.parseInt(entYearStr);
 		}
@@ -86,59 +80,40 @@ public class TestRegistAction extends Action {
 		System.out.println("stuList: " +teacher.getSchool()+ " : "+entYear+ " : "+ classNum+ " : "+ isAttend);
 		System.out.println(" ");
 		// JSPに送るデータをセット
-		req.setAttribute("ent_year_set",entYearSet);
-		req.setAttribute("class_num_set",classList);
+		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("class_num_set", classList);
 		req.setAttribute("subject_set", subList);
 		req.setAttribute("student_set", stuList);
 
 		System.out.println("取得した学生数: " + stuList.size());
 
+        List<Test> testList = null;
 
+        // フォームが送信されたかどうかを確認
+        boolean formSubmitted = (entYearStr != null && classNum != null && subjectCd != null && countStr != null);
 
-        List<Test> testList = null ;
-        if (entYearStr  != null || classNum != null || subjectCd != null || countStr != null){
-
-        	System.out.println("成績を確認");
-        	// 入力検証
-            if (entYearStr.equals("0") || classNum.equals("0") || subjectCd.equals("0") || countStr.equals("0") ) {
-            	System.out.println("エラー通ってます");
+        if (formSubmitted) {
+            System.out.println("成績を確認");
+            // 入力検証
+            if (entYearStr.equals("0") || classNum.equals("0") || subjectCd.equals("0") || countStr.equals("0")) {
+                System.out.println("エラー通ってます");
                 req.setAttribute("error1", "入学年度とクラスと科目と回数を選択してください");
-                req.setAttribute("f1", entYearStr);
-                req.setAttribute("f2", classNum);
-                req.setAttribute("f3", subjectCd);
-                req.setAttribute("f4", countStr);
-                req.getRequestDispatcher("test_regist.jsp").forward(req, res);
-            }
-            // ログインユーザーの学校コードをもとに一覧を取得
-            testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()), Integer.parseInt(countStr), teacher.getSchool());
-            System.out.println(testList.size());
-            // testListの中身を確認
-            System.out.println("取得したテスト数: " + testList.size());
+            } else {
+                // ログインユーザーの学校コードをもとに一覧を取得
+                testList = testDao.filter(entYear, classNum, subDao.get(subjectCd, teacher.getSchool()),Integer.parseInt(countStr), teacher.getSchool());
 
-//            	for (Test test1 : testList) {
-//            		System.out.println("----------");
-//            		System.out.println("学生番号: " + test1.getStudent().getNo());
-//            		System.out.println("科目コード: " + test1.getSubject().getCd());
-//            		System.out.println("点数: " + test1.getPoint());
-//            		System.out.println("クラス: " + test1.getClassNum());
-//
-//            	}
+                System.out.println("取得したテスト数: " + testList.size());
+                req.setAttribute("points", testList);
+
+            }
         }
 
-//        //listをStudent studentに変換
-//        for (Student student : stuList) {
-//        	test.setStudent(student);
-//        }
-
-//        test.setSubject(subDao.get(subjectCd,teacher.getSchool()));
-        req.setAttribute("points", testList);
+        // 常に必要な属性をセット
         req.setAttribute("f1", entYearStr);
         req.setAttribute("f2", classNum);
         req.setAttribute("f3", subjectCd);
         req.setAttribute("f4", countStr);
-        req.setAttribute("error1", error1);
-		// フォワード
-	    req.getRequestDispatcher("test_regist.jsp").forward(req, res);
-	}
 
+        req.getRequestDispatcher(url).forward(req, res);
+	}
 }
