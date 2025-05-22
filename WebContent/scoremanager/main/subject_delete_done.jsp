@@ -21,7 +21,7 @@
 				<%--科目一覧へのリンク --%>
 				<a href="SubjectList.action">科目一覧</a>
 				<%--戻るリンク --%>
-                <a href="Menut.action">戻る</a>
+                <a href="Menu.action">戻る</a>
 			</div>
 		</div>
 	</c:param>
